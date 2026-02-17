@@ -3,9 +3,9 @@ package com.zyneonstudios.nerotvlive.projectsbase.commands;
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.managers.InventoryManager;
+import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
-import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -16,9 +16,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class WarpCommand implements CommandExecutor, TabCompleter {
 
@@ -142,11 +142,17 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                 completer.add("tp");
                 completer.add("teleport");
             } else if (args.length == 2) {
-                if (!args[0].equalsIgnoreCase("list")) {
-                    for (int i = 0; i < Objects.requireNonNull(WarpAPI.getWarpList()).size(); i++) {
-                        //if (getWarpList().get(i).isFile()) {
-                            completer.add(WarpAPI.getWarpList().get(i))/*.getName().replace(".yml", ""))*/;
-                        //}
+                if(args[0].equalsIgnoreCase("toggle")||args[0].equalsIgnoreCase("del")||args[0].equalsIgnoreCase("delete")||args[0].equalsIgnoreCase("rem")||args[0].equalsIgnoreCase("remove")) {
+                    for(String warp:WarpAPI.getWarpList()) {
+                        if(WarpAPI.ifWarpExists(warp)) completer.add(warp);
+                    }
+                } else if(args[0].equalsIgnoreCase("disable")||args[0].equalsIgnoreCase("tp")||args[0].equalsIgnoreCase("teleport")) {
+                    for(String warp:WarpAPI.getWarpList()) {
+                        if(WarpAPI.ifWarpExists(warp)&&WarpAPI.isWarpEnabled(warp)) completer.add(warp);
+                    }
+                } else if(args[0].equalsIgnoreCase("enable")) {
+                    for(String warp:WarpAPI.getWarpList()) {
+                        if(WarpAPI.ifWarpExists(warp)&&!WarpAPI.isWarpEnabled(warp)) completer.add(warp);
                     }
                 }
             }

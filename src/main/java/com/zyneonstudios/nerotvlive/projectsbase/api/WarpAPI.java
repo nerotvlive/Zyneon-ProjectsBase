@@ -17,7 +17,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.UUID;
 
 public class WarpAPI {
@@ -194,15 +193,12 @@ public class WarpAPI {
 
     public static void sendWarpList(CommandSender s) {
         TextComponent list = new TextComponent("§aWarps§8: §f");
-        for (int i = 0; i < Objects.requireNonNull(getWarpList()).size(); i++) {
-            //if (getWarpList()[i].isFile()) {
-            //String warp = getWarpList()[i].getName().replace(".yml", "§8, §f");
-            String warp = getWarpList().get(i);
+        for (String warp : getWarpList()) {
+            warp = warp + "§8, §f";
             TextComponent component = new TextComponent(warp);
             component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Klicke zum Teleportieren").create()));
             component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warp teleport " + warp.replace("§8, §f", "")));
             list.addExtra(component);
-            //}
         }
         if (s instanceof Player p) {
             p.spigot().sendMessage(list);

@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 
 public class PlayerChatListener implements Listener {
@@ -17,6 +16,11 @@ public class PlayerChatListener implements Listener {
     public void onZyneonChat(ZyneonChatEvent e) {
         Player p = e.getPlayer();
         User u = Main.getUser(p);
+        if(u.isRP()) {
+            onRoleplayChat(u,e.getMessage());
+            e.setCancelled(true);
+            return;
+        }
         if(u.getChatMode().equalsIgnoreCase("payout")) {
             e.setCancelled(true);
             String check = e.getMessage().split(" ", 2)[0];
@@ -117,6 +121,15 @@ public class PlayerChatListener implements Listener {
         Bukkit.getPluginManager().callEvent(event);
         if(!event.isCancelled()) {
             Bukkit.broadcastMessage(event.getFormat());
+        }
+    }
+
+    private void onRoleplayChat(User u, String message) {
+        Player p = u.getPlayer();
+        for(Player all : Bukkit.getOnlinePlayers()) {
+            if(all.getWorld() == p.getWorld() && all.getLocation().distance(p.getLocation()) <= 30) {
+                all.sendMessage("§8[§6RP§8] §f"+p.getName()+"§8 » §7"+message);
+            }
         }
     }
 }

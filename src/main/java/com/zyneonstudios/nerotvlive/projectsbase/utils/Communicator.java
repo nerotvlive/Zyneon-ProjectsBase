@@ -1,8 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.utils;
 
-import com.zyneonstudios.nerotvlive.projectsbase.Main;
-import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -12,109 +11,87 @@ public class Communicator {
 
     public static void broadcastRaw(String message) {
         sendRaw(Bukkit.getConsoleSender(),message);
-        for(User users:Main.onlineUsers.values()) {
-            users.sendRaw(message);
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            sendRaw(player,message);
         }
     }
 
-    public static void broadcastMessage(String message) {
-        message = message.replace("&&","%and%").replace("&","§").replace("%and%","&");
-        sendInfo(message);
-        for(User users:Main.onlineUsers.values()) {
-            users.sendMessage(message);
+    public static void broadcastInfo(String message) {
+        sendInfo(Bukkit.getConsoleSender(),message);
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            sendInfo(player,message);
         }
     }
 
     public static void broadcastWarning(String warning) {
-        warning = warning.replace("&&","%and%").replace("&","§").replace("%and%","&");
-        sendWarning(warning);
-        for(User users:Main.onlineUsers.values()) {
-            users.sendWarning(warning);
+        sendWarning(Bukkit.getConsoleSender(),warning);
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            sendWarning(player,warning);
         }
     }
 
     public static void broadcastError(String error) {
-        error = error.replace("&&","%and%").replace("&","§").replace("%and%","&");
-        sendError(error);
-        for(User users:Main.onlineUsers.values()) {
-            users.sendError(error);
+        sendError(Bukkit.getConsoleSender(),error);
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            sendError(player,error);
         }
     }
 
     public static void broadcastDebug(String debug) {
-        if(!sendDebug) {
-            return;
-        }
-        debug = debug.replace("&&","%and%").replace("&","§").replace("%and%","&");
-        sendDebug(debug);
-        for(User users:Main.onlineUsers.values()) {
-            users.sendDebug(debug);
+        sendDebug(Bukkit.getConsoleSender(),debug);
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            sendDebug(player,debug);
         }
     }
 
     public static void sendRaw(String message) {
-        Bukkit.getConsoleSender().sendMessage("§f[PB5] §r"+message);
+        sendRaw(Bukkit.getConsoleSender(),message);
     }
 
     public static void sendInfo(String info) {
-        sendRaw("§f[INFO] §7"+info.replace("&&","%and%").replace("&","§").replace("%and%","&"));
+        sendInfo(Bukkit.getConsoleSender(),info);
     }
 
     public static void sendWarning(String warning) {
-        sendRaw("§e[WARNING] §7"+warning.replace("&&","%and%").replace("&","§").replace("%and%","&"));
+        sendWarning(Bukkit.getConsoleSender(),warning);
     }
 
     public static void sendError(String error) {
-        sendRaw("§c[ERROR] §7"+error.replace("&&","%and%").replace("&","§").replace("%and%","&"));
+        sendError(Bukkit.getConsoleSender(),error);
     }
 
     public static void sendDebug(String debug) {
-        if(!sendDebug) {
-            return;
-        }
-        sendRaw("§9[DEBUG] §7"+debug.replace("&&","%and%").replace("&","§").replace("%and%","&"));
+        sendDebug(Bukkit.getConsoleSender(),debug);
     }
 
     public static void sendRaw(CommandSender receiver, String message) {
-        if(receiver instanceof Player p) {
-            Main.getUser(p).sendRaw(message);
-            return;
-        }
-        receiver.sendMessage("§f[PB5] §r"+message);
+        receiver.sendMessage(message);
     }
 
     public static void sendInfo(CommandSender receiver, String info) {
-        if(receiver instanceof Player p) {
-            Main.getUser(p).sendMessage(info);
-            return;
+        sendRaw(receiver,Strings.prefix+info);
+        if(receiver instanceof Player player) {
+            player.playSound(player.getLocation(), Sound.ENTITY_CHICKEN_EGG,100,100);
         }
-        sendRaw(receiver,"§f[INFO] §7"+info.replace("&&","%and%").replace("&","§").replace("%and%","&"));
     }
 
     public static void sendWarning(CommandSender receiver, String warning) {
-        if(receiver instanceof Player p) {
-            Main.getUser(p).sendWarning(warning);
-            return;
+        sendRaw(receiver,"§6Warnung: §e"+warning);
+        if(receiver instanceof Player player) {
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,100,100);
         }
-        sendRaw(receiver,"§e[WARNING] §7"+warning.replace("&&","%and%").replace("&","§").replace("%and%","&"));
     }
 
     public static void sendError(CommandSender receiver, String error) {
-        if(receiver instanceof Player p) {
-            Main.getUser(p).sendError(error);
-            return;
+        sendRaw(receiver,"§4Fehler§8: §c"+error);
+        if(receiver instanceof Player player) {
+            player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,100,100);
         }
-        sendRaw(receiver,"§c[ERROR] §7"+error.replace("&&","%and%").replace("&","§").replace("%and%","&"));
     }
 
     public static void sendDebug(CommandSender receiver, String debug) {
-        if(!sendDebug) {
-            return;
+        if(sendDebug) {
+            sendRaw(receiver,"§9Debug§8: §b"+debug);
         }
-        if(receiver instanceof Player p) {
-            Main.getUser(p).sendDebug(debug);
-            return;
-        }
-        sendRaw(receiver,"§9[DEBUG] §7"+debug.replace("&&","%and%").replace("&","§").replace("%and%","&"));
     }
 }

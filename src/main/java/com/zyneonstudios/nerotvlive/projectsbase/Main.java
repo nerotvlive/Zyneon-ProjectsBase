@@ -144,6 +144,7 @@ public final class Main extends JavaPlugin {
         initCommand(new BookCommand());
         initCommand(broadcastCommand,broadcastCommand);
         initCommand(new ClearchatCommand());
+        initCommand(new CharacterCommand());
         initCommand(new DayCommand());
         initCommand(feedCommand,feedCommand);
         initCommand(flyCommand,flyCommand);

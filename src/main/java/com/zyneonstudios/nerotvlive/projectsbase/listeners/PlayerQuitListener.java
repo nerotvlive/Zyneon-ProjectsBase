@@ -14,7 +14,6 @@ public class PlayerQuitListener implements Listener {
         Player p = e.getPlayer();
         User u = Main.getUser(p);
         u.destroy();
-        e.setQuitMessage(null);
-        e.setQuitMessage("");
+        e.setQuitMessage("§8« §c"+p.getName());
     }
 }

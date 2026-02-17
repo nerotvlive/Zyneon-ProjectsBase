@@ -16,7 +16,7 @@ public class PlayerJoinListener implements Listener {
         Player p = e.getPlayer();
         User u = Main.getUser(p);
         u.setupCharacter(u.getCharacter());
-        e.setJoinMessage(null);
+        e.setJoinMessage("§8» §a"+p.getName());
     }
 
     @EventHandler

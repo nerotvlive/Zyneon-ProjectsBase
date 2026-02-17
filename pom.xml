@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nerotvlive</groupId>
-    <artifactId>ProjectsBase5</artifactId>
-    <version>5.1.0-pre.3</version>
+    <artifactId>ProjectsBase</artifactId>
+    <version>26.0-beta.1</version>
     <packaging>jar</packaging>
 
     <name>ProjectsBase</name>
 
     <description>The source of Zyneon Studios mod projects</description>
     <properties>
-        <java.version>23</java.version>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -22,7 +22,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.11.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -81,7 +81,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.4-R0.1-SNAPSHOT</version>
+            <version>1.21.11-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

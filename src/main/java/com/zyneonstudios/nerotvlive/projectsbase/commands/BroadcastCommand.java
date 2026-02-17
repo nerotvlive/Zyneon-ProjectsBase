@@ -26,7 +26,7 @@ public class BroadcastCommand implements CommandExecutor, TabCompleter {
                 if(args[0].equalsIgnoreCase("error")) {
                     Communicator.broadcastError(m);
                 } else if(args[0].equalsIgnoreCase("info")) {
-                    Communicator.broadcastMessage(m);
+                    Communicator.broadcastInfo(m);
                 } else if(args[0].equalsIgnoreCase("raw")) {
                     Communicator.broadcastRaw(m);
                 } else if(args[0].equalsIgnoreCase("warning")) {

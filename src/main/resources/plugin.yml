@@ -1,21 +1,19 @@
-name: ProjectsBase5
+name: ProjectsBase
 version: '${project.version}'
 main: com.zyneonstudios.nerotvlive.projectsbase.Main
 api-version: 1.21
 authors: [ nerotvlive ]
-description: The source of Zyneon Studios mod projects
+description: The base of Zyneon projects.
 
 commands:
   author:
-    aliases: [project,projectsbase,source,zyneon]
+    aliases: [project,projects,projectsbase,zyneon,pb,pb26,projectsbase26]
   book:
     aliases: [buch,writable,feder,feather]
   broadcast:
     aliases: [bc,alert]
   character:
-    aliases: [char,chareditor,charactereditor,editor,ceditor]
-  chatgpt:
-    aliases: [ ask,chatg,gpt,gtp,chatgtp,clayton,jarvis,siri,alexa,siggi,cortana,ai,ki ]
+    aliases: [char,chareditor,charactereditor,editor,ceditor,name,job,rpname,rpjob,charakter]
   clearchat:
     aliases: [chatclear,cc,clearc,chatc]
   day:

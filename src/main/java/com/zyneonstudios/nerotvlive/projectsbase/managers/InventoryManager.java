@@ -39,7 +39,7 @@ public class InventoryManager {
     }
 
     public static Inventory spawnInventory(Player player) {
-        Inventory inventory = Bukkit.createInventory(null, InventoryType.HOPPER, "Zum Bahnhof zurückkehren?");
+        Inventory inventory = Bukkit.createInventory(null, InventoryType.HOPPER, "Warpmenü");
         inventory.setItem(0, ItemManager.placeholder());
         inventory.setItem(1, ItemManager.spawn(player));
         inventory.setItem(2, ItemManager.placeholder());

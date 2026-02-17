@@ -16,7 +16,7 @@ public class User {
 
     private UUID uuid;
     private OfflinePlayer offlinePlayer;
-    private Player player;
+    private Player player = null; //DEB
     private String inventoryMode;
     private String interactMode;
     private String chatMode;
@@ -27,14 +27,13 @@ public class User {
     private String name;
     private int character;
     private Location lastLoc;
+    private boolean isRP = false;
 
     public User(UUID uuid) {
         this.uuid = uuid;
         this.offlinePlayer = Bukkit.getOfflinePlayer(uuid);
         if(Bukkit.getPlayer(uuid)!=null) {
             this.player = Bukkit.getPlayer(uuid);
-            assert player != null;
-            Communicator.broadcastRaw("§8[§a+§8] §e"+player.getName());
         }
         if(!Main.economy.hasBalance(uuid)) {
             Main.economy.setBalance(uuid, 0);
@@ -187,18 +186,22 @@ public class User {
     }
 
     public Player getPlayer() {
-        return player;
+        if(player !=null&& player.isOnline()) {
+            return player;
+        } else {
+            return Bukkit.getPlayer(uuid);
+        }
     }
 
     public int getPing() {
-        if(player!=null) {
+        if(getPlayer()!=null) {
             String v = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
-            if (!player.getClass().getName().equals("org.bukkit.craftbukkit." + v + ".entity.CraftPlayer")) {
-                player = Bukkit.getPlayer(player.getUniqueId());
+            if (!getPlayer().getClass().getName().equals("org.bukkit.craftbukkit." + v + ".entity.CraftPlayer")) {
+                player = Bukkit.getPlayer(getPlayer().getUniqueId());
             }
             try {
-                assert player != null;
-                return player.getPing();
+                assert getPlayer() != null;
+                return getPlayer().getPing();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -286,29 +289,29 @@ public class User {
     }
 
     public void sendRaw(String message) {
-        if(player!=null) {
-            player.sendMessage(message);
+        if(getPlayer()!=null) {
+            getPlayer().sendMessage(message);
         }
     }
 
     public void sendMessage(String message) {
         sendRaw(Strings.prefix+message.replace("&&","%and%").replace("&","§").replace("%and%","&"));
-        if(player!=null) {
-            player.playSound(player.getLocation(),Sound.ENTITY_CHICKEN_EGG,100,100);
+        if(getPlayer()!=null) {
+            getPlayer().playSound(getPlayer().getLocation(),Sound.ENTITY_CHICKEN_EGG,100,100);
         }
     }
 
     public void sendWarning(String warning) {
         sendRaw("§6[WICHTIG] §e"+warning.replace("&&","%and%").replace("&","§").replace("%and%","&"));
-        if(player!=null) {
-            player.playSound(player.getLocation(),Sound.BLOCK_NOTE_BLOCK_PLING,100,100);
+        if(getPlayer()!=null) {
+            getPlayer().playSound(getPlayer().getLocation(),Sound.BLOCK_NOTE_BLOCK_PLING,100,100);
         }
     }
 
     public void sendError(String error) {
         sendRaw("§4[FEHLER] §c"+error.replace("&&","%and%").replace("&","§").replace("%and%","&"));
-        if(player!=null) {
-            player.playSound(player.getLocation(),Sound.BLOCK_ANVIL_BREAK,100,100);
+        if(getPlayer()!=null) {
+            getPlayer().playSound(getPlayer().getLocation(),Sound.BLOCK_ANVIL_BREAK,100,100);
         }
     }
 
@@ -317,17 +320,30 @@ public class User {
             return;
         }
         sendRaw("§9[DEBUG] §c"+debug.replace("&&","%and%").replace("&","§").replace("%and%","&"));
-        if(player!=null) {
-            player.playSound(player.getLocation(),Sound.BLOCK_ANVIL_BREAK,100,100);
-            player.playSound(player.getLocation(),Sound.BLOCK_NOTE_BLOCK_PLING,100,100);
-            player.playSound(player.getLocation(),Sound.ENTITY_CHICKEN_EGG,100,100);
+        if(getPlayer()!=null) {
+            getPlayer().playSound(getPlayer().getLocation(),Sound.BLOCK_ANVIL_BREAK,100,100);
+            getPlayer().playSound(getPlayer().getLocation(),Sound.BLOCK_NOTE_BLOCK_PLING,100,100);
+            getPlayer().playSound(getPlayer().getLocation(),Sound.ENTITY_CHICKEN_EGG,100,100);
         }
     }
 
     public void sendActionBar(String text) {
-        if(player!=null) {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR,new TextComponent(text));
+        if(getPlayer()!=null) {
+            getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,new TextComponent(text));
         }
+    }
+
+    public boolean isRP() {
+        return isRP;
+    }
+
+    public void setRP(boolean RP) {
+        isRP = RP;
+    }
+
+    public boolean toggleRP() {
+        isRP = !isRP;
+        return isRP;
     }
 
     public void destroy() {
@@ -343,9 +359,6 @@ public class User {
         this.job = null;
         this.name = null;
         this.character = -1;
-        if(player!=null) {
-            Communicator.broadcastRaw("§8[§c-§8]§e "+player.getName());
-        }
         this.player = null;
         System.gc();
     }

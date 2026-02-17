@@ -37,10 +37,10 @@ public class ItemManager {
         } else if(player.getLocation().distance(WarpAPI.getCurrentSpawn(player))<300) {
             item = new ItemStack(Material.RED_TERRACOTTA);
             ItemMeta itemMeta = item.getItemMeta();
-            itemMeta.setDisplayName("§eZum Hafen zurückkehren");
+            itemMeta.setDisplayName("§eZum Silberfels-Hafen zurückkehren");
             ArrayList<String> lore = new ArrayList<>();
             lore.add("§7Kosten§8: §c10 Level");
-            lore.add("§7Du bist zu nah am Hafen für eine Schnellreise§8.");
+            lore.add("§7Du bist zu nah am Silberfels-Hafen für eine Schnellreise§8.");
             lore.add("§8----------------------");
             int level = player.getLevel()-10;
             lore.add("§7Level (jetzt)§8: §e"+player.getLevel());
@@ -50,7 +50,7 @@ public class ItemManager {
         } else if(player.getLevel()>=10) {
             item = new ItemStack(Material.LIME_TERRACOTTA);
             ItemMeta itemMeta = item.getItemMeta();
-            itemMeta.setDisplayName("§eZum Hafen zurückkehren");
+            itemMeta.setDisplayName("§eZum Silberfels-Hafen zurückkehren");
             ArrayList<String> lore = new ArrayList<>();
             lore.add("§7Kosten§8: §a10 Level");
             lore.add("§7Das kannst du dir leisten§8.");
@@ -63,7 +63,7 @@ public class ItemManager {
         } else {
             item = new ItemStack(Material.RED_TERRACOTTA);
             ItemMeta itemMeta = item.getItemMeta();
-            itemMeta.setDisplayName("§eZum Hafen zurückkehren");
+            itemMeta.setDisplayName("§eZum Silberfels-Hafen zurückkehren");
             ArrayList<String> lore = new ArrayList<>();
             lore.add("§7Kosten§8: §c10 Level");
             lore.add("§7Das kannst du dir nicht leisten§8.");
