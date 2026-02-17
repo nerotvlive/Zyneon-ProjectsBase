@@ -15,10 +15,10 @@ public class CharacterCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
         if(commandSender instanceof Player p) {
-            InventoryManager.characterHome(Main.getUser(p));
+            p.openInventory(InventoryManager.characterHome(Main.getUser(p)));
         } else {
             Communicator.sendError(commandSender, Strings.needPlayer);
         }
-        return false;
+        return true;
     }
 }
