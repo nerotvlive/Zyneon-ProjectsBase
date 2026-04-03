@@ -3,11 +3,10 @@ package com.zyneonstudios.nerotvlive.projectsbase.objects;
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.LockManager;
-import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
-import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -49,7 +48,7 @@ public class User {
         if(Main.storage.get("profiles",uuid+"_lastLoc",0)!=null) {
             lastLoc = LockManager.decryptLocation(Main.storage.getString("profiles",uuid+"_lastLoc",0));
         } else {
-            lastLoc = WarpAPI.getWarp("spawn");
+            lastLoc = Bukkit.getWorlds().getFirst().getSpawnLocation();
         }
         chatMode = "normal";
         inventoryMode = "normal";
@@ -85,7 +84,11 @@ public class User {
         if(lastLoc.add(0,1,0).getBlock().getType().toString().toLowerCase().contains("air")) {
             return loc;
         }
-        return WarpAPI.getWarp("spawn");
+        try {
+            return WarpAPI.getCurrentSpawn(player);
+        } catch (Exception e) {
+            return Bukkit.getWorlds().getFirst().getSpawnLocation();
+        }
     }
 
     public void setName(String name) {
@@ -186,7 +189,7 @@ public class User {
     }
 
     public Player getPlayer() {
-        if(player !=null&& player.isOnline()) {
+        if(player !=null) {
             return player;
         } else {
             return Bukkit.getPlayer(uuid);
@@ -288,51 +291,6 @@ public class User {
         this.chatMode = chatMode;
     }
 
-    public void sendRaw(String message) {
-        if(getPlayer()!=null) {
-            getPlayer().sendMessage(message);
-        }
-    }
-
-    public void sendMessage(String message) {
-        sendRaw(Strings.prefix+message.replace("&&","%and%").replace("&","§").replace("%and%","&"));
-        if(getPlayer()!=null) {
-            getPlayer().playSound(getPlayer().getLocation(),Sound.ENTITY_CHICKEN_EGG,100,100);
-        }
-    }
-
-    public void sendWarning(String warning) {
-        sendRaw("§6[WICHTIG] §e"+warning.replace("&&","%and%").replace("&","§").replace("%and%","&"));
-        if(getPlayer()!=null) {
-            getPlayer().playSound(getPlayer().getLocation(),Sound.BLOCK_NOTE_BLOCK_PLING,100,100);
-        }
-    }
-
-    public void sendError(String error) {
-        sendRaw("§4[FEHLER] §c"+error.replace("&&","%and%").replace("&","§").replace("%and%","&"));
-        if(getPlayer()!=null) {
-            getPlayer().playSound(getPlayer().getLocation(),Sound.BLOCK_ANVIL_BREAK,100,100);
-        }
-    }
-
-    public void sendDebug(String debug) {
-        if(!Communicator.sendDebug) {
-            return;
-        }
-        sendRaw("§9[DEBUG] §c"+debug.replace("&&","%and%").replace("&","§").replace("%and%","&"));
-        if(getPlayer()!=null) {
-            getPlayer().playSound(getPlayer().getLocation(),Sound.BLOCK_ANVIL_BREAK,100,100);
-            getPlayer().playSound(getPlayer().getLocation(),Sound.BLOCK_NOTE_BLOCK_PLING,100,100);
-            getPlayer().playSound(getPlayer().getLocation(),Sound.ENTITY_CHICKEN_EGG,100,100);
-        }
-    }
-
-    public void sendActionBar(String text) {
-        if(getPlayer()!=null) {
-            getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,new TextComponent(text));
-        }
-    }
-
     public boolean isRP() {
         return isRP;
     }
@@ -347,7 +305,6 @@ public class User {
     }
 
     public void destroy() {
-        Main.onlineUsers.remove(uuid);
         this.uuid = null;
         this.offlinePlayer = null;
         this.interactMode = null;
@@ -360,6 +317,5 @@ public class User {
         this.name = null;
         this.character = -1;
         this.player = null;
-        System.gc();
     }
 }

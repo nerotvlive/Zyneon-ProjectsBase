@@ -16,7 +16,7 @@ public class UnlockCommand implements CommandExecutor {
         if(s instanceof Player p) {
             User u = Main.getUser(p);
             u.setInteractMode("unlocking");
-            u.sendMessage("Klicke den Block an§8,§7 den du entsichern möchtest§8...");
+            Communicator.sendInfo(p,"Klicke den Block an§8,§7 den du entsichern möchtest§8...");
         } else {
             Communicator.sendError(s,Strings.needPlayer);
         }

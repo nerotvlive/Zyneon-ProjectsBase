@@ -46,34 +46,34 @@ public class InventoryClickListener implements Listener {
                     e.setCancelled(true);
                     p.closeInventory();
                     u.setInventoryMode("deposit");
-                    u.sendMessage("Klicke das Geld an§8,§7 welches zu einzahlen willst§8.");
+                    Communicator.sendInfo(p,"Klicke das Geld an§8,§7 welches zu einzahlen willst§8.");
                     p.openInventory(InventoryManager.bankerInventory_deposit(p));
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.payout(p).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
                     u.setChatMode("payout");
-                    u.sendWarning("Schreibe \"cancel\" in den Chat, um die Auszahlung abzubrechen.");
-                    u.sendMessage("Schreibe den Betrag§8,§7 den du dir auszahlen lassen willst in den Chat§8.");
+                    Communicator.sendWarning(p,"Schreibe \"cancel\" in den Chat, um die Auszahlung abzubrechen.");
+                    Communicator.sendInfo(p,"Schreibe den Betrag§8,§7 den du dir auszahlen lassen willst in den Chat§8.");
                     p.closeInventory();
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.salary(p).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.farmworld(p).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
                     if(WarpAPI.cooldown.contains(p.getUniqueId())) {
-                        u.sendWarning("Warte etwas, bevor du dich erneut teleportierst...");
+                        Communicator.sendWarning(p,"Warte etwas, bevor du dich erneut teleportierst...");
                         return;
                     }
                     if(u.isGrounded()) {
                         u.setLastLoc(p.getLocation());
                         p.closeInventory();
-                        if(WarpAPI.isWarpEnabled("farmworld")) {
-                            p.teleport(WarpAPI.getWarp("farmworld"));
+                        if(WarpAPI.isWarpEnabled("farmwelt")) {
+                            p.teleport(WarpAPI.getWarp("farmwelt"));
                         } else {
                             p.teleport(Bukkit.getWorld(Strings.farmWorldName).getSpawnLocation());
                         }
                         p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 100);
                     } else {
-                        u.sendError("§cDazu musst du auf §4sicherem Boden§c stehen§8!");
+                        Communicator.sendError(p,"§cDazu musst du auf §4sicherem Boden§c stehen§8!");
                     }
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.characterEditor(u).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
@@ -83,7 +83,7 @@ public class InventoryClickListener implements Listener {
                     e.setCancelled(true);
                     p.closeInventory();
                     u.setChatMode("character_name");
-                    u.sendMessage("Schreibe den neuen Namen von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
+                    Communicator.sendInfo(p,"Schreibe den neuen Namen von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.character_one(u).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
                     u.setCharacter(0);
@@ -106,7 +106,7 @@ public class InventoryClickListener implements Listener {
                     e.setCancelled(true);
                     p.closeInventory();
                     u.setChatMode("character_job");
-                    u.sendMessage("Schreibe den neuen Job von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
+                    Communicator.sendInfo(p,"Schreibe den neuen Job von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.backEditor().getItemMeta().getDisplayName())) {
                     p.closeInventory();
                     p.openInventory(InventoryManager.characterHome(u));
@@ -115,36 +115,31 @@ public class InventoryClickListener implements Listener {
                     e.setCancelled(true);
                     p.closeInventory();
                     u.setChatMode("character_variant");
-                    u.sendMessage("Schreibe die neue Skin-Variante §8(SLIM oder CLASSIC)§7 von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
+                    Communicator.sendInfo(p,"Schreibe die neue Skin-Variante §8(SLIM oder CLASSIC)§7 von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.characterList(p).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
                     p.openInventory(InventoryManager.characterList(u));
                     p.playSound(p,Sound.BLOCK_ENDER_CHEST_OPEN,100,100);
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.spawn(p).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
-                    if(WarpAPI.cooldown.contains(p.getUniqueId())) {
-                        u.sendWarning("Warte etwas, bevor du dich erneut teleportierst...");
+                    if (WarpAPI.cooldown.contains(p.getUniqueId())) {
+                        Communicator.sendWarning(p,"Warte etwas, bevor du dich erneut teleportierst...");
                         return;
                     }
-                    if(e.getCurrentItem().getType().toString().toLowerCase().contains("red")) {
-                        Communicator.sendError(p,"§cDazu hast du nicht genügend Level§8!");
+                    if (e.getCurrentItem().getType().toString().toLowerCase().contains("red")) {
+                        Communicator.sendError(p, "§cDazu hast du nicht genügend Level§8!");
                         p.closeInventory();
                     } else {
-                        if(WarpAPI.isWarpEnabled("spawn")) {
-                            if(u.isGrounded()) {
-                                if(p.getWorld().equals(Bukkit.getWorlds().get(0))) {
-                                    p.setLevel(p.getLevel() - 10);
-                                }
-                                p.closeInventory();
-                                p.teleport(WarpAPI.getCurrentSpawn(p));
-                                p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);
-                                p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 100);
-                            } else {
-                                u.sendError("§cDazu musst du auf §4sicherem Boden§c stehen§8!");
+                        if (u.isGrounded()) {
+                            if (p.getWorld().equals(Bukkit.getWorlds().get(0))) {
+                                p.setLevel(p.getLevel() - 10);
                             }
-                        } else {
-                            Communicator.sendError(p,"§cDieser Warp ist zurzeit nicht aktiviert oder nicht vorhanden§8.");
                             p.closeInventory();
+                            p.teleport(WarpAPI.getCurrentSpawn(p));
+                            p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);
+                            p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 100);
+                        } else {
+                            Communicator.sendError(p,"§cDazu musst du auf §4sicherem Boden§c stehen§8!");
                         }
                     }
                 }
@@ -156,7 +151,7 @@ public class InventoryClickListener implements Listener {
     public void onInventoryClose(InventoryCloseEvent e) {
         User u = Main.getUser(e.getPlayer().getUniqueId());
         if(u.getInventoryMode().equalsIgnoreCase("deposit")) {
-            u.sendMessage("Einzahlen beendet§8.");
+            Communicator.sendInfo(e.getPlayer(),"Einzahlen beendet§8.");
         }
         u.setInventoryMode("normal");
     }

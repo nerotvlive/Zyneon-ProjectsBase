@@ -4,6 +4,7 @@ import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.LockManager;
 import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.TrustManager;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
+import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
@@ -29,17 +30,17 @@ public class LockInteractListener implements Listener {
                 u.setInteractMode("null");
                 e.setCancelled(true);
                 if (LockManager.lock(e.getClickedBlock(), u.getUUID(), LockManager.locks)) {
-                    u.sendMessage("Du hast den Block erfolgreich gesichert§8!");
+                    Communicator.sendInfo(p,"Du hast den Block erfolgreich gesichert§8!");
                 } else {
-                    u.sendError("§cDieser Block ist bereits gesichert, oder kann nicht gesichert werden§8.");
+                    Communicator.sendError(p,"§cDieser Block ist bereits gesichert, oder kann nicht gesichert werden§8.");
                 }
             } else if(u.getInteractMode().equalsIgnoreCase("locking-public")||u.getInteractMode().equalsIgnoreCase("lockmode-public")) {
                 u.setInteractMode("null");
                 e.setCancelled(true);
                 if (LockManager.lock(e.getClickedBlock(), u.getUUID(), LockManager.publs)) {
-                    u.sendMessage("Du hast den Block erfolgreich gesichert§8!");
+                    Communicator.sendInfo(p,"Du hast den Block erfolgreich gesichert§8!");
                 } else {
-                    u.sendError("§cDieser Block ist bereits gesichert, oder kann nicht gesichert werden§8.");
+                    Communicator.sendError(p,"§cDieser Block ist bereits gesichert, oder kann nicht gesichert werden§8.");
                 }
             } else if(u.getInteractMode().equalsIgnoreCase("unlocking")||u.getInteractMode().equalsIgnoreCase("unlockmode")) {
                 u.setInteractMode("null");
@@ -54,16 +55,16 @@ public class LockInteractListener implements Listener {
                                 LockManager.unlock(lower_loc.getBlock(),LockManager.locks);
                                 LockManager.unlock(location.getBlock(),LockManager.locks);
                                 LockManager.unlock(new Location(lower_loc.getWorld(), lower_loc.getBlockX(), lower_loc.getBlockY() - 1, lower_loc.getBlockZ()).getBlock(),LockManager.locks);
-                                u.sendMessage("Du hast den Block erfolgreich entsichert§8!");
+                                Communicator.sendInfo(p,"Du hast den Block erfolgreich entsichert§8!");
                             } else if (location.getWorld().getBlockAt(upper_loc).getType().toString().contains("_DOOR")) {
                                 LockManager.unlock(upper_loc.getBlock(),LockManager.locks);
                                 LockManager.unlock(location.getBlock(),LockManager.locks);
                                 LockManager.unlock(lower_loc.getBlock(),LockManager.locks);
-                                u.sendMessage("Du hast den Block erfolgreich entsichert§8!");
+                                Communicator.sendInfo(p,"Du hast den Block erfolgreich entsichert§8!");
                             }
                         } else {
                             LockManager.unlock(block,LockManager.locks);
-                            u.sendMessage("Du hast den Block erfolgreich entsichert§8!");
+                            Communicator.sendInfo(p,"Du hast den Block erfolgreich entsichert§8!");
                         }
                     } else {
                         e.setCancelled(true);
@@ -79,16 +80,16 @@ public class LockInteractListener implements Listener {
                                 LockManager.unlock(lower_loc.getBlock(),LockManager.publs);
                                 LockManager.unlock(location.getBlock(),LockManager.publs);
                                 LockManager.unlock(new Location(lower_loc.getWorld(), lower_loc.getBlockX(), lower_loc.getBlockY() - 1, lower_loc.getBlockZ()).getBlock(),LockManager.publs);
-                                u.sendMessage("Du hast den Block erfolgreich entsichert§8!");
+                                Communicator.sendInfo(p,"Du hast den Block erfolgreich entsichert§8!");
                             } else if (location.getWorld().getBlockAt(upper_loc).getType().toString().contains("_DOOR")) {
                                 LockManager.unlock(upper_loc.getBlock(),LockManager.publs);
                                 LockManager.unlock(location.getBlock(),LockManager.publs);
                                 LockManager.unlock(lower_loc.getBlock(),LockManager.publs);
-                                u.sendMessage("Du hast den Block erfolgreich entsichert§8!");
+                                Communicator.sendInfo(p,"Du hast den Block erfolgreich entsichert§8!");
                             }
                         } else {
                             LockManager.unlock(block,LockManager.publs);
-                            u.sendMessage("Du hast den Block erfolgreich entsichert§8!");
+                            Communicator.sendInfo(p,"Du hast den Block erfolgreich entsichert§8!");
                         }
                     } else {
                         e.setCancelled(true);

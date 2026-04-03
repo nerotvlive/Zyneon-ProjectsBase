@@ -3,6 +3,7 @@ package com.zyneonstudios.nerotvlive.projectsbase.listeners;
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.events.ZyneonChatEvent;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
+import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.workers.Banker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -25,27 +26,27 @@ public class PlayerChatListener implements Listener {
             e.setCancelled(true);
             String check = e.getMessage().split(" ", 2)[0];
             if (check.contains("cancel")) {
-                u.sendMessage("Vorgang abgebrochen§8!");
+                Communicator.sendInfo(p,"Vorgang abgebrochen§8!");
                 u.setChatMode("normal");
                 return;
             }
             try {
                 int amount = Integer.parseInt(check);
                 if(Banker.payout(p,amount)) {
-                    u.sendMessage("Du hast dir §e"+amount+"§mM§7 auszahlen lassen§8.");
+                    Communicator.sendInfo(p,"Du hast dir §e"+amount+"§mM§7 auszahlen lassen§8.");
                     u.setChatMode("normal");
                     return;
                 } else {
-                    u.sendError("Dazu hast du nicht genug Geld auf dem Konto!");
+                    Communicator.sendError(p,"Dazu hast du nicht genug Geld auf dem Konto!");
                 }
             } catch (NumberFormatException ex) {
-                u.sendError("Du hast keinen gültigen Betrag eingegeben, bitte versuche es erneut.");
+                Communicator.sendError(p,"Du hast keinen gültigen Betrag eingegeben, bitte versuche es erneut.");
             }
-            u.sendWarning("Schreibe \"cancel\" in den Chat, um die Auszahlung abzubrechen.");
+            Communicator.sendWarning(p,"Schreibe \"cancel\" in den Chat, um die Auszahlung abzubrechen.");
         } else if(u.getChatMode().equalsIgnoreCase("character_name")) {
             e.setCancelled(true);
             if(e.getMessage().equalsIgnoreCase("cancel")) {
-                u.sendMessage("Vorgang abgebrochen§8!");
+                Communicator.sendInfo(p,"Vorgang abgebrochen§8!");
                 u.setChatMode("normal");
                 return;
             }
@@ -55,12 +56,12 @@ public class PlayerChatListener implements Listener {
                 p.performCommand("char name "+e.getMessage());
                 u.setChatMode("normal");
             } else {
-                u.sendError("Du darfst maximal 3 und musst minimal 2 Wörter für einen Namen angeben§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
+                Communicator.sendError(p,"Du darfst maximal 3 und musst minimal 2 Wörter für einen Namen angeben§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
             }
         } else if(u.getChatMode().equalsIgnoreCase("character_job")) {
             e.setCancelled(true);
             if(e.getMessage().equalsIgnoreCase("cancel")) {
-                u.sendMessage("Vorgang abgebrochen§8!");
+                Communicator.sendInfo(p,"Vorgang abgebrochen§8!");
                 u.setChatMode("normal");
                 return;
             }
@@ -70,12 +71,12 @@ public class PlayerChatListener implements Listener {
                 p.performCommand("char job "+e.getMessage());
                 u.setChatMode("normal");
             } else {
-                u.sendError("Du darfst maximal ein Wort für deinen Job angeben§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
+                Communicator.sendError(p,"Du darfst maximal ein Wort für deinen Job angeben§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
             }
         } else if(u.getChatMode().equalsIgnoreCase("character_skin")) {
             e.setCancelled(true);
             if(e.getMessage().equalsIgnoreCase("cancel")) {
-                u.sendMessage("Vorgang abgebrochen§8!");
+                Communicator.sendInfo(p,"Vorgang abgebrochen§8!");
                 u.setChatMode("normal");
                 return;
             }
@@ -85,12 +86,12 @@ public class PlayerChatListener implements Listener {
                 p.performCommand("char skin "+e.getMessage()+" "+u.getSkinVariant());
                 u.setChatMode("normal");
             } else {
-                u.sendError("Das ist keine gültige URL§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
+                Communicator.sendError(p,"Das ist keine gültige URL§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
             }
         } else if(u.getChatMode().equalsIgnoreCase("character_variant")) {
             e.setCancelled(true);
             if(e.getMessage().equalsIgnoreCase("cancel")) {
-                u.sendMessage("Vorgang abgebrochen§8!");
+                Communicator.sendInfo(p,"Vorgang abgebrochen§8!");
                 u.setChatMode("normal");
                 return;
             }
@@ -100,16 +101,16 @@ public class PlayerChatListener implements Listener {
                 if(e.getMessage().equalsIgnoreCase("SLIM")) {
                     u.setSkinVariant("slim");
                     u.setChatMode("character_skin");
-                    u.sendMessage("Schreibe die neue Skin-URL von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
+                    Communicator.sendInfo(p,"Schreibe die neue Skin-URL von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
                 } else if(e.getMessage().equalsIgnoreCase("CLASSIC")) {
                     u.setSkinVariant("classic");
                     u.setChatMode("character_skin");
-                    u.sendMessage("Schreibe die neue Skin-URL von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
+                    Communicator.sendInfo(p,"Schreibe die neue Skin-URL von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
                 } else {
-                    u.sendError("Das ist keine gültige Variante, nutze \"SLIM\" oder \"CLASSIC\"§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
+                    Communicator.sendError(p,"Das ist keine gültige Variante, nutze \"SLIM\" oder \"CLASSIC\"§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
                 }
             } else {
-                u.sendError("Das ist keine gültige Variante, nutze \"SLIM\" oder \"CLASSIC\"§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
+                Communicator.sendError(p,"Das ist keine gültige Variante, nutze \"SLIM\" oder \"CLASSIC\"§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
             }
         }
     }

@@ -2,6 +2,7 @@ package com.zyneonstudios.nerotvlive.projectsbase.locks.commands;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
+import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,30 +22,30 @@ public class LockModeCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("public")) {
                     if(u.getInteractMode().equalsIgnoreCase("lockmode-public")) {
                         u.setInteractMode("nullmode");
-                        u.sendMessage("Du bist nun nicht mehr im §eLockmode§8. (Öffentlich)");
+                        Communicator.sendInfo(p,"Du bist nun nicht mehr im §eLockmode§8. (Öffentlich)");
                         return false;
                     }
                     u.setInteractMode("lockmode-public");
-                    u.sendMessage("Du bist nun im §eLockmode§8. (Öffentlich)");
+                    Communicator.sendInfo(p,"Du bist nun im §eLockmode§8. (Öffentlich)");
                     return false;
                 } else if (args[0].equalsIgnoreCase("unlock")) {
                     if(u.getInteractMode().equalsIgnoreCase("unlockmode")) {
                         u.setInteractMode("nullmode");
-                        u.sendMessage("Du bist nun nicht mehr im §eUnlockmode§8.");
+                        Communicator.sendInfo(p,"Du bist nun nicht mehr im §eUnlockmode§8.");
                         return false;
                     }
                     u.setInteractMode("unlockmode");
-                    u.sendMessage("Du bist nun im §eUnlockmode§8.");
+                    Communicator.sendInfo(p,"Du bist nun im §eUnlockmode§8.");
                     return false;
                 }
             }
             if(u.getInteractMode().equalsIgnoreCase("lockmode")) {
                 u.setInteractMode("nullmode");
-                u.sendMessage("Du bist nun nicht mehr im §eLockmode§8. (Privat)");
+                Communicator.sendInfo(p,"Du bist nun nicht mehr im §eLockmode§8. (Privat)");
                 return false;
             }
             u.setInteractMode("lockmode");
-            u.sendMessage("Du bist nun im §eLockmode§8. (Privat)");
+            Communicator.sendInfo(p,"Du bist nun im §eLockmode§8. (Privat)");
             return false;
         }
         return false;

@@ -26,7 +26,7 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
         if (!(s instanceof Player p)) {
             Communicator.sendError(s, Strings.needPlayer);
         } else {
-            Main.getUser(p).sendError("§c/warp [set/remove/enable/disable/toggle/teleport/§7list§c] [Warp]");
+            Communicator.sendInfo(p,"§c/warp [set/remove/enable/disable/toggle/teleport/§7list§c] [Warp]");
         }
     }
 
@@ -54,7 +54,7 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                         WarpAPI.sendWarpList(s);
                     } else if (args[0].equalsIgnoreCase("set")) {
                         if (WarpAPI.ifWarpExists(Warp)) {
-                            u.sendError("§cDieser Warp existiert bereits!");
+                            Communicator.sendError(p,"§cDieser Warp existiert bereits!");
                         } else {
                             WarpAPI.setWarp(Warp, p, false);
                             TextComponent component = new TextComponent("Du hast erfolgreich den Warp §e" + Warp + "§7 erstellt! Aktiviere ihn mit ");
@@ -69,31 +69,31 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                     } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem") || args[0].equalsIgnoreCase("del") || args[0].equalsIgnoreCase("delete")) {
                         if (WarpAPI.ifWarpExists(Warp)) {
                             WarpAPI.removeWarp(Warp);
-                            u.sendMessage("Du hast erfolgreich den Warp §e" + Warp + "§7 gelöscht!");
+                            Communicator.sendInfo(p,"Du hast erfolgreich den Warp §e" + Warp + "§7 gelöscht!");
                         } else {
-                            u.sendError("§cDieser Warp existiert nicht!");
+                            Communicator.sendError(p,"§cDieser Warp existiert nicht!");
                         }
                     } else if (args[0].equalsIgnoreCase("enable")) {
                         if (WarpAPI.ifWarpExists(Warp)) {
                             if (WarpAPI.isWarpEnabled(Warp)) {
-                                u.sendError("§cDieser Warp ist bereits aktiviert!");
+                                Communicator.sendError(p,"§cDieser Warp ist bereits aktiviert!");
                             } else {
                                 WarpAPI.enableWarp(Warp);
-                                u.sendMessage("Du hast erfolgreich den Warp §e" + Warp + "§7 aktiviert!");
+                                Communicator.sendInfo(p,"Du hast erfolgreich den Warp §e" + Warp + "§7 aktiviert!");
                             }
                         } else {
-                            u.sendError("§cDieser Warp existiert nicht!");
+                            Communicator.sendError(p,"§cDieser Warp existiert nicht!");
                         }
                     } else if (args[0].equalsIgnoreCase("disable")) {
                         if (WarpAPI.ifWarpExists(Warp)) {
                             if (WarpAPI.isWarpEnabled(Warp)) {
                                 WarpAPI.disableWarp(Warp);
-                                u.sendMessage("Du hast erfolgreich den Warp §e" + Warp + "§7 deaktiviert!");
+                                Communicator.sendInfo(p,"Du hast erfolgreich den Warp §e" + Warp + "§7 deaktiviert!");
                             } else {
-                                u.sendError("§cDieser Warp ist bereits deaktiviert!");
+                                Communicator.sendError(p,"§cDieser Warp ist bereits deaktiviert!");
                             }
                         } else {
-                            u.sendError("§cDieser Warp existiert nicht!");
+                            Communicator.sendError(p,"§cDieser Warp existiert nicht!");
                         }
                     } else if (args[0].equalsIgnoreCase("toggle")) {
                         if (WarpAPI.ifWarpExists(Warp)) {
@@ -103,23 +103,23 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                                 p.performCommand("warp enable " + Warp);
                             }
                         } else {
-                            u.sendError("§cDieser Warp existiert nicht!");
+                            Communicator.sendError(p,"§cDieser Warp existiert nicht!");
                         }
                     } else if (args[0].equalsIgnoreCase("teleport") || args[0].equalsIgnoreCase("tp")) {
                         if (WarpAPI.ifWarpExists(Warp)) {
                             if (WarpAPI.isWarpEnabled(Warp)) {
                                 p.teleport(WarpAPI.getWarp(Warp));
-                                u.sendMessage("Du bist nun bei §e" + Warp + "§7!");
+                                Communicator.sendInfo(p,"Du bist nun bei §e" + Warp + "§7!");
                             } else {
-                                u.sendError("§cDieser Warp ist nicht aktiviert!");
+                                Communicator.sendError(p,"§cDieser Warp ist nicht aktiviert!");
                             }
                         } else {
-                            u.sendError("§cDieser Warp existiert nicht!");
+                            Communicator.sendError(p,"§cDieser Warp existiert nicht!");
                         }
                     }
                 }
             } else {
-                u.sendError(Strings.noPermission);
+                Communicator.sendError(p,Strings.noPermission);
             }
         }
         return false;

@@ -23,11 +23,11 @@ public class PingCommand implements CommandExecutor, TabCompleter {
             if(p.hasPermission("zyneon.team")&&args.length!=0) {
                 if(Bukkit.getPlayer(args[0])!=null) {
                     User t = Main.getUser(Bukkit.getPlayer(args[0]));
-                    u.sendMessage("Der Ping von §a"+t.getPlayer().getName()+"§7 beträgt§8: §e"+t.getPing()+"ms");
+                    Communicator.sendInfo(p,"Der Ping von §a"+t.getPlayer().getName()+"§7 beträgt§8: §e"+t.getPing()+"ms");
                     return false;
                 }
             }
-            u.sendMessage("Dein Ping beträgt§8: §e"+u.getPing()+"ms");
+            Communicator.sendInfo(p,"Dein Ping beträgt§8: §e"+u.getPing()+"ms");
         } else {
             Communicator.sendError(s,Strings.needPlayer);
         }

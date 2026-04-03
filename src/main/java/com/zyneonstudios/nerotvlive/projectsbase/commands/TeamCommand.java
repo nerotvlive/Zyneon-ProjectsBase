@@ -17,7 +17,7 @@ public class TeamCommand implements CommandExecutor {
             if(p.hasPermission("zyneon.team")) {
                 User u = Main.getUser(p);
                 u.setTeamMode(!u.isTeamMode());
-                u.sendMessage("Teammodus§8: §e"+u.isTeamMode());
+                Communicator.sendInfo(p,"Teammodus§8: §e"+u.isTeamMode());
             } else {
                 Communicator.sendError(p, Strings.farmWorldName);
             }

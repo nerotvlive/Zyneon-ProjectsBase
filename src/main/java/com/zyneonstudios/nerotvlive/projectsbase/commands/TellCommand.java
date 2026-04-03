@@ -35,7 +35,7 @@ public class TellCommand implements CommandExecutor, TabCompleter {
                 } else {
                     name = "§cServer";
                 }
-                t.sendRaw("§8[§7MSG§8] §6"+name+" §f-> §eDir§8: §7"+m);
+                Communicator.sendRaw(t.getPlayer(),"§8[§7MSG§8] §6"+name+" §f-> §eDir§8: §7"+m);
                 t.getPlayer().playSound(t.getPlayer().getLocation(),Sound.ENTITY_CHICKEN_EGG,100,100);
             } else if(args[0].equalsIgnoreCase("server")||args[0].equalsIgnoreCase("console")||args[0].equalsIgnoreCase("konsole")) {
                 String m = "";

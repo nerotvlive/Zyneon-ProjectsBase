@@ -30,16 +30,16 @@ public class TrustCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("add")) {
                     OfflinePlayer oP = Bukkit.getOfflinePlayer(args[1]);
                     if (TrustManager.isTrusted(oP.getUniqueId(), p.getUniqueId())) {
-                        u.sendError("§cDiese*r Spieler*In ist bereits getrustet§8.");
+                        Communicator.sendError(p,"§cDiese*r Spieler*In ist bereits getrustet§8.");
                     } else {
                         TrustManager.addTrusted(oP.getUniqueId(), p.getUniqueId());
-                        u.sendMessage("Du hast §e" + oP.getName() + "§7 erfolgreich getrusted§8!");
+                        Communicator.sendInfo(p,"Du hast §e" + oP.getName() + "§7 erfolgreich getrusted§8!");
                     }
                 } else if (args[0].equalsIgnoreCase("list")) {
-                    u.sendRaw("§8=============[§eMember§7,§e denen du vertraust§8]=============");
+                    Communicator.sendRaw(p,"§8=============[§eMember§7,§e denen du vertraust§8]=============");
                     if(TrustManager.trustedUsers(u.getUUID()).size()<1) {
-                        u.sendError("Du vertraust zurzeit niemandem!");
-                        u.sendMessage("Mache §e/trust add [Spieler*In] §7um jemandem zu vertrauen§8.");
+                        Communicator.sendError(p,"Du vertraust zurzeit niemandem!");
+                        Communicator.sendInfo(p,"Mache §e/trust add [Spieler*In] §7um jemandem zu vertrauen§8.");
                         return false;
                     }
                     for(String list:TrustManager.trustedUsers(u.getUUID())) {
@@ -52,10 +52,10 @@ public class TrustCommand implements CommandExecutor, TabCompleter {
                         p.spigot().sendMessage(message);
                     }
                 } else if (args[0].equalsIgnoreCase("who")) {
-                    u.sendRaw("§8=============[§eMember§7,§e die dir vertrauen§8]=============");
+                    Communicator.sendRaw(p,"§8=============[§eMember§7,§e die dir vertrauen§8]=============");
                     if(TrustManager.trustedList(u.getUUID()).size()<1) {
-                        u.sendError("Niemand vertraut dir!");
-                        u.sendMessage("Sobald dich jemand mit §e/trust add "+p.getName()+"§7 zu seinen vertrauten Spieler*Innen hinzufügt, siehst du das hier§8.");
+                        Communicator.sendError(p,"Niemand vertraut dir!");
+                        Communicator.sendInfo(p,"Sobald dich jemand mit §e/trust add "+p.getName()+"§7 zu seinen vertrauten Spieler*Innen hinzufügt, siehst du das hier§8.");
                         return false;
                     }
                     for(String list:TrustManager.trustedList(u.getUUID())) {
@@ -71,17 +71,17 @@ public class TrustCommand implements CommandExecutor, TabCompleter {
                     OfflinePlayer oP = Bukkit.getOfflinePlayer(args[1]);
                     if (TrustManager.isTrusted(p.getUniqueId(), oP.getUniqueId())) {
                         TrustManager.removeTrusted(p.getUniqueId(), oP.getUniqueId());
-                        u.sendMessage("Du hast dich erfolgreich aus den Trusts von §e" + oP.getName() + "§7 entfernt§8!");
+                        Communicator.sendInfo(p,"Du hast dich erfolgreich aus den Trusts von §e" + oP.getName() + "§7 entfernt§8!");
                     } else {
-                        u.sendError("§cDiese*r Spieler*In vertraut dir nicht§8.");
+                        Communicator.sendError(p,"§cDiese*r Spieler*In vertraut dir nicht§8.");
                     }
                 } else if (args[0].equalsIgnoreCase("remove")) {
                     OfflinePlayer oP = Bukkit.getOfflinePlayer(args[1]);
                     if (TrustManager.isTrusted(oP.getUniqueId(), p.getUniqueId())) {
                         TrustManager.removeTrusted(oP.getUniqueId(), p.getUniqueId());
-                        u.sendMessage("Du hast §e" + oP.getName() + "§7 erfolgreich aus deinen Trusts entfernt§8!");
+                        Communicator.sendInfo(p,"Du hast §e" + oP.getName() + "§7 erfolgreich aus deinen Trusts entfernt§8!");
                     } else {
-                        u.sendError("§cDiese*r Spieler*In ist nicht getrustet§8.");
+                        Communicator.sendError(p,"§cDiese*r Spieler*In ist nicht getrustet§8.");
                     }
                 } else {
                     Communicator.sendError(s, "§c/trust [add/list/remove/removeSelf/who] [Spieler*In]");

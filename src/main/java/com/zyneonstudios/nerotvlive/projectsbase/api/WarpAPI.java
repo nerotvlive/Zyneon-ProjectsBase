@@ -39,15 +39,6 @@ public class WarpAPI {
         String name = warpName.toLowerCase();
         Communicator.sendWarning(warps.getString("warps", name + ".e", 0));
         return !warps.getString("warps", name + ".e", 0).equalsIgnoreCase("null");
-
-        /*Old Warp Code
-        Warpname = Warpname.toLowerCase();
-        File WarpFile = new File("plugins/ProjectsBase/Warps/"+Warpname+".yml");
-        if(WarpFile.exists()) {
-            return true;
-        } else {
-            return false;
-        }*/
     }
 
     public static boolean isWarpEnabled(String warpName) {
@@ -57,20 +48,6 @@ public class WarpAPI {
         } else {
             return false;
         }
-
-        /*Old Warp Code
-        Warpname = Warpname.toLowerCase();
-        if(ifWarpExists(Warpname)) {
-            File WarpFile = new File("plugins/ProjectsBase/Warps/"+Warpname+".yml");
-            YamlConfiguration WF = YamlConfiguration.loadConfiguration(WarpFile);
-            if(WF.getBoolean("Warp.isEnabled")) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }*/
     }
 
     public static void setWarp(String warpName, World w, double x, double y, double z, float yaw, float pitch, boolean enable) {
@@ -91,23 +68,6 @@ public class WarpAPI {
             warpList.add(warpName.toLowerCase());
         }
         warps.set("warps", "warpList.array", warpList.toString());
-
-        /*Old Warp Code
-        Warpname = Warpname.toLowerCase();
-        File WarpFile = new File("plugins/ProjectsBase/Warps/"+Warpname+".yml");
-        YamlConfiguration WF = YamlConfiguration.loadConfiguration(WarpFile);
-        WF.set("Warp.World",w.getName());
-        WF.set("Warp.X",x);
-        WF.set("Warp.Y",y);
-        WF.set("Warp.Z",z);
-        WF.set("Warp.Yaw",yaw);
-        WF.set("Warp.Pitch",pitch);
-        if(enable) {
-            WF.set("Warp.isEnabled",true);
-        } else {
-            WF.set("Warp.isEnabled",false);
-        }
-        ConfigAPI.saveConfig(WarpFile,WF);*/
     }
 
     public static void setWarp(String Warpname, Player p, boolean enable) {
@@ -118,12 +78,6 @@ public class WarpAPI {
     public static Location getWarp(String warpName) {
         String name = warpName.toLowerCase();
         return new Location(Bukkit.getWorld(warps.getString("warps", name + ".w", 0)), warps.getDouble("warps", name + ".x", 0), warps.getDouble("warps", name + ".y", 0), warps.getDouble("warps", name + ".z", 0), (float) warps.getDouble("warps", name + ".a", 0), (float) warps.getDouble("warps", name + ".p", 0));
-
-        /*Old Warp Code
-        Warpname = Warpname.toLowerCase();
-        File WarpFile = new File("plugins/ProjectsBase/Warps/"+Warpname+".yml");
-        YamlConfiguration WF = YamlConfiguration.loadConfiguration(WarpFile);
-        return new Location(Bukkit.getWorld(WF.getString("Warp.World")),WF.getDouble("Warp.X"),WF.getDouble("Warp.Y"),WF.getDouble("Warp.Z"),(float)WF.getDouble("Warp.Yaw"),(float)WF.getDouble("Warp.Pitch"));*/
     }
 
     public static void removeWarp(String warpName) {
@@ -143,39 +97,14 @@ public class WarpAPI {
         }
         warpList.remove(warpName.toLowerCase());
         warps.set("warps", "warpList.array", warpList.toString());
-
-        /*Old Warp Code
-        Warpname = Warpname.toLowerCase();
-        if(ifWarpExists(Warpname)) {
-            File WarpFile = new File("plugins/ProjectsBase/Warps/"+Warpname+".yml");
-            WarpFile.delete();
-        }*/
     }
 
     public static void enableWarp(String warpName) {
         warps.set("warps", warpName.toLowerCase() + ".e", true + "");
-
-        /*Old Warp Code
-        Warpname = Warpname.toLowerCase();
-        if(ifWarpExists(Warpname)) {
-            File WarpFile = new File("plugins/ProjectsBase/Warps/"+Warpname+".yml");
-            YamlConfiguration WF = YamlConfiguration.loadConfiguration(WarpFile);
-            WF.set("Warp.isEnabled",true);
-            ConfigAPI.saveConfig(WarpFile,WF);
-        }*/
     }
 
     public static void disableWarp(String warpName) {
         warps.set("warps", warpName.toLowerCase() + ".e", false + "");
-
-        /*Old Warp Code
-        Warpname = Warpname.toLowerCase();
-        if(ifWarpExists(Warpname)) {
-            File WarpFile = new File("plugins/ProjectsBase/Warps/"+Warpname+".yml");
-            YamlConfiguration WF = YamlConfiguration.loadConfiguration(WarpFile);
-            WF.set("Warp.isEnabled",false);
-            ConfigAPI.saveConfig(WarpFile,WF);
-        }*/
     }
 
     public static ArrayList<String> getWarpList() {
@@ -185,20 +114,18 @@ public class WarpAPI {
             warpList = new ArrayList<String>(Arrays.asList(listString.split(",")));
         }
         return warpList;
-
-        /*Old Warp Code
-        File folder = new File("plugins/ProjectsBase/Warps/");
-        return folder.listFiles();*/
     }
 
     public static void sendWarpList(CommandSender s) {
         TextComponent list = new TextComponent("§aWarps§8: §f");
         for (String warp : getWarpList()) {
-            warp = warp + "§8, §f";
-            TextComponent component = new TextComponent(warp);
-            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Klicke zum Teleportieren").create()));
-            component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warp teleport " + warp.replace("§8, §f", "")));
-            list.addExtra(component);
+            if(ifWarpExists(warp)) {
+                warp = warp + "§8, §f";
+                TextComponent component = new TextComponent(warp);
+                component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Klicke zum Teleportieren").create()));
+                component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warp teleport " + warp.replace("§8, §f", "")));
+                list.addExtra(component);
+            }
         }
         if (s instanceof Player p) {
             p.spigot().sendMessage(list);
@@ -210,10 +137,11 @@ public class WarpAPI {
 
     public static Location getCurrentSpawn(Player player) {
         try {
-            return WarpAPI.getWarp("spawn");
-        } catch (Exception e) {
-            return Bukkit.getWorlds().getFirst().getSpawnLocation();
-        }
+            if(ifWarpExists("spawn")&&isWarpEnabled("spawn")) {
+                return getWarp("spawn");
+            }
+        } catch (Exception ignore) {}
+        return Bukkit.getWorlds().getFirst().getSpawnLocation();
     }
 
     public static ArrayList<UUID> cooldown = new ArrayList<>();

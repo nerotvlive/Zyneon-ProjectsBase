@@ -33,10 +33,10 @@ public class WorldCommand implements CommandExecutor {
                         sendSyntax(p);
                     } else if(args.length == 1){
                         if(Bukkit.getWorld(args[0])!=null) {
-                            u.sendMessage("§7Teleportiere§8...");
+                            Communicator.sendInfo(p,"§7Teleportiere§8...");
                             p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[0])).getSpawnLocation());
                         } else {
-                            u.sendError("§cDiese Welt existiert nicht oder ist nicht geladen. Versuche einen anderen Namen, oder mache §4/world load/create "+args[0]+"§c!");
+                            Communicator.sendError(p,"§cDiese Welt existiert nicht oder ist nicht geladen. Versuche einen anderen Namen, oder mache §4/world load/create "+args[0]+"§c!");
                         }
                     } else if(args.length == 2){
                         if(Bukkit.getWorld(args[0])!=null) {
@@ -44,12 +44,12 @@ public class WorldCommand implements CommandExecutor {
                         } else {
                             if(args[0].equalsIgnoreCase("load")||args[0].equalsIgnoreCase("create")) {
                                 if(Bukkit.getWorld(args[1])==null) {
-                                    u.sendMessage("§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
+                                    Communicator.sendInfo(p,"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                     WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NORMAL,WorldType.NORMAL,true);
                                     p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                    u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                    Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                 } else {
-                                    u.sendError("§cDiese Welt ist bereits geladen. Mache §4/world "+args[1]+"§c um zu ihr zu gelangen!");
+                                    Communicator.sendError(p,"§cDiese Welt ist bereits geladen. Mache §4/world "+args[1]+"§c um zu ihr zu gelangen!");
                                 }
                             } else {
                                 sendSyntax(p);
@@ -62,17 +62,17 @@ public class WorldCommand implements CommandExecutor {
                                     s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                     WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NETHER,WorldType.NORMAL,true);
                                     p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                    u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                    Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                 } else if(args[2].equalsIgnoreCase("end")||args[2].equalsIgnoreCase("the_end")) {
                                     s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                     WorldAPI.createWorld(args[1],org.bukkit.World.Environment.THE_END,WorldType.NORMAL,true);
                                     p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                    u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                    Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                 } else if(args[2].equalsIgnoreCase("normal")) {
                                     s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                     WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NORMAL,WorldType.NORMAL,true);
                                     p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                    u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                    Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                 } else {
                                     sendSyntax(s);
                                 }
@@ -90,17 +90,17 @@ public class WorldCommand implements CommandExecutor {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NETHER,WorldType.NORMAL,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("end")||args[2].equalsIgnoreCase("the_end")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.THE_END,WorldType.NORMAL,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("normal")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NORMAL,WorldType.NORMAL,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else {
                                         sendSyntax(s);
                                     }
@@ -109,17 +109,17 @@ public class WorldCommand implements CommandExecutor {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NETHER,WorldType.FLAT,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("end")||args[2].equalsIgnoreCase("the_end")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.THE_END,WorldType.FLAT,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("normal")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NORMAL,WorldType.FLAT,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else {
                                         sendSyntax(s);
                                     }
@@ -128,17 +128,17 @@ public class WorldCommand implements CommandExecutor {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NETHER,WorldType.LARGE_BIOMES,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("end")||args[2].equalsIgnoreCase("the_end")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.THE_END,WorldType.LARGE_BIOMES,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("normal")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NORMAL,WorldType.LARGE_BIOMES,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else {
                                         sendSyntax(s);
                                     }
@@ -147,17 +147,17 @@ public class WorldCommand implements CommandExecutor {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createVoidWorld(args[1],org.bukkit.World.Environment.NETHER);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("end")||args[2].equalsIgnoreCase("the_end")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createVoidWorld(args[1],org.bukkit.World.Environment.THE_END);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("normal")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createVoidWorld(args[1],org.bukkit.World.Environment.NORMAL);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else {
                                         sendSyntax(s);
                                     }
@@ -166,17 +166,17 @@ public class WorldCommand implements CommandExecutor {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NETHER,WorldType.AMPLIFIED,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("end")||args[2].equalsIgnoreCase("the_end")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.THE_END,WorldType.AMPLIFIED,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else if(args[2].equalsIgnoreCase("normal")) {
                                         s.sendMessage(Strings.prefix+"§7Erstelle Welt§8,§7 dies kann ein bisschen dauern§8...");
                                         WorldAPI.createWorld(args[1],org.bukkit.World.Environment.NORMAL,WorldType.AMPLIFIED,true);
                                         p.teleport(Objects.requireNonNull(Bukkit.getWorld(args[1])).getSpawnLocation());
-                                        u.sendMessage("§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
+                                        Communicator.sendInfo(p,"§7Die Welt wurde geladen und du wurdest zu ihr teleportiert§8!");
                                     } else {
                                         sendSyntax(s);
                                     }
@@ -184,14 +184,14 @@ public class WorldCommand implements CommandExecutor {
                                     sendSyntax(s);
                                 }
                             } else {
-                                u.sendError("§cDiese Welt ist bereits geladen. Mache §4/world "+args[1]+"§c um zu ihr zu gelangen!");
+                                Communicator.sendError(p,"§cDiese Welt ist bereits geladen. Mache §4/world "+args[1]+"§c um zu ihr zu gelangen!");
                             }
                         } else {
                             sendSyntax(s);
                         }
                     }
                 } else {
-                    u.sendError(Strings.noPermission);
+                    Communicator.sendError(p,Strings.noPermission);
                 }
             } else {
                 if(args.length == 2) {

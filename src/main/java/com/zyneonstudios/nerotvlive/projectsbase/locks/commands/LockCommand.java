@@ -19,17 +19,17 @@ public class LockCommand implements CommandExecutor, TabCompleter {
         if(s instanceof Player p) {
             User u = Main.getUser(p);
             if(args.length == 0) {
-                u.sendMessage("Um einen Block öffentlich zu sichern§8,§7 mache §e/lock public§8.");
+                Communicator.sendInfo(p,"Um einen Block öffentlich zu sichern§8,§7 mache §e/lock public§8.");
                 p.performCommand("lock private");
             } else {
                 if(args[0].equalsIgnoreCase("private")) {
                     u.setInteractMode("locking");
-                    u.sendMessage("Klicke den Block an§8,§7 den du §eprivat §7sichern möchtest§8...");
+                    Communicator.sendInfo(p,"Klicke den Block an§8,§7 den du §eprivat §7sichern möchtest§8...");
                 } else if(args[0].equalsIgnoreCase("public")) {
                     u.setInteractMode("locking-public");
-                    u.sendMessage("Klicke den Block an§8,§7 den du §eöffentlich §7sichern möchtest§8...");
+                    Communicator.sendInfo(p,"Klicke den Block an§8,§7 den du §eöffentlich §7sichern möchtest§8...");
                 } else {
-                    u.sendError("/lock [private/public]");
+                    Communicator.sendError(p,"/lock [private/public]");
                 }
             }
         } else {
