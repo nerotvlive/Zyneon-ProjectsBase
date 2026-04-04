@@ -14,6 +14,7 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
+        Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
         u.setupCharacter(u.getCharacter());
         e.setJoinMessage("§8» §a"+p.getName());
