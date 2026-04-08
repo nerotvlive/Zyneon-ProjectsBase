@@ -26,6 +26,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -63,11 +64,14 @@ public final class Main extends JavaPlugin {
             Strings.farmWorldName = config.getCFG().getString("Settings.farmingWorld.name");
             Bukkit.getServer().createWorld(farmworld);
         }
-        //WorldCreator world_argria = new WorldCreator("world_argria");
-        //Bukkit.getServer().createWorld(world_argria);
+        for(String worldName:config.getCFG().getStringList("Settings.Lists.WorldsToLoad")) {
+            if(new File(worldName).exists()&&new File(worldName).isDirectory()) {
+                Bukkit.getServer().createWorld(new WorldCreator(worldName));
+            }
+        }
         Communicator.sendRaw("§aEnabling §fProjectsBase§7 version §f"+version+"§8...");
         Communicator.sendRaw("§0");
-        Communicator.sendInfo("Loading §elocks.yml§8...");
+        Communicator.sendInfo("Loading §elocks§8...");
         LockManager.getLocks();
         Communicator.sendRaw("§0");
         getCommands();
@@ -90,6 +94,7 @@ public final class Main extends JavaPlugin {
         config = new Config("plugins/ProjectsBase/config.yml");
         config.checkEntry("Settings.Strings.prefixWord","Projekt");
         Strings.setPrefixWord(config.getCFG().getString("Settings.Strings.prefixWord"));
+        config.checkEntry("Settings.Lists.WorldsToLoad",new ArrayList<String>());
         config.checkEntry("Settings.Lists.Whitelist",new ArrayList<String>());
         config.checkEntry("Settings.Lists.blockedCommands",new ArrayList<String>());
         config.checkEntry("Settings.storage","SQLite");

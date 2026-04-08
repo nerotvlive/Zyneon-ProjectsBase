@@ -1,5 +1,6 @@
 package com.zyneonstudios.nerotvlive.projectsbase.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
@@ -10,16 +11,24 @@ public class ExplosionListener implements Listener {
 
     @EventHandler
     public void onExplosion(BlockExplodeEvent e) {
-        e.setCancelled(true);
+        if (e.getBlock().getWorld() == Bukkit.getWorlds().getFirst()) {
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void onExplosion(EntityExplodeEvent e) {
-        e.setCancelled(true);
+        if (e.getEntity().getWorld() == Bukkit.getWorlds().getFirst()) {
+            e.getEntity().remove();
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void onExplosion(ExplosionPrimeEvent e) {
-        e.setCancelled(true);
+        if (e.getEntity().getWorld() == Bukkit.getWorlds().getFirst()) {
+            e.getEntity().remove();
+            e.setCancelled(true);
+        }
     }
 }

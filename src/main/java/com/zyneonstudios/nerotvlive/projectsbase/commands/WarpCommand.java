@@ -45,6 +45,8 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("list")) {
                         WarpAPI.sendWarpList(s);
+                    } else if(WarpAPI.getWarpList().contains(args[0])) {
+                        p.performCommand("warp tp "+args[0]);
                     } else {
                         sendSyntax(s);
                     }
@@ -141,6 +143,11 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                 completer.add("toggle");
                 completer.add("tp");
                 completer.add("teleport");
+                for(String warp:WarpAPI.getWarpList()) {
+                    if(WarpAPI.ifWarpExists(warp) && WarpAPI.isWarpEnabled(warp)) {
+                        completer.add(warp);
+                    }
+                }
             } else if (args.length == 2) {
                 if(args[0].equalsIgnoreCase("toggle")||args[0].equalsIgnoreCase("del")||args[0].equalsIgnoreCase("delete")||args[0].equalsIgnoreCase("rem")||args[0].equalsIgnoreCase("remove")) {
                     for(String warp:WarpAPI.getWarpList()) {
