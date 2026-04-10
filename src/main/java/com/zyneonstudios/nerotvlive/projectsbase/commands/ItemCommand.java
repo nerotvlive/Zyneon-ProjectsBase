@@ -50,7 +50,11 @@ public class ItemCommand implements CommandExecutor, TabCompleter {
                     }
                 }
             } else {
-                sendSyntax(s);
+                if(s instanceof Player p) {
+                    p.openInventory(CustomItems.getCustomItemsMenu());
+                } else {
+                    Communicator.sendError(s, Strings.needPlayer);
+                }
             }
         } else {
             Communicator.sendError(s, Strings.noPermission);
