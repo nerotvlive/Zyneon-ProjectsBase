@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +35,9 @@ public class WeaponCommand implements CommandExecutor, TabCompleter {
                 String id = args[0].toLowerCase();
                 if(WeaponItems.getWeapons().containsKey(id)) {
                     if(s instanceof Player p) {
-                        p.getInventory().addItem(WeaponItems.getWeapons().get(id).clone());
+                        ItemStack item = WeaponItems.getWeapons().get(id).clone();
+                        item.setAmount(amount);
+                        p.getInventory().addItem(item);
                     } else {
                         Communicator.sendError(s, Strings.needPlayer);
                     }

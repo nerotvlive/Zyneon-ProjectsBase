@@ -44,6 +44,7 @@ public class ItemCommand implements CommandExecutor, TabCompleter {
                         } else {
                             item = CustomItems.getCustomItems().get(id);
                         }
+                        item.setAmount(amount);
                         p.getInventory().addItem(item.clone());
                     } else {
                         Communicator.sendError(s, Strings.needPlayer);
