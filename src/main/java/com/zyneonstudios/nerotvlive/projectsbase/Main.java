@@ -2,6 +2,7 @@ package com.zyneonstudios.nerotvlive.projectsbase;
 
 import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.*;
+import com.zyneonstudios.nerotvlive.projectsbase.custom.CustomMain;
 import com.zyneonstudios.nerotvlive.projectsbase.listeners.*;
 import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.LockCommand;
 import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.LockModeCommand;
@@ -41,6 +42,7 @@ public final class Main extends JavaPlugin {
     public static Storage storage;
     public static Economy economy;
     public static boolean maintenance;
+    private CustomMain customMain = null;
     private WeaponMain weaponsMain = null;
 
     @Override
@@ -51,6 +53,11 @@ public final class Main extends JavaPlugin {
         Communicator.sendRaw("§0");
         Communicator.sendInfo("Loading config.yml");
         checkConfig();
+        if(config.getCFG().getBoolean("Settings.modules.custom")) {
+            Communicator.sendRaw("§0");
+            customMain = new CustomMain();
+            customMain.load();
+        }
         if(config.getCFG().getBoolean("Settings.modules.weapons")) {
             Communicator.sendRaw("§0");
             weaponsMain = new WeaponMain();
@@ -77,6 +84,10 @@ public final class Main extends JavaPlugin {
             }
         }
         Communicator.sendRaw("§aEnabling §fProjectsBase§7 version §f"+version+"§8...");
+        if(customMain!=null) {
+            Communicator.sendRaw("§0");
+            customMain.enable();
+        }
         if(weaponsMain!=null) {
             Communicator.sendRaw("§0");
             weaponsMain.enable();
@@ -95,6 +106,10 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         Communicator.sendRaw("§cDisabling §fProjectsBase§7 version §f"+version+"§8...");
+        if(customMain!=null) {
+            Communicator.sendRaw("§0");
+            customMain.disable();
+        }
         if(weaponsMain!=null) {
             Communicator.sendRaw("§0");
             weaponsMain.disable();
@@ -117,6 +132,7 @@ public final class Main extends JavaPlugin {
         config.checkEntry("Settings.farmingWorld.name","FW1");
         config.checkEntry("Settings.debug",false);
         config.checkEntry("Settings.maintenance",true);
+        config.checkEntry("Settings.modules.custom",false);
         config.checkEntry("Settings.modules.weapons",false);
         Communicator.sendDebug = config.getCFG().getBoolean("Settings.debug");
         maintenance = config.getCFG().getBoolean("Settings.maintenance");

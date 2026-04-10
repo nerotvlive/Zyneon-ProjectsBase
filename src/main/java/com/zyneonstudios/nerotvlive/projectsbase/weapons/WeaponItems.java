@@ -1,6 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.weapons;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -14,15 +15,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CrossbowMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class WeaponItems {
 
     private static HashMap<String, ItemStack> weapons = new HashMap<>();
 
     public static Inventory getWeaponsMenu() {
-        Inventory inventory = Bukkit.createInventory(null,18*3, "Weapons");
-        for(String key : weapons.keySet()) {
+        Inventory inventory = Bukkit.createInventory(null, 54, "Weapons");
+        for (String key : weapons.keySet()) {
             inventory.addItem(weapons.get(key).clone());
         }
         return inventory;
@@ -30,47 +33,47 @@ public class WeaponItems {
 
     public static void init() {
         weapons.clear();
-        weapons.put("revolver",getRevolver(Variant.SILVER));
-        weapons.put("black_revolver",getRevolver(Variant.BLACK));
-        weapons.put("golden_revolver",getRevolver(Variant.GOLDEN));
+        weapons.put("revolver", getRevolver(Variant.SILVER));
+        weapons.put("black_revolver", getRevolver(Variant.BLACK));
+        weapons.put("golden_revolver", getRevolver(Variant.GOLDEN));
 
-        weapons.put("shotgun",getShotgun(Variant.SILVER));
-        weapons.put("black_shotgun",getShotgun(Variant.BLACK));
-        weapons.put("golden_shotgun",getShotgun(Variant.GOLDEN));
+        weapons.put("shotgun", getShotgun(Variant.SILVER));
+        weapons.put("black_shotgun", getShotgun(Variant.BLACK));
+        weapons.put("golden_shotgun", getShotgun(Variant.GOLDEN));
 
-        weapons.put("rifle",getRifle(Variant.SILVER));
-        weapons.put("black_rifle",getRifle(Variant.BLACK));
-        weapons.put("golden_rifle",getRifle(Variant.GOLDEN));
+        weapons.put("rifle", getRifle(Variant.SILVER));
+        weapons.put("black_rifle", getRifle(Variant.BLACK));
+        weapons.put("golden_rifle", getRifle(Variant.GOLDEN));
 
-        weapons.put("mauser",getMauser(Variant.SILVER));
-        weapons.put("black_mauser",getMauser(Variant.BLACK));
-        weapons.put("golden_mauser",getMauser(Variant.GOLDEN));
+        weapons.put("mauser", getMauser(Variant.SILVER));
+        weapons.put("black_mauser", getMauser(Variant.BLACK));
+        weapons.put("golden_mauser", getMauser(Variant.GOLDEN));
 
-        weapons.put("sniper_rifle",getSniperRifle(Variant.SILVER));
-        weapons.put("black_sniper_rifle",getSniperRifle(Variant.BLACK));
-        weapons.put("golden_sniper_rifle",getSniperRifle(Variant.GOLDEN));
+        weapons.put("sniper_rifle", getSniperRifle(Variant.SILVER));
+        weapons.put("black_sniper_rifle", getSniperRifle(Variant.BLACK));
+        weapons.put("golden_sniper_rifle", getSniperRifle(Variant.GOLDEN));
 
-        weapons.put("luger",getLuger(Variant.SILVER));
-        weapons.put("black_luger",getLuger(Variant.BLACK));
-        weapons.put("golden_luger",getLuger(Variant.GOLDEN));
+        weapons.put("luger", getLuger(Variant.SILVER));
+        weapons.put("black_luger", getLuger(Variant.BLACK));
+        weapons.put("golden_luger", getLuger(Variant.GOLDEN));
 
-        weapons.put("lewis",getLewis(Variant.SILVER));
-        weapons.put("black_lewis",getLewis(Variant.BLACK));
-        weapons.put("golden_lewis",getLewis(Variant.GOLDEN));
+        weapons.put("lewis", getLewis(Variant.SILVER));
+        weapons.put("black_lewis", getLewis(Variant.BLACK));
+        weapons.put("golden_lewis", getLewis(Variant.GOLDEN));
 
-        weapons.put("marksman_pistol",getMarksmanPistol(Variant.SILVER));
-        weapons.put("black_marksman_pistol",getMarksmanPistol(Variant.BLACK));
-        weapons.put("golden_marksman_pistol",getMarksmanPistol(Variant.GOLDEN));
+        weapons.put("marksman_pistol", getMarksmanPistol(Variant.SILVER));
+        weapons.put("black_marksman_pistol", getMarksmanPistol(Variant.BLACK));
+        weapons.put("golden_marksman_pistol", getMarksmanPistol(Variant.GOLDEN));
 
-        weapons.put("knife",getKnife());
-        weapons.put("hammer",getHammer());
-        weapons.put("dagger",getDagger());
-        weapons.put("baton",getBaton());
+        weapons.put("knife", getKnife());
+        weapons.put("hammer", getHammer());
+        weapons.put("dagger", getDagger());
+        weapons.put("baton", getBaton());
     }
 
     private static ItemStack getFormattedCrossbow() {
-        ItemStack crossbow = new ItemStack(Material.CROSSBOW,1);
-        CrossbowMeta meta = (CrossbowMeta)crossbow.getItemMeta();
+        ItemStack crossbow = new ItemStack(Material.CROSSBOW, 1);
+        CrossbowMeta meta = (CrossbowMeta) crossbow.getItemMeta();
         meta.setDisplayName("§r§fSchusswaffe");
         crossbow.setItemMeta(meta);
         return crossbow;
@@ -78,10 +81,10 @@ public class WeaponItems {
 
     public static ItemStack getRevolver(Variant variant) {
         ItemStack revolver = getFormattedCrossbow();
-        CrossbowMeta meta = (CrossbowMeta)revolver.getItemMeta();
+        CrossbowMeta meta = (CrossbowMeta) revolver.getItemMeta();
 
         meta.setDisplayName("§r§fRevolver");
-        meta.setItemModel(new NamespacedKey("zyneon", "revolver_"+variant.name().toLowerCase()));
+        meta.setItemModel(new NamespacedKey("zyneon", "revolver_" + variant.name().toLowerCase()));
 
         revolver.setItemMeta(meta);
         return revolver;
@@ -89,10 +92,10 @@ public class WeaponItems {
 
     public static ItemStack getSniperRifle(Variant variant) {
         ItemStack revolver = getFormattedCrossbow();
-        CrossbowMeta meta = (CrossbowMeta)revolver.getItemMeta();
+        CrossbowMeta meta = (CrossbowMeta) revolver.getItemMeta();
 
         meta.setDisplayName("§r§fScharfschützengewehr");
-        meta.setItemModel(new NamespacedKey("zyneon", "sniper_rifle_"+variant.name().toLowerCase()));
+        meta.setItemModel(new NamespacedKey("zyneon", "sniper_rifle_" + variant.name().toLowerCase()));
 
         revolver.setItemMeta(meta);
         return revolver;
@@ -100,11 +103,11 @@ public class WeaponItems {
 
     public static ItemStack getShotgun(Variant variant) {
         ItemStack revolver = getFormattedCrossbow();
-        CrossbowMeta meta = (CrossbowMeta)revolver.getItemMeta();
+        CrossbowMeta meta = (CrossbowMeta) revolver.getItemMeta();
 
         meta.setDisplayName("§r§fSchrotflinte");
-        meta.setItemModel(new NamespacedKey("zyneon", "shotgun_"+variant.name().toLowerCase()));
-        meta.addEnchant(Enchantment.MULTISHOT,1,true);
+        meta.setItemModel(new NamespacedKey("zyneon", "shotgun_" + variant.name().toLowerCase()));
+        meta.addEnchant(Enchantment.MULTISHOT, 1, true);
         meta.setEnchantmentGlintOverride(false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
@@ -114,10 +117,10 @@ public class WeaponItems {
 
     public static ItemStack getRifle(Variant variant) {
         ItemStack revolver = getFormattedCrossbow();
-        CrossbowMeta meta = (CrossbowMeta)revolver.getItemMeta();
+        CrossbowMeta meta = (CrossbowMeta) revolver.getItemMeta();
 
         meta.setDisplayName("§r§fGewehr");
-        meta.setItemModel(new NamespacedKey("zyneon", "rifle_"+variant.name().toLowerCase()));
+        meta.setItemModel(new NamespacedKey("zyneon", "rifle_" + variant.name().toLowerCase()));
 
         revolver.setItemMeta(meta);
         return revolver;
@@ -125,10 +128,10 @@ public class WeaponItems {
 
     public static ItemStack getMauser(Variant variant) {
         ItemStack revolver = getFormattedCrossbow();
-        CrossbowMeta meta = (CrossbowMeta)revolver.getItemMeta();
+        CrossbowMeta meta = (CrossbowMeta) revolver.getItemMeta();
 
         meta.setDisplayName("§r§fMauser C96");
-        meta.setItemModel(new NamespacedKey("zyneon", "mauser_c96_"+variant.name().toLowerCase()));
+        meta.setItemModel(new NamespacedKey("zyneon", "mauser_c96_" + variant.name().toLowerCase()));
 
         revolver.setItemMeta(meta);
         return revolver;
@@ -136,10 +139,10 @@ public class WeaponItems {
 
     public static ItemStack getMarksmanPistol(Variant variant) {
         ItemStack revolver = getFormattedCrossbow();
-        CrossbowMeta meta = (CrossbowMeta)revolver.getItemMeta();
+        CrossbowMeta meta = (CrossbowMeta) revolver.getItemMeta();
 
         meta.setDisplayName("§r§fPräzisionspistole");
-        meta.setItemModel(new NamespacedKey("zyneon", "marksman_pistol_"+variant.name().toLowerCase()));
+        meta.setItemModel(new NamespacedKey("zyneon", "marksman_pistol_" + variant.name().toLowerCase()));
 
         revolver.setItemMeta(meta);
         return revolver;
@@ -147,10 +150,10 @@ public class WeaponItems {
 
     public static ItemStack getLuger(Variant variant) {
         ItemStack revolver = getFormattedCrossbow();
-        CrossbowMeta meta = (CrossbowMeta)revolver.getItemMeta();
+        CrossbowMeta meta = (CrossbowMeta) revolver.getItemMeta();
 
         meta.setDisplayName("§r§fLuger");
-        meta.setItemModel(new NamespacedKey("zyneon", "luger_"+variant.name().toLowerCase()));
+        meta.setItemModel(new NamespacedKey("zyneon", "luger_" + variant.name().toLowerCase()));
 
         revolver.setItemMeta(meta);
         return revolver;
@@ -158,10 +161,10 @@ public class WeaponItems {
 
     public static ItemStack getLewis(Variant variant) {
         ItemStack revolver = getFormattedCrossbow();
-        CrossbowMeta meta = (CrossbowMeta)revolver.getItemMeta();
+        CrossbowMeta meta = (CrossbowMeta) revolver.getItemMeta();
 
         meta.setDisplayName("§r§fLewis Maschinengewehr");
-        meta.setItemModel(new NamespacedKey("zyneon", "lewis_gun_"+variant.name().toLowerCase()));
+        meta.setItemModel(new NamespacedKey("zyneon", "lewis_gun_" + variant.name().toLowerCase()));
 
         revolver.setItemMeta(meta);
         return revolver;
@@ -173,13 +176,9 @@ public class WeaponItems {
 
         meta.setDisplayName("§r§fMesser");
         meta.setItemModel(new NamespacedKey("zyneon", "knife"));
-        AttributeModifier speedModifier = new AttributeModifier(
-                new NamespacedKey(Main.getInstance(), "knifeAttackSpeed"),
-                2.0,
-                AttributeModifier.Operation.ADD_NUMBER,
-                EquipmentSlotGroup.MAINHAND
-        );
-        meta.addAttributeModifier(Attribute.ATTACK_SPEED, speedModifier);
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta = setMeleeAttributes(meta, 4.0, 2.0);
 
         knife.setItemMeta(meta);
         return knife;
@@ -192,6 +191,9 @@ public class WeaponItems {
         meta.setDisplayName("§r§fHammer");
         meta.setItemModel(new NamespacedKey("zyneon", "hammer"));
 
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta = setMeleeAttributes(meta, 5.0, 1.0);
+
         hammer.setItemMeta(meta);
         return hammer;
     }
@@ -200,9 +202,11 @@ public class WeaponItems {
         ItemStack hammer = new ItemStack(Material.IRON_SWORD);
         ItemMeta meta = hammer.getItemMeta();
 
-        meta.setUseCooldown(null);
         meta.setDisplayName("§r§fDolch");
-        meta.setItemModel(new NamespacedKey("zyneon", "hammer"));
+        meta.setItemModel(new NamespacedKey("zyneon", "dagger"));
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta = setMeleeAttributes(meta, 6.0, 2.0);
 
         hammer.setItemMeta(meta);
         return hammer;
@@ -212,12 +216,38 @@ public class WeaponItems {
         ItemStack hammer = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = hammer.getItemMeta();
 
-        meta.setUseCooldown(null);
         meta.setDisplayName("§r§fKnüppel");
         meta.setItemModel(new NamespacedKey("zyneon", "baton"));
 
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta = setMeleeAttributes(meta, 3.0, 1.0);
+
         hammer.setItemMeta(meta);
         return hammer;
+    }
+
+    private static ItemMeta setMeleeAttributes(ItemMeta meta, double attackDamage, double attackSpeed) {
+        AttributeModifier damageModifer = new AttributeModifier(
+                new NamespacedKey(Main.getInstance(), "attackDamage"),
+                attackDamage - 1.0,
+                AttributeModifier.Operation.ADD_NUMBER,
+                EquipmentSlotGroup.MAINHAND
+        );
+        AttributeModifier speedModifier = new AttributeModifier(
+                new NamespacedKey(Main.getInstance(), "attackSpeed"),
+                attackSpeed - 4.0,
+                AttributeModifier.Operation.ADD_NUMBER,
+                EquipmentSlotGroup.MAINHAND
+        );
+        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifer);
+        meta.addAttributeModifier(Attribute.ATTACK_SPEED, speedModifier);
+
+        List<Component> lore = new ArrayList<>();
+        lore.add(Component.text("§e" + attackDamage + " §7Angriffsschaden"));
+        lore.add(Component.text("§e" + attackSpeed + " §7Angriffsgeschwindigkeit"));
+        meta.lore(lore);
+
+        return meta;
     }
 
     public enum Variant {

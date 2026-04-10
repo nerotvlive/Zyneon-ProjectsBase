@@ -1,5 +1,6 @@
 package com.zyneonstudios.nerotvlive.projectsbase.commands;
 
+import com.zyneonstudios.nerotvlive.projectsbase.custom.CustomItems;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
 import com.zyneonstudios.nerotvlive.projectsbase.weapons.WeaponItems;
@@ -8,9 +9,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemCommand implements CommandExecutor, TabCompleter {
@@ -33,9 +36,15 @@ public class ItemCommand implements CommandExecutor, TabCompleter {
                     }
                 }
                 String id = args[0].toLowerCase();
-                if(WeaponItems.getWeapons().containsKey(id)) {
+                if(WeaponItems.getWeapons().containsKey(id)||CustomItems.getCustomItems().containsKey(id)) {
                     if(s instanceof Player p) {
-                        p.getInventory().addItem(WeaponItems.getWeapons().get(id).clone());
+                        ItemStack item;
+                        if(WeaponItems.getWeapons().containsKey(id)) {
+                            item = WeaponItems.getWeapons().get(id);
+                        } else {
+                            item = CustomItems.getCustomItems().get(id);
+                        }
+                        p.getInventory().addItem(item.clone());
                     } else {
                         Communicator.sendError(s, Strings.needPlayer);
                     }
@@ -53,7 +62,9 @@ public class ItemCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if(sender.hasPermission("zyneon.team")) {
             if(args.length == 1) {
-                return WeaponItems.getWeapons().keySet().stream().toList();
+                ArrayList<String> list = new ArrayList<>(WeaponItems.getWeapons().keySet());
+                list.addAll(CustomItems.getCustomItems().keySet());
+                return list;
             }
         }
         return List.of();
