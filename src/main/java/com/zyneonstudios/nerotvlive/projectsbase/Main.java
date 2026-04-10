@@ -17,6 +17,7 @@ import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.Storage;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.Config;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.MySQL;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.SQLite;
+import com.zyneonstudios.nerotvlive.projectsbase.weapons.WeaponMain;
 import com.zyneonstudios.nerotvlive.projectsbase.workers.Banker;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -40,6 +41,7 @@ public final class Main extends JavaPlugin {
     public static Storage storage;
     public static Economy economy;
     public static boolean maintenance;
+    private WeaponMain weaponsMain = null;
 
     @Override
     public void onLoad() {
@@ -49,6 +51,11 @@ public final class Main extends JavaPlugin {
         Communicator.sendRaw("§0");
         Communicator.sendInfo("Loading config.yml");
         checkConfig();
+        if(config.getCFG().getBoolean("Settings.modules.weapons")) {
+            Communicator.sendRaw("§0");
+            weaponsMain = new WeaponMain();
+            weaponsMain.load();
+        }
         Communicator.sendRaw("§0");
         Communicator.sendRaw("Successfully loaded §fProjectsBase§7 version §f"+version+"§8...");
     }
@@ -70,6 +77,10 @@ public final class Main extends JavaPlugin {
             }
         }
         Communicator.sendRaw("§aEnabling §fProjectsBase§7 version §f"+version+"§8...");
+        if(weaponsMain!=null) {
+            Communicator.sendRaw("§0");
+            weaponsMain.enable();
+        }
         Communicator.sendRaw("§0");
         Communicator.sendInfo("Loading §elocks§8...");
         LockManager.getLocks();
@@ -84,6 +95,10 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         Communicator.sendRaw("§cDisabling §fProjectsBase§7 version §f"+version+"§8...");
+        if(weaponsMain!=null) {
+            Communicator.sendRaw("§0");
+            weaponsMain.disable();
+        }
         Communicator.sendRaw("§0");
         Communicator.sendRaw("Successfully §cdisabled §fProjectsBase§7 version §f"+version+"§8...");
     }
@@ -102,6 +117,7 @@ public final class Main extends JavaPlugin {
         config.checkEntry("Settings.farmingWorld.name","FW1");
         config.checkEntry("Settings.debug",false);
         config.checkEntry("Settings.maintenance",true);
+        config.checkEntry("Settings.modules.weapons",false);
         Communicator.sendDebug = config.getCFG().getBoolean("Settings.debug");
         maintenance = config.getCFG().getBoolean("Settings.maintenance");
         config.checkEntry("Settings.mySQL.host","127.0.0.1");
@@ -144,7 +160,9 @@ public final class Main extends JavaPlugin {
         TellCommand tellCommand = new TellCommand();
         TrustCommand trustCommand = new TrustCommand();
         WhitelistCommand whitelistCommand = new WhitelistCommand();
+        ItemCommand itemCommand = new ItemCommand();
 
+        initCommand(itemCommand,itemCommand);
         initCommand(new AuthorCommand());
         initCommand(new BookCommand());
         initCommand(broadcastCommand,broadcastCommand);

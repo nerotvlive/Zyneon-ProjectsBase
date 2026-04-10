@@ -6,6 +6,10 @@ authors: [ nerotvlive ]
 description: The base of Zyneon projects.
 
 commands:
+  weapon:
+    aliases: [weapons]
+  item:
+    aliases: [getitem,customitem,getcustomitem,itemget,customitemget]
   author:
     aliases: [project,projects,projectsbase,zyneon,pb,pb26,projectsbase26]
   book:
