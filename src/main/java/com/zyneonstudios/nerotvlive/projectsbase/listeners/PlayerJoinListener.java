@@ -32,6 +32,8 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
+        p.setScoreboard(Main.getScoreboard());
+        Main.getScoreboard().getTeam("all").addPlayer(p);
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
         if(!p.hasPlayedBefore()) {

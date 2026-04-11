@@ -27,6 +27,8 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public final class Main extends JavaPlugin {
     public static boolean maintenance;
     private CustomMain customMain = null;
     private WeaponMain weaponsMain = null;
+    private static Scoreboard scoreboard;
 
     @Override
     public void onLoad() {
@@ -70,6 +73,11 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        scoreboard.registerNewTeam("all");
+        scoreboard.getTeam("all").setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+
         checkConfig();
         initDatabase();
         WarpAPI.initAPI();
@@ -283,5 +291,9 @@ public final class Main extends JavaPlugin {
 
     public static User getUser(Player player) {
         return getUser(player.getUniqueId());
+    }
+
+    public static Scoreboard getScoreboard() {
+        return scoreboard;
     }
 }

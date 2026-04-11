@@ -27,7 +27,7 @@ public class WhisperCommand implements CommandExecutor {
                 for(Player all: Bukkit.getOnlinePlayers()) {
                     if(p.getWorld()==all.getWorld()) {
                         if(p.getLocation().distance(all.getLocation())<3) {
-                            Communicator.sendRaw(all,"§8[§6RP§8] §6"+u.getSelectedCharacter().getJob()+" §f• §e"+u.getSelectedCharacter().getName()+" (flüstert) » §7"+m);
+                            Communicator.sendRaw(all,"§8[§6RP§8] §e"+u.getSelectedCharacter().getJob()+" §f• §e"+u.getSelectedCharacter().getName()+"§8 (flüstert) » §7"+m);
                         }
                     }
                 }

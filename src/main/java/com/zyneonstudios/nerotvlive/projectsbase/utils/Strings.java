@@ -12,5 +12,5 @@ public class Strings {
     public static String needConsole = "§cDazu darfst du kein*e Spieler*in sein§8!";
     public static String playerNotFound = "§cDiese*r Spieler*in wurde nicht gefunden§8!";
     public static String noPermission = "§cDas darfst du nicht§8!";
-    public static String farmWorldName = "farmwelt";
+    public static String farmWorldName = "FW1";
 }

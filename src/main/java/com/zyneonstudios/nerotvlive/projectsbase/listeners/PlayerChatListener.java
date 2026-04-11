@@ -129,7 +129,7 @@ public class PlayerChatListener implements Listener {
         Player p = u.getPlayer();
         for(Player all : Bukkit.getOnlinePlayers()) {
             if(all.getWorld() == p.getWorld() && all.getLocation().distance(p.getLocation()) <= 30) {
-                Communicator.sendRaw(all,"§8[§6RP§8] §6"+u.getSelectedCharacter().getJob()+" §f• §e"+u.getSelectedCharacter().getName()+" » §7"+message);
+                Communicator.sendRaw(all,"§8[§6RP§8] §e"+u.getSelectedCharacter().getJob()+" §f• §e"+u.getSelectedCharacter().getName()+"§8 » §7"+message);
             }
         }
     }
