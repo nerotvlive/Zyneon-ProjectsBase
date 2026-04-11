@@ -111,6 +111,11 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                         if (WarpAPI.ifWarpExists(Warp)) {
                             if (WarpAPI.isWarpEnabled(Warp)) {
                                 p.teleport(WarpAPI.getWarp(Warp).getLocation());
+                                if (WarpAPI.getWarp(Warp).getName().toLowerCase().contains("rincon")) {
+                                    u.setLastCity("rincon");
+                                } else {
+                                    u.setLastCity("silberfels");
+                                }
                                 Communicator.sendInfo(p,"Du bist nun bei §e" + Warp + "§7!");
                             } else {
                                 Communicator.sendError(p,"§cDieser Warp ist nicht aktiviert!");
