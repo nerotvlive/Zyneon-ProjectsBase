@@ -3,7 +3,6 @@ package com.zyneonstudios.nerotvlive.projectsbase.listeners;
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.SRLCommand;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
-import com.zyneonstudios.nerotvlive.projectsbase.weapons.WeaponItems;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,9 +18,6 @@ public class PlayerJoinListener implements Listener {
         User u = Main.getUser(p);
         u.setupCharacter(u.getCharacter());
         e.setJoinMessage("§8» §a"+p.getName());
-
-
-        p.getInventory().addItem(WeaponItems.getRevolver(WeaponItems.Variant.BLACK));
     }
 
     @EventHandler
