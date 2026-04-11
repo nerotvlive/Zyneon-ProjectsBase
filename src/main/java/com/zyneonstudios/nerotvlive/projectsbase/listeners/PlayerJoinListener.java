@@ -1,6 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.listeners;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
+import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.SRLCommand;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import org.bukkit.entity.Player;
@@ -37,20 +38,24 @@ public class PlayerJoinListener implements Listener {
         }
     }
 
-    private void welcomePlayer(Player p, User u) {
+    public static void welcomePlayer(Player p, User u) {
+        // rincon 16 warps, silberfels 30 warps
         boolean teleported = false;
         while (!teleported) {
-            String city = Math.random() > 0.5 ? "Rincon" : "Silberfels";
+            String city = Math.random() > 0.5 ? "rincon" : "silberfels";
             String warpNumber;
-            if (city.equals("Rincon")) {
-                warpNumber = ((int) (Math.random() * 100)) + "";
+            if (city.equals("rincon")) {
+                warpNumber = ((int) (Math.random() * 16)) + "";
             } else {
-                warpNumber = ((int) (Math.random() * 100)) + "";
+                warpNumber = ((int) (Math.random() * 30)) + "";
             }
             String warpString = city + "Hotel" + warpNumber;
+            if (WarpAPI.ifWarpExists(warpString) && WarpAPI.isWarpEnabled(warpString)) {
+                p.teleport(WarpAPI.getWarp(warpString));
+                WarpAPI.disableWarp(warpString);
+                teleported = true;
+            }
         }
-
-
 
         u.setJoined(true);
     }

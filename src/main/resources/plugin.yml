@@ -64,3 +64,4 @@ commands:
   world:
     aliases: [welt,map,karte]
   skin:
+  test:
