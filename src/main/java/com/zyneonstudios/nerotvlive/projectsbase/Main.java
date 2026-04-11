@@ -179,7 +179,6 @@ public final class Main extends JavaPlugin {
         ItemCommand itemCommand = new ItemCommand();
 
         initCommand(itemCommand,itemCommand);
-        initCommand(new SkinCommand());
         initCommand(new AuthorCommand());
         initCommand(new BookCommand());
         initCommand(broadcastCommand,broadcastCommand);
@@ -215,7 +214,6 @@ public final class Main extends JavaPlugin {
         initCommand(new WhisperCommand());
         initCommand(whitelistCommand,whitelistCommand);
         initCommand(new WorldCommand());
-        initCommand(new TestCommand());
 
         Communicator.sendRaw("§0");
         Communicator.sendRaw("§0");

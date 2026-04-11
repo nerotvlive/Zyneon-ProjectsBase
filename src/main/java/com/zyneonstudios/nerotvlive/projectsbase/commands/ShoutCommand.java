@@ -27,7 +27,7 @@ public class ShoutCommand implements CommandExecutor {
                 for(Player all: Bukkit.getOnlinePlayers()) {
                     if(p.getWorld()==all.getWorld()) {
                         if(p.getLocation().distance(all.getLocation())<31) {
-                            Communicator.sendRaw(all,"§8[§6RP§8] "+"§f"+" §8•"+" §f"+u.getName()+"§8 (SCHREIT) » §7"+m);
+                            Communicator.sendRaw(all,"§8[§6RP§8] §6"+u.getSelectedCharacter().getJob()+" §f• §e"+u.getSelectedCharacter().getName()+" (SCHREIT) » §7"+m);
                         }
                     }
                 }

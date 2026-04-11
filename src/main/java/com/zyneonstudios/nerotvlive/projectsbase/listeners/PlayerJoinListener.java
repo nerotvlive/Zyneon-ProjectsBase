@@ -3,8 +3,15 @@ package com.zyneonstudios.nerotvlive.projectsbase.listeners;
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.SRLCommand;
+import com.zyneonstudios.nerotvlive.projectsbase.objects.Character;
+import com.zyneonstudios.nerotvlive.projectsbase.objects.CharacterSkin;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
+import net.skinsrestorer.api.SkinsRestorer;
+import net.skinsrestorer.api.SkinsRestorerProvider;
+import net.skinsrestorer.api.property.InputDataResult;
+import net.skinsrestorer.api.storage.PlayerStorage;
+import net.skinsrestorer.api.storage.SkinStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -14,8 +21,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class PlayerJoinListener implements Listener {
+
+    SkinsRestorer skinsRestorerAPI = SkinsRestorerProvider.get();
+    SkinStorage skinStorage = skinsRestorerAPI.getSkinStorage();
+    PlayerStorage playerStorage = skinsRestorerAPI.getPlayerStorage();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
@@ -25,6 +37,19 @@ public class PlayerJoinListener implements Listener {
         if(!p.hasPlayedBefore()) {
             p.teleport(getRandomSpawn());
         }
+        Character character = u.getSelectedCharacter();
+        CharacterSkin skin = character.getSelectedSkin();
+
+        try {
+            Optional<InputDataResult> result = skinStorage.findOrCreateSkinData(skin.getSkinUrl());
+            if(result.isPresent()) {
+                playerStorage.setSkinIdOfPlayer(p.getUniqueId(), result.get().getIdentifier());
+                skinsRestorerAPI.getSkinApplier(Player.class).applySkin(p);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         e.setJoinMessage("§8» §a"+p.getName());
     }
 
