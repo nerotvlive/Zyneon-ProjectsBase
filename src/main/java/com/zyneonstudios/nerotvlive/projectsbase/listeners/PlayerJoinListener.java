@@ -19,8 +19,8 @@ public class PlayerJoinListener implements Listener {
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
         u.setupCharacter(u.getCharacter());
+        //if (!u.getJoined()) { welcomePlayer(p, u); }
         e.setJoinMessage("§8» §a"+p.getName());
-        if (!u.getJoined()) { welcomePlayer(p, u); }
     }
 
     @EventHandler
@@ -40,7 +40,6 @@ public class PlayerJoinListener implements Listener {
     }
 
     public static void welcomePlayer(Player p, User u) {
-        // Wir lagern die Datenbank-Suche in einen asynchronen Thread aus
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
             boolean teleported = false;
             String finalWarpName = null;
@@ -50,17 +49,15 @@ public class PlayerJoinListener implements Listener {
                 String warpNumber = (city.equals("rincon")) ? ((int)(Math.random() * 16)) + "" : ((int)(Math.random() * 30)) + "";
                 String warpString = city + "Hotel" + warpNumber;
 
-                // Diese Aufrufe blockieren jetzt nur den Async-Thread, nicht den Server
                 if (WarpAPI.ifWarpExists(warpString) && WarpAPI.isWarpEnabled(warpString)) {
                     finalWarpName = warpString;
                     teleported = true;
                 }
             }
 
-            // Da Teleportation SYNC sein muss, springen wir zurück zum Main-Thread
             String finalName = finalWarpName;
             Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
-                if (p.isOnline()) { // Immer prüfen, ob der Spieler noch da ist!
+                if (p.isOnline()) {
                     p.teleport(WarpAPI.getWarp(finalName));
                     WarpAPI.disableWarp(finalName);
                     u.setJoined(true);
