@@ -112,6 +112,10 @@ public class User {
         setupCharacter(character);
     }
 
+    public void setJoined(boolean joined) {
+        Main.storage.set("profiles",uuid+"_joined",joined,0);
+    }
+
     public int getCharacter() {
         return character;
     }
@@ -162,6 +166,10 @@ public class User {
         } else {
             return null;
         }
+    }
+
+    public boolean getJoined() {
+        return Main.storage.get("characters" + character, uuid + "_joined", 0) != null;
     }
 
     public boolean isTeamMode() {

@@ -18,6 +18,7 @@ public class PlayerJoinListener implements Listener {
         User u = Main.getUser(p);
         u.setupCharacter(u.getCharacter());
         e.setJoinMessage("§8» §a"+p.getName());
+        if (!u.getJoined()) { welcomePlayer(p, u); }
     }
 
     @EventHandler
@@ -34,5 +35,23 @@ public class PlayerJoinListener implements Listener {
             e.setKickMessage("§cDu darfst auf diesem Server nicht spielen§8!");
             e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
         }
+    }
+
+    private void welcomePlayer(Player p, User u) {
+        boolean teleported = false;
+        while (!teleported) {
+            String city = Math.random() > 0.5 ? "Rincon" : "Silberfels";
+            String warpNumber;
+            if (city.equals("Rincon")) {
+                warpNumber = ((int) (Math.random() * 100)) + "";
+            } else {
+                warpNumber = ((int) (Math.random() * 100)) + "";
+            }
+            String warpString = city + "Hotel" + warpNumber;
+        }
+
+
+
+        u.setJoined(true);
     }
 }
