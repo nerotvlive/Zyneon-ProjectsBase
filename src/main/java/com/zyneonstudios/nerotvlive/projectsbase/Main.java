@@ -179,6 +179,7 @@ public final class Main extends JavaPlugin {
         ItemCommand itemCommand = new ItemCommand();
 
         initCommand(itemCommand,itemCommand);
+        initCommand(new SkinCommand());
         initCommand(new AuthorCommand());
         initCommand(new BookCommand());
         initCommand(broadcastCommand,broadcastCommand);
