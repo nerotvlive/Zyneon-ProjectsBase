@@ -1,7 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.commands;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
-import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
+import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.managers.InventoryManager;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
@@ -45,7 +45,7 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("list")) {
                         WarpAPI.sendWarpList(s);
-                    } else if(WarpAPI.getWarpList().contains(args[0])) {
+                    } else if(WarpAPI.getWarpNames().contains(args[0])) {
                         p.performCommand("warp tp "+args[0]);
                     } else {
                         sendSyntax(s);
@@ -110,7 +110,7 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                     } else if (args[0].equalsIgnoreCase("teleport") || args[0].equalsIgnoreCase("tp")) {
                         if (WarpAPI.ifWarpExists(Warp)) {
                             if (WarpAPI.isWarpEnabled(Warp)) {
-                                p.teleport(WarpAPI.getWarp(Warp));
+                                p.teleport(WarpAPI.getWarp(Warp).getLocation());
                                 Communicator.sendInfo(p,"Du bist nun bei §e" + Warp + "§7!");
                             } else {
                                 Communicator.sendError(p,"§cDieser Warp ist nicht aktiviert!");
@@ -143,22 +143,22 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                 completer.add("toggle");
                 completer.add("tp");
                 completer.add("teleport");
-                for(String warp:WarpAPI.getWarpList()) {
+                for(String warp:WarpAPI.getWarpNames()) {
                     if(WarpAPI.ifWarpExists(warp) && WarpAPI.isWarpEnabled(warp)) {
                         completer.add(warp);
                     }
                 }
             } else if (args.length == 2) {
                 if(args[0].equalsIgnoreCase("toggle")||args[0].equalsIgnoreCase("del")||args[0].equalsIgnoreCase("delete")||args[0].equalsIgnoreCase("rem")||args[0].equalsIgnoreCase("remove")) {
-                    for(String warp:WarpAPI.getWarpList()) {
+                    for(String warp:WarpAPI.getWarpNames()) {
                         if(WarpAPI.ifWarpExists(warp)) completer.add(warp);
                     }
                 } else if(args[0].equalsIgnoreCase("disable")||args[0].equalsIgnoreCase("tp")||args[0].equalsIgnoreCase("teleport")) {
-                    for(String warp:WarpAPI.getWarpList()) {
+                    for(String warp:WarpAPI.getWarpNames()) {
                         if(WarpAPI.ifWarpExists(warp)&&WarpAPI.isWarpEnabled(warp)) completer.add(warp);
                     }
                 } else if(args[0].equalsIgnoreCase("enable")) {
-                    for(String warp:WarpAPI.getWarpList()) {
+                    for(String warp:WarpAPI.getWarpNames()) {
                         if(WarpAPI.ifWarpExists(warp)&&!WarpAPI.isWarpEnabled(warp)) completer.add(warp);
                     }
                 }

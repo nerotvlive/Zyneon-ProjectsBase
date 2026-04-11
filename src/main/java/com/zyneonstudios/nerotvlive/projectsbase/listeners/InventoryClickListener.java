@@ -1,7 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.listeners;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
-import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
+import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.managers.InventoryManager;
 import com.zyneonstudios.nerotvlive.projectsbase.managers.ItemManager;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
@@ -66,7 +66,7 @@ public class InventoryClickListener implements Listener {
                         u.setLastLoc(p.getLocation());
                         p.closeInventory();
                         if(WarpAPI.isWarpEnabled("farmwelt")) {
-                            p.teleport(WarpAPI.getWarp("farmwelt"));
+                            p.teleport(WarpAPI.getWarp("farmwelt").getLocation());
                         } else {
                             p.teleport(Bukkit.getWorld(Strings.farmWorldName).getSpawnLocation());
                         }

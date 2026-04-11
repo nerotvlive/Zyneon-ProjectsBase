@@ -1,7 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.objects;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
-import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
+import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.LockManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

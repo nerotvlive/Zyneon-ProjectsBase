@@ -1,6 +1,6 @@
 package com.zyneonstudios.nerotvlive.projectsbase.managers;
 
-import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
+import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

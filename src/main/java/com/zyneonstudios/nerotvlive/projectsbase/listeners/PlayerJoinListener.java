@@ -1,7 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.listeners;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
-import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
+import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.SRLCommand;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import org.bukkit.Bukkit;
@@ -58,7 +58,7 @@ public class PlayerJoinListener implements Listener {
             String finalName = finalWarpName;
             Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
                 if (p.isOnline()) {
-                    p.teleport(WarpAPI.getWarp(finalName));
+                    p.teleport(WarpAPI.getWarp(finalName).getLocation());
                     u.setJoined(true);
                 }
             });
