@@ -35,7 +35,6 @@ public class InventoryClickListener implements Listener {
                         int amount = Integer.parseInt(e.getCurrentItem().getType().toString().replace("ZYNEONSOURCE_MARK_", ""));
                         amount = amount * e.getCurrentItem().getAmount();
                         e.getCurrentItem().setAmount(0);
-                        u.addBalance(amount+0.0);
                         u.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,new TextComponent("§aDu hast "+amount+"§mM§r§a eingezahlt."));
                         p.playSound(p.getLocation(),Sound.ENTITY_CHICKEN_EGG,100,100);
                     } else {
@@ -63,7 +62,6 @@ public class InventoryClickListener implements Listener {
                         return;
                     }
                     if(u.isGrounded()) {
-                        u.setLastLoc(p.getLocation());
                         p.closeInventory();
                         if(WarpAPI.isWarpEnabled("farmwelt")) {
                             p.teleport(WarpAPI.getWarp("farmwelt").getLocation());
@@ -86,19 +84,16 @@ public class InventoryClickListener implements Listener {
                     Communicator.sendInfo(p,"Schreibe den neuen Namen von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.character_one(u).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
-                    u.setCharacter(0);
                     p.closeInventory();
                     p.openInventory(InventoryManager.characterEditor(u));
                     p.playSound(p,Sound.BLOCK_ENDER_CHEST_OPEN,100,100);
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.character_two(u).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
-                    u.setCharacter(1);
                     p.closeInventory();
                     p.openInventory(InventoryManager.characterEditor(u));
                     p.playSound(p,Sound.BLOCK_ENDER_CHEST_OPEN,100,100);
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.character_three(u).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
-                    u.setCharacter(2);
                     p.closeInventory();
                     p.openInventory(InventoryManager.characterEditor(u));
                     p.playSound(p,Sound.BLOCK_ENDER_CHEST_OPEN,100,100);

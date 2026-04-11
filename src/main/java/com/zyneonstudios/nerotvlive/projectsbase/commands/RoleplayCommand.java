@@ -16,13 +16,14 @@ public class RoleplayCommand implements CommandExecutor {
         if(s instanceof Player player) {
             User u = Main.getUser(player);
             if(args.length == 0) {
-                Communicator.sendInfo(player,"§eRoleplay§8-§eModus§7 aktiviert§8: "+u.toggleRP());
+                u.setRoleplay(!u.isRoleplay());
+                Communicator.sendInfo(player,"§eRoleplay§8-§eModus§7 aktiviert§8: "+u.isRoleplay());
             } else {
                 if(args[0].equalsIgnoreCase("off")||args[0].equalsIgnoreCase("false")) {
-                    u.setRP(false);
+                    u.setRoleplay(false);
                     Communicator.sendInfo(player,"§eRoleplay§8-§eModus§7 deaktiviert");
                 } else if(args[0].equalsIgnoreCase("on")||args[0].equalsIgnoreCase("true")) {
-                    u.setRP(true);
+                    u.setRoleplay(true);
                     Communicator.sendInfo(player,"§eRoleplay§8-§eModus§7 aktiviert");
                 } else {
                     Communicator.sendError(s,"/roleplay §7[on/off]");

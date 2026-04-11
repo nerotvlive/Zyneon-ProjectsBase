@@ -17,7 +17,7 @@ public class PlayerChatListener implements Listener {
     public void onZyneonChat(ZyneonChatEvent e) {
         Player p = e.getPlayer();
         User u = Main.getUser(p);
-        if(u.isRP()) {
+        if(u.isRoleplay()) {
             onRoleplayChat(u,e.getMessage());
             e.setCancelled(true);
             return;
@@ -83,7 +83,7 @@ public class PlayerChatListener implements Listener {
             String[] words = e.getMessage().split("\\s+");
             int numOfWords = words.length;
             if(numOfWords==1) {
-                p.performCommand("char skin "+e.getMessage()+" "+u.getSkinVariant());
+                p.performCommand("char skin "+e.getMessage()+" ");
                 u.setChatMode("normal");
             } else {
                 Communicator.sendError(p,"Das ist keine gültige URL§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
@@ -99,11 +99,11 @@ public class PlayerChatListener implements Listener {
             int numOfWords = words.length;
             if(numOfWords==1) {
                 if(e.getMessage().equalsIgnoreCase("SLIM")) {
-                    u.setSkinVariant("slim");
+
                     u.setChatMode("character_skin");
                     Communicator.sendInfo(p,"Schreibe die neue Skin-URL von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
                 } else if(e.getMessage().equalsIgnoreCase("CLASSIC")) {
-                    u.setSkinVariant("classic");
+
                     u.setChatMode("character_skin");
                     Communicator.sendInfo(p,"Schreibe die neue Skin-URL von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
                 } else {
@@ -129,7 +129,7 @@ public class PlayerChatListener implements Listener {
         Player p = u.getPlayer();
         for(Player all : Bukkit.getOnlinePlayers()) {
             if(all.getWorld() == p.getWorld() && all.getLocation().distance(p.getLocation()) <= 30) {
-                all.sendMessage("§8[§6RP§8] §f"+u.getName(u.getCharacter())+"§8 » §7"+message);
+                all.sendMessage("§8[§6RP§8] §f"+"§8 » §7"+message);
             }
         }
     }

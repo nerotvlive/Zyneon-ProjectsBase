@@ -22,8 +22,9 @@ public class PlayerJoinListener implements Listener {
         Player p = e.getPlayer();
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
-        u.setupCharacter(u.getCharacter());
-        welcomePlayer(p, u);
+        if(!p.hasPlayedBefore()) {
+            p.teleport(getRandomSpawn());
+        }
         e.setJoinMessage("§8» §a"+p.getName());
     }
 
@@ -100,11 +101,5 @@ public class PlayerJoinListener implements Listener {
             Communicator.sendError(e.getMessage());
             return Bukkit.getWorlds().getFirst().getSpawnLocation();
         }
-    }
-
-    public static void welcomePlayer(Player p, User u) {
-        if(u.getJoined()) { return; }
-        p.teleport(getRandomSpawn());
-        u.setJoined(true);
     }
 }

@@ -1,7 +1,6 @@
 package com.zyneonstudios.nerotvlive.projectsbase.commands;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
-import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
 import org.bukkit.command.Command;
@@ -20,41 +19,7 @@ public class MoneyCommand implements CommandExecutor, TabCompleter {
         if(sender instanceof Player p) {
             if(p.hasPermission("zyneon.team")) {
                 if (args.length == 3) {
-                    User u = Main.getUser(p);
-                    if (args[0].equalsIgnoreCase("add")) {
-                        try {
-                            if(args[1].equalsIgnoreCase("salary")) {
-                                u.addSalary(Double.parseDouble(args[2]));
-                            } else {
-                                u.addBalance(Double.parseDouble(args[2]));
-                            }
-                        } catch (NumberFormatException e) {
-                            Communicator.sendError(p,"§cDu hast keine gültige Zahl angegeben.");
-                            return false;
-                        }
-                    } else if (args[0].equalsIgnoreCase("remove")) {
-                        try {
-                            if(args[1].equalsIgnoreCase("salary")) {
-                                u.removeSalary(Double.parseDouble(args[2]));
-                            } else {
-                                u.removeBalance(Double.parseDouble(args[2]));
-                            }
-                        } catch (NumberFormatException e) {
-                            Communicator.sendError(p,"§cDu hast keine gültige Zahl angegeben.");
-                            return false;
-                        }
-                    } else if (args[0].equalsIgnoreCase("set")) {
-                        try {
-                            if(args[1].equalsIgnoreCase("salary")) {
-                                u.setSalary(Double.parseDouble(args[2]));
-                            } else {
-                                u.setBalance(Double.parseDouble(args[2]));
-                            }
-                        } catch (NumberFormatException e) {
-                            Communicator.sendError(p,"§cDu hast keine gültige Zahl angegeben.");
-                            return false;
-                        }
-                    }
+
                 }
                 Communicator.sendInfo(p,"Dein Geld beträgt§8: §e"+ Main.economy.getBalance(p.getUniqueId()));
                 Communicator.sendInfo(p,"Dein Lohn beträgt§8: §e"+ Main.economy.getSalary(p.getUniqueId()));

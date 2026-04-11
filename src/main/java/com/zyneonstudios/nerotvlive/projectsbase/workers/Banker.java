@@ -29,7 +29,6 @@ public class Banker implements Listener {
     public static boolean deposit(UUID uuid, Integer amount) {
         Main.economy.set(uuid,Main.economy.getBalance(uuid)+amount,Main.economy.getSalary(uuid));
         if(Bukkit.getPlayer(uuid)!=null) {
-            Main.getUser(uuid).setBalance(Main.economy.getBalance(uuid));
         }
         return false;
     }
@@ -104,7 +103,6 @@ public class Banker implements Listener {
             } else {
                 player.getInventory().addItem(M1);
             }
-            u.removeBalance(finalAmount);
             return true;
         }
         return false;

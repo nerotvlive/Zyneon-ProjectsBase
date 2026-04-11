@@ -146,7 +146,6 @@ public class ItemManager {
         itemMeta.setDisplayName("§eAktuellen Charakter bearbeiten");
         ArrayList<String> lore = new ArrayList<>();
         lore.add("§eName§8: §7"+user.getName());
-        lore.add("§eJob§8: §7"+user.getJob());
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -168,7 +167,6 @@ public class ItemManager {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("§eJob bearbeiten");
         ArrayList<String> lore = new ArrayList<>();
-        lore.add("§eAktueller Job§8: §7"+user.getJob());
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -180,7 +178,6 @@ public class ItemManager {
         itemMeta.setDisplayName("§eAussehen bearbeiten §8(Skin URL)");
         ArrayList<String> lore = new ArrayList<>();
         lore.add("§eAktueller Skin§8: §7mache /char skin");
-        lore.add("§eAktuelle Variante§8:§7 "+user.getSkinVariant());
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -199,10 +196,7 @@ public class ItemManager {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("§eCharakter 1 auswählen");
         ArrayList<String> lore = new ArrayList<>();
-        lore.add("§eName§8:§7 "+user.getName(0));
-        lore.add("§eJob§8:§7 "+user.getJob(0));
         lore.add("§eSkin§8: §7Wähle dazu den Charakter aus");
-        lore.add("§eVariante§8:§7 "+user.getSkinVariant(0));
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -213,10 +207,7 @@ public class ItemManager {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("§eCharakter 2 auswählen");
         ArrayList<String> lore = new ArrayList<>();
-        lore.add("§eName§8:§7 "+user.getName(1));
-        lore.add("§eJob§8:§7 "+user.getJob(1));
         lore.add("§eSkin§8: §7Wähle dazu den Charakter aus");
-        lore.add("§eVariante§8:§7 "+user.getSkinVariant(1));
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -227,10 +218,6 @@ public class ItemManager {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("§eCharakter 3 auswählen");
         ArrayList<String> lore = new ArrayList<>();
-        lore.add("§eName§8:§7 "+user.getName(2));
-        lore.add("§eJob§8:§7 "+user.getJob(2));
-        lore.add("§eSkin§8: §7Wähle dazu den Charakter aus");
-        lore.add("§eVariante§8:§7 "+user.getSkinVariant(2));
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
