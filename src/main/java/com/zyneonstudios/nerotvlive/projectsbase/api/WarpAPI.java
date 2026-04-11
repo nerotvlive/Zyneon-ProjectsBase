@@ -1,7 +1,6 @@
 package com.zyneonstudios.nerotvlive.projectsbase.api;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
-import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Countdown;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.Storage;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -37,7 +36,6 @@ public class WarpAPI {
 
     public static boolean ifWarpExists(String warpName) {
         String name = warpName.toLowerCase();
-        Communicator.sendWarning(warps.getString("warps", name + ".e", 0));
         return !warps.getString("warps", name + ".e", 0).equalsIgnoreCase("null");
     }
 
