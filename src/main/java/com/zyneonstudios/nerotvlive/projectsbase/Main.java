@@ -232,6 +232,7 @@ public final class Main extends JavaPlugin {
         registerEvents(new PlayerInteractListener());
         registerEvents(new PlayerJoinListener());
         registerEvents(new PlayerQuitListener());
+        registerEvents(new PlayerRespawnListener());
 
         registerEvents(new Banker());
 
