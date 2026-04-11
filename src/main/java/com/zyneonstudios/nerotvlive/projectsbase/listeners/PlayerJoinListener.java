@@ -19,7 +19,7 @@ public class PlayerJoinListener implements Listener {
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
         u.setupCharacter(u.getCharacter());
-        //if (!u.getJoined()) { welcomePlayer(p, u); }
+        if (!u.getJoined()) { welcomePlayer(p, u); }
         e.setJoinMessage("§8» §a"+p.getName());
     }
 
@@ -59,7 +59,6 @@ public class PlayerJoinListener implements Listener {
             Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
                 if (p.isOnline()) {
                     p.teleport(WarpAPI.getWarp(finalName));
-                    WarpAPI.disableWarp(finalName);
                     u.setJoined(true);
                 }
             });
