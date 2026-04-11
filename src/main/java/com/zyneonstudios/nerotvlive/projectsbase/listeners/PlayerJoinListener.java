@@ -37,8 +37,8 @@ public class PlayerJoinListener implements Listener {
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
 
-        p.setPlayerListHeader("\n§cPrimal 4\n§cPrimal Aftermath\n");
-        p.setPlayerListFooter("\n§7by §fZYNEON PROJECTS\n§7from ZYNEON STUDIOS\n");
+        p.setPlayerListHeader("\n§r §r §cPrimal 4§r §r \n§r §r §cPrimal Aftermath§r §r \n");
+        p.setPlayerListFooter("\n§r §r §7by §fZYNEON PROJECTS§r §r \n§r §r §7from ZYNEON STUDIOS§r §r \n");
 
         if(!p.hasPlayedBefore()) {
             p.teleport(getRandomSpawn());

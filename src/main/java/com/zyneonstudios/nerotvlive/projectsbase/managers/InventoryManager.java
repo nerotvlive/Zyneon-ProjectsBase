@@ -20,11 +20,11 @@ public class InventoryManager {
 
     public static Inventory characterEditor(User user) {
         Inventory inventory = Bukkit.createInventory(null, InventoryType.HOPPER, "Charakter Editor");
-        inventory.setItem(0,ItemManager.characterEditor_name(user));
+        inventory.setItem(0,ItemManager.placeholder());
+        inventory.setItem(1,ItemManager.characterEditor_name(user));
         inventory.setItem(2,ItemManager.characterEditor_skin(user));
-        inventory.setItem(1,ItemManager.characterEditor_job(user));
-        inventory.setItem(3,ItemManager.placeholder());
-        inventory.setItem(4,ItemManager.backEditor());
+        inventory.setItem(3,ItemManager.characterEditor_job(user));
+        inventory.setItem(4,ItemManager.placeholder());
         return inventory;
     }
 

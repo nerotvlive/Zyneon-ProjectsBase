@@ -2,6 +2,7 @@ package com.zyneonstudios.nerotvlive.projectsbase.objects;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.Config;
+import net.skinsrestorer.api.property.SkinVariant;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -60,10 +61,12 @@ public class User {
         if(characters.isEmpty()) {
             Character character = new Character(UUID.randomUUID());
             character.setName("Unbekannt ("+name+")");
+            character.getSelectedSkin().setSkinUrl(name);
+            character.getSelectedSkin().setSkinVariant(SkinVariant.SLIM);
             characters.add(character.getUUID().toString());
             config.set("characters.selected", character.getUUID().toString());
-            config.set("characters.list", characters);
         }
+        config.set("characters.list", characters);
         this.characters = new ArrayList<>();
         for(String uuid : characters) {
             this.characters.add(new Character(UUID.fromString(uuid)));

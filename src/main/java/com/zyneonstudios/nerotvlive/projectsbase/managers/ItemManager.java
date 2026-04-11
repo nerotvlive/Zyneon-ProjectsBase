@@ -156,7 +156,7 @@ public class ItemManager {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("§eNamen bearbeiten");
         ArrayList<String> lore = new ArrayList<>();
-        lore.add("§eAktueller Name§8: §7"+user.getName());
+        lore.add("§eAktueller Name§8: §7"+user.getSelectedCharacter().getName());
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -167,6 +167,7 @@ public class ItemManager {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("§eJob bearbeiten");
         ArrayList<String> lore = new ArrayList<>();
+        lore.add("§eAktueller Job§8: §7"+user.getSelectedCharacter().getJob());
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -177,7 +178,6 @@ public class ItemManager {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("§eAussehen bearbeiten §8(Skin URL)");
         ArrayList<String> lore = new ArrayList<>();
-        lore.add("§eAktueller Skin§8: §7mache /char skin");
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
