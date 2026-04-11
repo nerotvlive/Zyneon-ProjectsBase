@@ -26,6 +26,7 @@ public class User {
     private String name;
     private int character;
     private Location lastLoc;
+    private String lastCity;
     private boolean isRP = false;
 
     public User(UUID uuid) {
@@ -54,6 +55,7 @@ public class User {
         inventoryMode = "normal";
         interactMode = "null";
         this.teamMode = false;
+        this.lastCity = Main.storage.get("users."+uuid, "city", 0).toString();
     }
 
     public void setupCharacter(int c) {
@@ -79,6 +81,11 @@ public class User {
         }
     }
 
+    public void setLastCity(String lastCity) {
+        Main.storage.set("users."+uuid,"city",lastCity,0);
+        this.lastCity = lastCity;
+    }
+
     public Location getLastLoc() {
         Location loc = lastLoc;
         if(lastLoc.add(0,1,0).getBlock().getType().toString().toLowerCase().contains("air")) {
@@ -89,6 +96,10 @@ public class User {
         } catch (Exception e) {
             return Bukkit.getWorlds().getFirst().getSpawnLocation();
         }
+    }
+
+    public String getLastCity() {
+        return lastCity;
     }
 
     public void setName(String name) {
