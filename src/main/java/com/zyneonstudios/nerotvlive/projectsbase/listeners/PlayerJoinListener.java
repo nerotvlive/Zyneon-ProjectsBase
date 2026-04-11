@@ -4,6 +4,7 @@ import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.api.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.SRLCommand;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,24 +40,32 @@ public class PlayerJoinListener implements Listener {
     }
 
     public static void welcomePlayer(Player p, User u) {
-        // rincon 16 warps, silberfels 30 warps
-        boolean teleported = false;
-        while (!teleported) {
-            String city = Math.random() > 0.5 ? "rincon" : "silberfels";
-            String warpNumber;
-            if (city.equals("rincon")) {
-                warpNumber = ((int) (Math.random() * 16)) + "";
-            } else {
-                warpNumber = ((int) (Math.random() * 30)) + "";
-            }
-            String warpString = city + "Hotel" + warpNumber;
-            if (WarpAPI.ifWarpExists(warpString) && WarpAPI.isWarpEnabled(warpString)) {
-                p.teleport(WarpAPI.getWarp(warpString));
-                WarpAPI.disableWarp(warpString);
-                teleported = true;
-            }
-        }
+        // Wir lagern die Datenbank-Suche in einen asynchronen Thread aus
+        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
+            boolean teleported = false;
+            String finalWarpName = null;
 
-        u.setJoined(true);
+            while (!teleported) {
+                String city = Math.random() > 0.5 ? "rincon" : "silberfels";
+                String warpNumber = (city.equals("rincon")) ? ((int)(Math.random() * 16)) + "" : ((int)(Math.random() * 30)) + "";
+                String warpString = city + "Hotel" + warpNumber;
+
+                // Diese Aufrufe blockieren jetzt nur den Async-Thread, nicht den Server
+                if (WarpAPI.ifWarpExists(warpString) && WarpAPI.isWarpEnabled(warpString)) {
+                    finalWarpName = warpString;
+                    teleported = true;
+                }
+            }
+
+            // Da Teleportation SYNC sein muss, springen wir zurück zum Main-Thread
+            String finalName = finalWarpName;
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
+                if (p.isOnline()) { // Immer prüfen, ob der Spieler noch da ist!
+                    p.teleport(WarpAPI.getWarp(finalName));
+                    WarpAPI.disableWarp(finalName);
+                    u.setJoined(true);
+                }
+            });
+        });
     }
 }
