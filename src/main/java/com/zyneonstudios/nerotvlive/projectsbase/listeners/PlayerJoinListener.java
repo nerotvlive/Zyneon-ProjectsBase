@@ -1,16 +1,19 @@
 package com.zyneonstudios.nerotvlive.projectsbase.listeners;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
-import com.zyneonstudios.nerotvlive.projectsbase.api.warp.Warp;
 import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.SRLCommand;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
+import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+
+import java.util.ArrayList;
 
 public class PlayerJoinListener implements Listener {
 
@@ -40,31 +43,68 @@ public class PlayerJoinListener implements Listener {
         }
     }
 
-    public static void welcomePlayer(Player p, User u) {
-        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
-            boolean teleported = false;
-            String finalWarpName = null;
+    private static ArrayList<String> warps = null;
+    private static void initSpawns() {
+        warps = new ArrayList<>();
+        for(int i = 1; i <= 30; i++) {
+            String name = "silberfelshotel"+i;
+            if(WarpAPI.ifWarpExists(name)) {
+                warps.add(name);
+            }
+        }
+        for(int i = 1; i <= 16; i++) {
+            String name = "rinconhotel"+i;
+            if(WarpAPI.ifWarpExists(name)) {
+                warps.add(name);
+            }
+        }
+    }
 
-            while (!teleported) {
-                String city = Math.random() > 0.5 ? "rincon" : "silberfels";
-                String warpNumber = (city.equals("rincon")) ? ((int)(Math.random() * 16)) + "" : ((int)(Math.random() * 30)) + "";
-                String warpString = city + "Hotel" + warpNumber;
-
-                if (WarpAPI.ifWarpExists(warpString) && WarpAPI.isWarpEnabled(warpString)) {
-                    finalWarpName = warpString;
-                    teleported = true;
+    private static Location getRandomSpawn() {
+        try {
+            if (warps == null) {
+                initSpawns();
+            }
+            String result = "silberfelshotel";
+            int max = 30;
+            boolean rincon = Math.random() < 0.5;
+            if (rincon) {
+                result = "rinconhotel";
+                max = 16;
+            }
+            for (int i = 1; i <= max; i++) {
+                String warpName = result + i;
+                if (warps.contains(warpName)) {
+                    return WarpAPI.getWarp(warpName).getLocation();
                 }
             }
-
-            String finalName = finalWarpName;
-            Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
-                if (p.isOnline()) {
-                    Warp warp = WarpAPI.getWarp(finalName);
-                    p.teleport(warp.getLocation());
-                    warp.setEnabled(false);
-                    u.setJoined(true);
+            if (rincon) {
+                result = "silberfelshotel";
+                max = 30;
+            } else {
+                result = "rinconhotel";
+                max = 16;
+            }
+            for (int i = 1; i <= max; i++) {
+                String warpName = result + i;
+                if (warps.contains(warpName)) {
+                    return WarpAPI.getWarp(warpName).getLocation();
                 }
-            });
-        });
+            }
+            if (rincon) {
+                return WarpAPI.getWarp("rincon").getLocation();
+            } else {
+                return WarpAPI.getWarp("silberfels").getLocation();
+            }
+        } catch (Exception e) {
+            Communicator.sendError(e.getMessage());
+            return Bukkit.getWorlds().getFirst().getSpawnLocation();
+        }
+    }
+
+    public static void welcomePlayer(Player p, User u) {
+        if(u.getJoined()) { return; }
+        p.teleport(getRandomSpawn());
+        u.setJoined(true);
     }
 }
