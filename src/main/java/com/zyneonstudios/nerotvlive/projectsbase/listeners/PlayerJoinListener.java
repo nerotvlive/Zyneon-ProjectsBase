@@ -23,7 +23,7 @@ public class PlayerJoinListener implements Listener {
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
         u.setupCharacter(u.getCharacter());
-        if (!u.getJoined()) { welcomePlayer(p, u); }
+        welcomePlayer(p, u);
         e.setJoinMessage("§8» §a"+p.getName());
     }
 

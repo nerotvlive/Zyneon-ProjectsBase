@@ -55,7 +55,11 @@ public class User {
         inventoryMode = "normal";
         interactMode = "null";
         this.teamMode = false;
-        this.lastCity = Main.storage.get("users."+uuid, "city", 0).toString();
+        try {
+            this.lastCity = Main.storage.get("users." + uuid, "city", 0).toString();
+        } catch (Exception e) {
+            setLastCity(Math.random() < 0.5 ? "silberfels" : "rincon");
+        }
     }
 
     public void setupCharacter(int c) {
