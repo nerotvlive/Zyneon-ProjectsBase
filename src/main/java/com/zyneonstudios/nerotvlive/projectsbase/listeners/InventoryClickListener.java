@@ -10,6 +10,7 @@ import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -62,14 +63,20 @@ public class InventoryClickListener implements Listener {
                         return;
                     }
                     if(u.isGrounded()) {
-                        p.closeInventory();
-                        if(WarpAPI.isWarpEnabled("farmwelt")) {
-                            p.teleport(WarpAPI.getWarp("farmwelt").getLocation());
+                        Location silberfels = WarpAPI.getWarp("silberfels").getLocation();
+                        Location rincon = WarpAPI.getWarp("rincon").getLocation();
+                        int distance_silberfels = (int) silberfels.distance(p.getLocation());
+                        int distance_rincon = (int) rincon.distance(p.getLocation());
+                        if (distance_silberfels < distance_rincon) {
+                            u.setLastCity("silberfels");
                         } else {
-                            p.teleport(Bukkit.getWorld(Strings.farmWorldName).getSpawnLocation());
+                            u.setLastCity("rincon");
                         }
+                        p.closeInventory();
+                        p.teleport(Bukkit.getWorld(Strings.farmWorldName).getSpawnLocation());
                         p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 100);
+                        WarpAPI.startWarpCooldown(p);
                     } else {
                         Communicator.sendError(p,"§cDazu musst du auf §4sicherem Boden§c stehen§8!");
                     }
@@ -129,6 +136,7 @@ public class InventoryClickListener implements Listener {
                             if (p.getWorld().equals(Bukkit.getWorlds().get(0))) {
                                 p.setLevel(p.getLevel() - 10);
                             }
+                            WarpAPI.startWarpCooldown(p);
                             p.closeInventory();
                             p.teleport(WarpAPI.getCurrentSpawn(p));
                             p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);

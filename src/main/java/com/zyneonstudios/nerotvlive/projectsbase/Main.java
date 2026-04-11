@@ -75,8 +75,12 @@ public final class Main extends JavaPlugin {
         instance = this;
 
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        scoreboard.registerNewTeam("all");
-        scoreboard.getTeam("all").setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+        scoreboard.registerNewTeam("offrp");
+        scoreboard.getTeam("offrp").setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+        scoreboard.getTeam("offrp").setPrefix("§7OffRP §8| §7");
+        scoreboard.registerNewTeam("rp");
+        scoreboard.getTeam("rp").setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+        scoreboard.getTeam("rp").setPrefix("§6RP §8| §7");
 
         checkConfig();
         initDatabase();

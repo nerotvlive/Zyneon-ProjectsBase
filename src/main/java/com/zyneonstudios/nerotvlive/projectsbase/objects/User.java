@@ -1,5 +1,6 @@
 package com.zyneonstudios.nerotvlive.projectsbase.objects;
 
+import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,7 +20,7 @@ public class User {
     private final OfflinePlayer offlinePlayer;
     private final String name;
     private Player player = null;
-    private boolean roleplay = false;
+    private boolean roleplay = true;
     private String lastCity = Math.random() < 0.5 ? "silberfels" : "rincon";
     private ArrayList<Character> characters = new ArrayList<>();
     private UUID selectedCharacter;
@@ -58,6 +59,7 @@ public class User {
         ArrayList<String> characters = (ArrayList<String>) config.get("characters.list");
         if(characters.isEmpty()) {
             Character character = new Character(UUID.randomUUID());
+            character.setName("Unbekannt ("+name+")");
             characters.add(character.getUUID().toString());
             config.set("characters.selected", character.getUUID().toString());
             config.set("characters.list", characters);
@@ -180,6 +182,18 @@ public class User {
 
     public void setRoleplay(boolean roleplay) {
         this.roleplay = roleplay;
+        if(Bukkit.getPlayer(uuid)!=null) {
+            Player p = Bukkit.getPlayer(uuid);
+            if(roleplay) {
+                Main.getScoreboard().getTeam("offrp").removePlayer(p);
+                Main.getScoreboard().getTeam("rp").addPlayer(p);
+                p.setPlayerListName(Main.getScoreboard().getTeam("rp").getPrefix()+getSelectedCharacter().getName());
+            } else {
+                Main.getScoreboard().getTeam("rp").removePlayer(p);
+                Main.getScoreboard().getTeam("offrp").addPlayer(p);
+                p.setPlayerListName(Main.getScoreboard().getTeam("offrp").getPrefix()+name);
+            }
+        }
     }
 
     public void setTeamMode(boolean teamMode) {

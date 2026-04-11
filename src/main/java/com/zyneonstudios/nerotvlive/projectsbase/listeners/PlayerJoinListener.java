@@ -33,13 +33,18 @@ public class PlayerJoinListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         p.setScoreboard(Main.getScoreboard());
-        Main.getScoreboard().getTeam("all").addPlayer(p);
+        Main.getScoreboard().getTeam("rp").addPlayer(p);
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
+
+        p.setPlayerListHeader("\n§cPrimal 4\n§cPrimal Aftermath\n");
+        p.setPlayerListFooter("\n§7by §fZYNEON PROJECTS\n§7from ZYNEON STUDIOS\n");
+
         if(!p.hasPlayedBefore()) {
             p.teleport(getRandomSpawn());
         }
         Character character = u.getSelectedCharacter();
+        p.setPlayerListName(p.getScoreboard().getTeam("rp").getPrefix()+character.getName());
         CharacterSkin skin = character.getSelectedSkin();
 
         try {
