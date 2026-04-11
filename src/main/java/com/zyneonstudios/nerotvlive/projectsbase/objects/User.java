@@ -113,7 +113,7 @@ public class User {
     }
 
     public void setJoined(boolean joined) {
-        Main.storage.set("profiles",uuid+"_joined",joined,0);
+        Main.storage.set("users."+uuid,"joined",joined,0);
     }
 
     public int getCharacter() {
@@ -169,7 +169,7 @@ public class User {
     }
 
     public boolean getJoined() {
-        return Main.storage.get("characters" + character, uuid + "_joined", 0) != null;
+        return Main.storage.get("users."+uuid, "joined", 0) != null;
     }
 
     public boolean isTeamMode() {
