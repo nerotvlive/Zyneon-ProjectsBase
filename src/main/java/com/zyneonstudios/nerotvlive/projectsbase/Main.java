@@ -19,7 +19,6 @@ import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.Config;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.MySQL;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.SQLite;
 import com.zyneonstudios.nerotvlive.projectsbase.weapons.WeaponMain;
-import com.zyneonstudios.nerotvlive.projectsbase.workers.Banker;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandExecutor;
@@ -112,7 +111,6 @@ public final class Main extends JavaPlugin {
         getListeners();
         economy = new Economy();
         Communicator.sendRaw("Successfully §aenabled §fProjectsBase§7 version §f"+version+"§8...");
-        System.gc();
     }
 
     @Override
@@ -132,7 +130,6 @@ public final class Main extends JavaPlugin {
 
     public static void checkConfig() {
         config = null;
-        System.gc();
         config = new Config("plugins/ProjectsBase/config.yml");
         config.checkEntry("Settings.Strings.prefixWord","Projekt");
         Strings.setPrefixWord(config.getCFG().getString("Settings.Strings.prefixWord"));
@@ -239,12 +236,9 @@ public final class Main extends JavaPlugin {
         registerEvents(new InventoryClickListener());
         registerEvents(new PlayerChatListener());
         registerEvents(new PlayerCommandListener());
-        registerEvents(new PlayerInteractListener());
         registerEvents(new PlayerJoinListener());
         registerEvents(new PlayerQuitListener());
         registerEvents(new PlayerRespawnListener());
-
-        registerEvents(new Banker());
 
         Communicator.sendRaw("§0");
         Communicator.sendRaw("§0");

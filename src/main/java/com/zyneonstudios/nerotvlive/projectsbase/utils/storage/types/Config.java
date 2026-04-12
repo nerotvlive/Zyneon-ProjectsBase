@@ -74,7 +74,6 @@ public class Config {
             Communicator.sendError(config.getAbsolutePath()+" could not be deleted");
         }
         config = null;
-        System.gc();
     }
 
     public void unload() {
@@ -82,6 +81,5 @@ public class Config {
         reloadConfig();
         config = null;
         cfg = null;
-        System.gc();
     }
 }

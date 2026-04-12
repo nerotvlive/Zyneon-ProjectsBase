@@ -40,6 +40,5 @@ public class SQLite {
             }
         }
         con = null;
-        System.gc();
     }
 }

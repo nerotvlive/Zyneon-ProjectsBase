@@ -72,6 +72,5 @@ public class MySQL {
         port = null;
         database = null;
         username = null;
-        System.gc();
     }
 }

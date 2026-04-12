@@ -405,7 +405,6 @@ public class Storage {
             this.sqLite = null;
         }
         this.type = null;
-        System.gc();
     }
 
     public enum storageType {

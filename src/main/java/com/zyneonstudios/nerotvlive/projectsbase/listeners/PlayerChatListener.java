@@ -6,7 +6,6 @@ import com.zyneonstudios.nerotvlive.projectsbase.objects.Character;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.CharacterSkin;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
-import com.zyneonstudios.nerotvlive.projectsbase.workers.Banker;
 import net.skinsrestorer.api.SkinsRestorer;
 import net.skinsrestorer.api.SkinsRestorerProvider;
 import net.skinsrestorer.api.property.InputDataResult;
@@ -38,18 +37,6 @@ public class PlayerChatListener implements Listener {
                 Communicator.sendInfo(p,"Vorgang abgebrochen§8!");
                 u.setChatMode("normal");
                 return;
-            }
-            try {
-                int amount = Integer.parseInt(check);
-                if(Banker.payout(p,amount)) {
-                    Communicator.sendInfo(p,"Du hast dir §e"+amount+"§mM§7 auszahlen lassen§8.");
-                    u.setChatMode("normal");
-                    return;
-                } else {
-                    Communicator.sendError(p,"Dazu hast du nicht genug Geld auf dem Konto!");
-                }
-            } catch (NumberFormatException ex) {
-                Communicator.sendError(p,"Du hast keinen gültigen Betrag eingegeben, bitte versuche es erneut.");
             }
             Communicator.sendWarning(p,"Schreibe \"cancel\" in den Chat, um die Auszahlung abzubrechen.");
         } else if(u.getChatMode().equalsIgnoreCase("character_name")) {
