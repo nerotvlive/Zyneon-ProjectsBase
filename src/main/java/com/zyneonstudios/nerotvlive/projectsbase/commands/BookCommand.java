@@ -21,7 +21,7 @@ public class BookCommand implements CommandExecutor {
                     p.getInventory().addItem(new ItemStack(Material.WRITABLE_BOOK));
                     p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
                 } else {
-                    Communicator.sendError(s, "§cDein Inventar ist voll8!");
+                    Communicator.sendError(s, "§cDein Inventar ist voll§8!");
                 }
             } else {
                 Communicator.sendError(s, Strings.needPlayer);
@@ -34,7 +34,7 @@ public class BookCommand implements CommandExecutor {
                         p.getInventory().addItem(new ItemStack(Material.WRITABLE_BOOK));
                         p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
                     } else {
-                        Communicator.sendError(s, "§cDas Inventar von §e"+p.getName()+"§c ist voll§8!");
+                        Communicator.sendError(s, "§cDas Inventar von §4"+p.getName()+"§c ist voll§8!");
                     }
                 } else {
                     Communicator.sendError(s, Strings.playerNotFound);
