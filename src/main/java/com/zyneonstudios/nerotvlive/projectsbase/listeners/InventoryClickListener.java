@@ -140,7 +140,7 @@ public class InventoryClickListener implements Listener {
                             }
                             WarpAPI.startWarpCooldown(p);
                             p.closeInventory();
-                            p.teleport(WarpAPI.getCurrentSpawn(p));
+                            p.teleport(WarpAPI.getCurrentSpawn(u));
                             p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);
                             p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 100);
                         } else {
