@@ -11,6 +11,7 @@ public class PlayerQuitListener implements Listener {
     @EventHandler
     public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
+        p.setOp(false);
         Main.onlineUsers.remove(p.getUniqueId());
         e.setQuitMessage("§8« §c"+p.getName());
     }
