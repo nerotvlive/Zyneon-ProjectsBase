@@ -1,6 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.api.warp;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
+import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Countdown;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.Storage;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -153,12 +154,29 @@ public class WarpAPI {
         return new Location(Bukkit.getWorld(warpStorage.getString("warps", name + ".w", 0)), warpStorage.getDouble("warps", name + ".x", 0), warpStorage.getDouble("warps", name + ".y", 0), warpStorage.getDouble("warps", name + ".z", 0), (float) warpStorage.getDouble("warps", name + ".a", 0), (float) warpStorage.getDouble("warps", name + ".p", 0));
     }
 
+    @Deprecated
     public static Location getCurrentSpawn(Player player) {
         try {
             if(ifWarpExists("spawn")&&isWarpEnabled("spawn")) {
                 return getWarp("spawn").getLocation();
             }
         } catch (Exception ignore) {}
+        return Bukkit.getWorlds().getFirst().getSpawnLocation();
+    }
+
+    public static Location getCurrentSpawn(User user) {
+        Player player = user.getPlayer();
+        if(player==null) {
+            if(Bukkit.getPlayer(user.getUUID())!=null) {
+                player = Bukkit.getPlayer(user.getUUID());
+                user.setPlayer(player);
+            }
+        }
+        if(user.getLastCity().equals("rincon")) {
+            return getWarp("rincon").getLocation();
+        } else if(user.getLastCity().equals("silberfels")) {
+            return getWarp("silberfels").getLocation();
+        }
         return Bukkit.getWorlds().getFirst().getSpawnLocation();
     }
 

@@ -63,14 +63,16 @@ public class InventoryClickListener implements Listener {
                         return;
                     }
                     if(u.isGrounded()) {
-                        Location silberfels = WarpAPI.getWarp("silberfels").getLocation();
-                        Location rincon = WarpAPI.getWarp("rincon").getLocation();
-                        int distance_silberfels = (int) silberfels.distance(p.getLocation());
-                        int distance_rincon = (int) rincon.distance(p.getLocation());
-                        if (distance_silberfels < distance_rincon) {
-                            u.setLastCity("silberfels");
-                        } else {
-                            u.setLastCity("rincon");
+                        if(p.getWorld().equals(Bukkit.getWorlds().get(0))) {
+                            Location silberfels = WarpAPI.getWarp("silberfels").getLocation();
+                            Location rincon = WarpAPI.getWarp("rincon").getLocation();
+                            int distance_silberfels = (int) silberfels.distance(p.getLocation());
+                            int distance_rincon = (int) rincon.distance(p.getLocation());
+                            if (distance_silberfels < distance_rincon) {
+                                u.setLastCity("silberfels");
+                            } else {
+                                u.setLastCity("rincon");
+                            }
                         }
                         p.closeInventory();
                         p.teleport(Bukkit.getWorld(Strings.farmWorldName).getSpawnLocation());

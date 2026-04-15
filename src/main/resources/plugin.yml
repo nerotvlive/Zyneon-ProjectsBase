@@ -40,7 +40,7 @@ commands:
     aliases: [pu,mohistoperatorcommand,magmaoperatorcommand,moc,op,operator,superuser,su]
   rain:
   roleplay:
-    aliases: [rp]
+    aliases: [rp,erpe,offrp,ooc]
   say:
   shout:
     aliases: [s,schreien]
