@@ -56,6 +56,32 @@ public class InventoryClickListener implements Listener {
                     p.closeInventory();
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.salary(p).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
+                } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.nether(p).getItemMeta().getDisplayName())) {
+                    e.setCancelled(true);
+                    if(WarpAPI.cooldown.contains(p.getUniqueId())) {
+                        Communicator.sendWarning(p,"Warte etwas, bevor du dich erneut teleportierst...");
+                        return;
+                    }
+                    if(u.isGrounded()) {
+                        if(p.getWorld().equals(Bukkit.getWorlds().get(0))) {
+                            Location silberfels = WarpAPI.getWarp("silberfels").getLocation();
+                            Location rincon = WarpAPI.getWarp("rincon").getLocation();
+                            int distance_silberfels = (int) silberfels.distance(p.getLocation());
+                            int distance_rincon = (int) rincon.distance(p.getLocation());
+                            if (distance_silberfels < distance_rincon) {
+                                u.setLastCity("silberfels");
+                            } else {
+                                u.setLastCity("rincon");
+                            }
+                        }
+                        p.closeInventory();
+                        p.teleport(Bukkit.getWorld("ne1").getSpawnLocation());
+                        p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);
+                        p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 100);
+                        WarpAPI.startWarpCooldown(p);
+                    } else {
+                        Communicator.sendError(p,"§cDazu musst du auf §4sicherem Boden§c stehen§8!");
+                    }
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.farmworld(p).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
                     if(WarpAPI.cooldown.contains(p.getUniqueId())) {

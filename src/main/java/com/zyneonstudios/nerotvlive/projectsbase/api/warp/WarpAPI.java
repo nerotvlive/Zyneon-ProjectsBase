@@ -204,7 +204,7 @@ public class WarpAPI {
         UUID uuid = player.getUniqueId();
         if(!cooldown.contains(uuid)) {
             cooldown.add(uuid);
-            new Countdown(60,Main.getInstance()) {
+            new Countdown(120,Main.getInstance()) {
                 @Override
                 public void count(int current) {
                     if(current==1) {

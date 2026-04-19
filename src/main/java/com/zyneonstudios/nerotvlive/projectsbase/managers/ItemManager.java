@@ -89,6 +89,22 @@ public class ItemManager {
         return item;
     }
 
+    public static ItemStack nether(Player player) {
+        ItemStack item;
+        item = new ItemStack(Material.NETHERRACK);
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setDisplayName("§eIn den Nether reisen");
+        ArrayList<String> lore = new ArrayList<>();
+        lore.add("§7Kosten§8: §aKostenlos");
+        lore.add("§7Das kannst du dir leisten§8.");
+        lore.add("§8----------------------");
+        lore.add("§7Level (jetzt)§8: §e" + player.getLevel());
+        lore.add("§7Level (danach)§8: §e" + player.getLevel());
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
     public static ItemStack deposit(Player player) {
         ItemStack itemStack;
         try {
