@@ -74,7 +74,7 @@ public class WeaponListener implements Listener {
                         case String s when s.startsWith("zyneon:rifle"):
                             player.getWorld().playSound(player.getLocation(), "zyneon:crossbow.rifle_shoot",2f,1f);
                             velocity = 2.0;
-                            damage = 3.0;
+                            damage = 2.7;
                             break;
                         default:
                             player.getWorld().playSound(player.getLocation(), "zyneon:crossbow.crossbow_shoot", 1f,1f);

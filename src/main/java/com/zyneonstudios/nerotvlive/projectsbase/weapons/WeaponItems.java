@@ -69,6 +69,7 @@ public class WeaponItems {
         weapons.put("hammer", getHammer());
         weapons.put("dagger", getDagger());
         weapons.put("baton", getBaton());
+        weapons.put("police_baton", getPoliceBaton());
     }
 
     private static ItemStack getFormattedCrossbow() {
@@ -199,8 +200,8 @@ public class WeaponItems {
     }
 
     public static ItemStack getDagger() {
-        ItemStack hammer = new ItemStack(Material.IRON_SWORD);
-        ItemMeta meta = hammer.getItemMeta();
+        ItemStack dagger = new ItemStack(Material.IRON_SWORD);
+        ItemMeta meta = dagger.getItemMeta();
 
         meta.setDisplayName("§r§fDolch");
         meta.setItemModel(new NamespacedKey("zyneon", "dagger"));
@@ -208,13 +209,13 @@ public class WeaponItems {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta = setMeleeAttributes(meta, 6.0, 2.0);
 
-        hammer.setItemMeta(meta);
-        return hammer;
+        dagger.setItemMeta(meta);
+        return dagger;
     }
 
     public static ItemStack getBaton() {
-        ItemStack hammer = new ItemStack(Material.WOODEN_SWORD);
-        ItemMeta meta = hammer.getItemMeta();
+        ItemStack baton = new ItemStack(Material.WOODEN_SWORD);
+        ItemMeta meta = baton.getItemMeta();
 
         meta.setDisplayName("§r§fKnüppel");
         meta.setItemModel(new NamespacedKey("zyneon", "baton"));
@@ -222,8 +223,22 @@ public class WeaponItems {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta = setMeleeAttributes(meta, 3.0, 1.0);
 
-        hammer.setItemMeta(meta);
-        return hammer;
+        baton.setItemMeta(meta);
+        return baton;
+    }
+
+    public static ItemStack getPoliceBaton() {
+        ItemStack policebaton = new ItemStack(Material.WOODEN_SWORD);
+        ItemMeta meta = policebaton.getItemMeta();
+
+        meta.setDisplayName("§r§fSchlagstock");
+        meta.setItemModel(new NamespacedKey("zyneon", "police_baton"));
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta = setMeleeAttributes(meta, 4.0, 1.0);
+
+        policebaton.setItemMeta(meta);
+        return policebaton;
     }
 
     private static ItemMeta setMeleeAttributes(ItemMeta meta, double attackDamage, double attackSpeed) {

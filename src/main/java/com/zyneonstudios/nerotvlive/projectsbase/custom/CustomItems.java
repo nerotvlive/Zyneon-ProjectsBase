@@ -1,11 +1,17 @@
 package com.zyneonstudios.nerotvlive.projectsbase.custom;
 
+import io.papermc.paper.datacomponent.DataComponentType;
+import io.papermc.paper.datacomponent.item.Consumable;
+import io.papermc.paper.datacomponent.item.consumable.ItemUseAnimation;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
 
@@ -32,6 +38,9 @@ public class CustomItems {
         customItems.put("mark_200", getMark(Variant.TWOHUNDRET));
 
         customItems.put("ice", getIce());
+        customItems.put("fishbasket", getFishbasket());
+        customItems.put("wrench", getWrench());
+        customItems.put("toolbox", getToolbox());
     }
 
     public static ItemStack getMark(Variant variant) {
@@ -55,6 +64,33 @@ public class CustomItems {
         meta.setItemModel(new NamespacedKey("zyneon", "ice"));
         ice.setItemMeta(meta);
         return ice;
+    }
+
+    public static ItemStack getFishbasket() {
+        ItemStack fishbasket = new ItemStack(Material.COOKED_BEEF);
+        ItemMeta meta = fishbasket.getItemMeta();
+        meta.setDisplayName("§r§fFischbrötchen");
+        meta.setItemModel(new NamespacedKey("zyneon", "fishbasket"));
+        fishbasket.setItemMeta(meta);
+        return fishbasket;
+    }
+
+    public static ItemStack getWrench(){
+        ItemStack wrench = new ItemStack(Material.DEBUG_STICK);
+        ItemMeta meta = wrench.getItemMeta();
+        meta.setDisplayName("§r§fSchraubenschlüssel");
+        meta.setEnchantmentGlintOverride(false);
+        wrench.setItemMeta(meta);
+        return wrench;
+    }
+
+    public static ItemStack getToolbox(){
+        ItemStack toolbox = new ItemStack(Material.STICK);
+        ItemMeta meta = toolbox.getItemMeta();
+        meta.setDisplayName("§r§fWerkzeugkasten");
+        meta.setItemModel(new NamespacedKey("zyneon", "toolbox"));
+        toolbox.setItemMeta(meta);
+        return toolbox;
     }
 
     public enum Variant {
