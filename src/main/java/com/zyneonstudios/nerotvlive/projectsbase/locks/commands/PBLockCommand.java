@@ -1,6 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.locks.commands;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
+import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.LockManager;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
@@ -16,24 +17,26 @@ public class PBLockCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender s, Command command, String label, String[] args) {
-        if(s instanceof Player p) {
-            User u = Main.getUser(p);
-            if(args.length == 0) {
-                Communicator.sendInfo(p,"Um einen Block öffentlich zu sichern§8,§7 mache §e/lock public§8.");
-                p.performCommand("lock private");
-            } else {
-                if(args[0].equalsIgnoreCase("private")) {
-                    u.setInteractMode("locking");
-                    Communicator.sendInfo(p,"Klicke den Block an§8,§7 den du §eprivat §7sichern möchtest§8...");
-                } else if(args[0].equalsIgnoreCase("public")) {
-                    u.setInteractMode("locking-public");
-                    Communicator.sendInfo(p,"Klicke den Block an§8,§7 den du §eöffentlich §7sichern möchtest§8...");
+        if(LockManager.enableLocks()) {
+            if (s instanceof Player p) {
+                User u = Main.getUser(p);
+                if (args.length == 0) {
+                    Communicator.sendInfo(p, "Um einen Block öffentlich zu sichern§8,§7 mache §e/lock public§8.");
+                    p.performCommand("lock private");
                 } else {
-                    Communicator.sendError(p,"/lock [private/public]");
+                    if (args[0].equalsIgnoreCase("private")) {
+                        u.setInteractMode("locking");
+                        Communicator.sendInfo(p, "Klicke den Block an§8,§7 den du §eprivat §7sichern möchtest§8...");
+                    } else if (args[0].equalsIgnoreCase("public")) {
+                        u.setInteractMode("locking-public");
+                        Communicator.sendInfo(p, "Klicke den Block an§8,§7 den du §eöffentlich §7sichern möchtest§8...");
+                    } else {
+                        Communicator.sendError(p, "/lock [private/public]");
+                    }
                 }
+            } else {
+                Communicator.sendError(s, Strings.needPlayer);
             }
-        } else {
-            Communicator.sendError(s,Strings.needPlayer);
         }
         return false;
     }
@@ -41,9 +44,11 @@ public class PBLockCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> completer = new ArrayList<>();
-        if(args.length == 1) {
-            completer.add("private");
-            completer.add("public");
+        if(LockManager.enableLocks()) {
+            if (args.length == 1) {
+                completer.add("private");
+                completer.add("public");
+            }
         }
         return completer;
     }

@@ -1,6 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.locks.commands;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
+import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.LockManager;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
@@ -13,12 +14,14 @@ public class PBUnlockCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender s, Command command, String label, String[] args) {
-        if(s instanceof Player p) {
-            User u = Main.getUser(p);
-            u.setInteractMode("unlocking");
-            Communicator.sendInfo(p,"Klicke den Block an§8,§7 den du entsichern möchtest§8...");
-        } else {
-            Communicator.sendError(s,Strings.needPlayer);
+        if(LockManager.enableLocks()) {
+            if (s instanceof Player p) {
+                User u = Main.getUser(p);
+                u.setInteractMode("unlocking");
+                Communicator.sendInfo(p, "Klicke den Block an§8,§7 den du entsichern möchtest§8...");
+            } else {
+                Communicator.sendError(s, Strings.needPlayer);
+            }
         }
         return false;
     }

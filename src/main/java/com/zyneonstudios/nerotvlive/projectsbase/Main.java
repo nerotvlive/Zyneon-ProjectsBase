@@ -4,11 +4,6 @@ import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.*;
 import com.zyneonstudios.nerotvlive.projectsbase.custom.CustomMain;
 import com.zyneonstudios.nerotvlive.projectsbase.listeners.*;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.PBLockCommand;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.PBLockModeCommand;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.PBTrustCommand;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.PBUnlockCommand;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.listeners.LockInteractListener;
 import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.LockManager;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
@@ -107,7 +102,7 @@ public final class Main extends JavaPlugin {
         }
         Communicator.sendRaw("§0");
         Communicator.sendInfo("Loading §elocks§8...");
-        LockManager.getLocks();
+        LockManager.enable();
         Communicator.sendRaw("§0");
         getCommands();
         getListeners();
@@ -145,6 +140,8 @@ public final class Main extends JavaPlugin {
         config.checkEntry("Settings.maintenance",true);
         config.checkEntry("Settings.modules.custom",false);
         config.checkEntry("Settings.modules.weapons",false);
+        config.checkEntry("Settings.modules.locks",true);
+        LockManager.setEnableLocks(config.getCFG().getBoolean("Settings.modules.locks"));
         Communicator.sendDebug = config.getCFG().getBoolean("Settings.debug");
         maintenance = config.getCFG().getBoolean("Settings.maintenance");
         config.checkEntry("Settings.mySQL.host","127.0.0.1");
@@ -177,12 +174,10 @@ public final class Main extends JavaPlugin {
         GodCommand godCommand = new GodCommand();
         HealCommand healCommand = new HealCommand();
         InvseeCommand invseeCommand = new InvseeCommand();
-        PBLockCommand pblockCommand = new PBLockCommand();
-        PBLockModeCommand pblockmodeCommand = new PBLockModeCommand();
         SpeedCommand speedCommand = new SpeedCommand();
         SRLCommand srlCommand = new SRLCommand();
         TellCommand tellCommand = new TellCommand();
-        PBTrustCommand trustCommand = new PBTrustCommand();
+
         WhitelistCommand whitelistCommand = new WhitelistCommand();
         ItemCommand itemCommand = new ItemCommand();
 
@@ -201,8 +196,6 @@ public final class Main extends JavaPlugin {
         initCommand(healCommand,healCommand);
         initCommand(invseeCommand,invseeCommand);
         initCommand(new MaintenanceCommand());
-        initCommand(pblockCommand,pblockCommand);
-        initCommand(pblockmodeCommand,pblockmodeCommand);
         initCommand(new NightCommand());
         initCommand(new RainCommand());
         initCommand(new RoleplayCommand());
@@ -214,8 +207,6 @@ public final class Main extends JavaPlugin {
         initCommand(new TeamCommand());
         initCommand(tellCommand,tellCommand);
         initCommand(new ThunderCommand());
-        initCommand(trustCommand,trustCommand);
-        initCommand(new PBUnlockCommand());
         initCommand(warpCommand,warpCommand);
         initCommand(new WhisperCommand());
         initCommand(whitelistCommand,whitelistCommand);
@@ -229,7 +220,6 @@ public final class Main extends JavaPlugin {
         Communicator.sendRaw("Initialize §e§l§nListeners§8...");
 
         registerEvents(new ExplosionListener());
-        registerEvents(new LockInteractListener());
         registerEvents(new InventoryClickListener());
         registerEvents(new PlayerChatListener());
         registerEvents(new PlayerCommandListener());
@@ -241,21 +231,21 @@ public final class Main extends JavaPlugin {
         Communicator.sendRaw("§0");
     }
 
-    private void initCommand(CommandExecutor command) {
+    public static void initCommand(CommandExecutor command) {
         Communicator.sendRaw("Loading §e"+command.getClass().getSimpleName()+"§7 (NT)§8...");
-        getCommand(command.getClass().getSimpleName().toLowerCase().replace("command","")).setExecutor(command);
+        getInstance().getCommand(command.getClass().getSimpleName().toLowerCase().replace("command","")).setExecutor(command);
     }
 
-    private void initCommand(CommandExecutor command, TabCompleter completer) {
+    public static void initCommand(CommandExecutor command, TabCompleter completer) {
         Communicator.sendRaw("Loading §e"+command.getClass().getSimpleName()+"§7 (TC)§8...");
-        getCommand(command.getClass().getSimpleName().toLowerCase().replace("command","")).setExecutor(command);
-        getCommand(command.getClass().getSimpleName().toLowerCase().replace("command","")).setTabCompleter(completer);
+        getInstance().getCommand(command.getClass().getSimpleName().toLowerCase().replace("command","")).setExecutor(command);
+        getInstance().getCommand(command.getClass().getSimpleName().toLowerCase().replace("command","")).setTabCompleter(completer);
 
     }
 
-    private void registerEvents(Listener listener) {
+    public static void registerEvents(Listener listener) {
         Communicator.sendRaw("Registering §e"+listener.getClass().getSimpleName()+"§8...");
-        Bukkit.getPluginManager().registerEvents(listener,this);
+        Bukkit.getPluginManager().registerEvents(listener,getInstance());
     }
 
     public static User getUser(UUID uuid) {
