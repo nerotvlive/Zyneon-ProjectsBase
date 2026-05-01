@@ -270,6 +270,7 @@ public class WeaponListener implements Listener {
                 @Override
                 public  void run(){
                     if(meta instanceof CrossbowMeta cbMeta){
+                        cbMeta.setChargedProjectiles(null);
                         cbMeta.addChargedProjectile(new ItemStack(Material.ARROW));
                         weapon.setItemMeta(cbMeta);
                     }
