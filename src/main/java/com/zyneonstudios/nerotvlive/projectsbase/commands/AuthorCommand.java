@@ -13,7 +13,7 @@ public class AuthorCommand implements CommandExecutor {
         Communicator.sendRaw(s,"§8================================");
         Communicator.sendRaw(s,"§0");
         Communicator.sendRaw(s,"§7Plugin§8: §fZyneon ProjectsBase");
-        Communicator.sendRaw(s,"§7Author§8: §cnerotvlive");
+        Communicator.sendRaw(s,"§7Authors§8: §eBlack_0mega§8, §aDerFantastico§8, §cnerotvlive");
         Communicator.sendRaw(s,"§7Version§8: §b"+Main.version);
         Communicator.sendRaw(s,"§0");
         Communicator.sendRaw(s,"§8================================");

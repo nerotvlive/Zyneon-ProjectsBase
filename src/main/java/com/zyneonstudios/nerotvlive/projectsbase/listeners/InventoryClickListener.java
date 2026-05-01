@@ -4,11 +4,18 @@ import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.managers.InventoryManager;
 import com.zyneonstudios.nerotvlive.projectsbase.managers.ItemManager;
+import com.zyneonstudios.nerotvlive.projectsbase.objects.Character;
+import com.zyneonstudios.nerotvlive.projectsbase.objects.CharacterSkin;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.skinsrestorer.api.SkinsRestorer;
+import net.skinsrestorer.api.SkinsRestorerProvider;
+import net.skinsrestorer.api.property.InputDataResult;
+import net.skinsrestorer.api.storage.PlayerStorage;
+import net.skinsrestorer.api.storage.SkinStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -19,7 +26,13 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
+import java.util.Optional;
+
 public class InventoryClickListener implements Listener {
+
+    SkinsRestorer skinsRestorerAPI = SkinsRestorerProvider.get();
+    SkinStorage skinStorage = skinsRestorerAPI.getSkinStorage();
+    PlayerStorage playerStorage = skinsRestorerAPI.getPlayerStorage();
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
@@ -119,19 +132,61 @@ public class InventoryClickListener implements Listener {
                     Communicator.sendInfo(p,"Schreibe den neuen Namen von deinem Charakter in den Chat§8. §7Schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8.");
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.character_one(u).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
+                    u.setSelectedCharacter(0);
                     p.closeInventory();
                     p.openInventory(InventoryManager.characterEditor(u));
                     p.playSound(p,Sound.BLOCK_ENDER_CHEST_OPEN,100,100);
+                    Communicator.sendInfo(p, "Du bist nun§8: §e"+u.getSelectedCharacter().getName());
+                    Character character = u.getSelectedCharacter();
+                    CharacterSkin skin = character.getSelectedSkin();
+                    try {
+                        Optional<InputDataResult> result = skinStorage.findOrCreateSkinData(skin.getSkinUrl());
+                        if(result.isPresent()) {
+                            playerStorage.setSkinIdOfPlayer(p.getUniqueId(), result.get().getIdentifier());
+                            skinsRestorerAPI.getSkinApplier(Player.class).applySkin(p);
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    u.initListName();
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.character_two(u).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
+                    u.setSelectedCharacter(1);
                     p.closeInventory();
                     p.openInventory(InventoryManager.characterEditor(u));
                     p.playSound(p,Sound.BLOCK_ENDER_CHEST_OPEN,100,100);
+                    Communicator.sendInfo(p, "Du bist nun§8: §e"+u.getSelectedCharacter().getName());
+                    Character character = u.getSelectedCharacter();
+                    CharacterSkin skin = character.getSelectedSkin();
+                    try {
+                        Optional<InputDataResult> result = skinStorage.findOrCreateSkinData(skin.getSkinUrl());
+                        if(result.isPresent()) {
+                            playerStorage.setSkinIdOfPlayer(p.getUniqueId(), result.get().getIdentifier());
+                            skinsRestorerAPI.getSkinApplier(Player.class).applySkin(p);
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    u.initListName();
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.character_three(u).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
+                    u.setSelectedCharacter(2);
                     p.closeInventory();
                     p.openInventory(InventoryManager.characterEditor(u));
                     p.playSound(p,Sound.BLOCK_ENDER_CHEST_OPEN,100,100);
+                    Communicator.sendInfo(p, "Du bist nun§8: §e"+u.getSelectedCharacter().getName());
+                    Character character = u.getSelectedCharacter();
+                    CharacterSkin skin = character.getSelectedSkin();
+                    try {
+                        Optional<InputDataResult> result = skinStorage.findOrCreateSkinData(skin.getSkinUrl());
+                        if(result.isPresent()) {
+                            playerStorage.setSkinIdOfPlayer(p.getUniqueId(), result.get().getIdentifier());
+                            skinsRestorerAPI.getSkinApplier(Player.class).applySkin(p);
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    u.initListName();
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ItemManager.characterEditor_job(u).getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
                     p.closeInventory();

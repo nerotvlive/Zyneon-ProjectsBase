@@ -53,6 +53,7 @@ public class PlayerChatListener implements Listener {
                 u.getSelectedCharacter().setName(e.getMessage());
                 u.setChatMode("normal");
                 u.setRoleplay(u.isRoleplay());
+                u.initListName();
             } else {
                 Communicator.sendError(p,"Du darfst maximal 3 und musst minimal 2 Wörter für einen Namen angeben§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
             }
@@ -69,6 +70,8 @@ public class PlayerChatListener implements Listener {
                 Communicator.sendInfo(p,"Dein Charakter hat nun den Job§8: §e"+e.getMessage());
                 u.getSelectedCharacter().setJob(e.getMessage());
                 u.setChatMode("normal");
+                u.setRoleplay(u.isRoleplay());
+                u.initListName();
             } else {
                 Communicator.sendError(p,"Du darfst maximal ein Wort für deinen Job angeben§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
             }

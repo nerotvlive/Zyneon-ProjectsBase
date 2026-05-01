@@ -57,15 +57,27 @@ public class User {
 
     private void initCharacters() {
         config.checkEntry("characters.list", new ArrayList<>());
-        ArrayList<String> characters = (ArrayList<String>) config.get("characters.list");
         if(characters.isEmpty()) {
-            Character character = new Character(UUID.randomUUID());
-            character.setName("Unbekannt ("+name+")");
-            character.getSelectedSkin().setSkinUrl(name);
-            character.getSelectedSkin().setSkinVariant(SkinVariant.SLIM);
-            characters.add(character.getUUID().toString());
-            config.set("characters.selected", character.getUUID().toString());
+            addNewCharacter();
+            addNewCharacter();
+            addNewCharacter();
+        } else if(characters.size()<2) {
+            addNewCharacter();
+            addNewCharacter();
+        } else if(characters.size()<3) {
+            addNewCharacter();
         }
+        config.checkEntry("characters.selected", characters.getFirst());
+        selectedCharacter = UUID.fromString(config.get("characters.selected").toString());
+    }
+
+    public void addNewCharacter() {
+        ArrayList<String> characters = (ArrayList<String>) config.get("characters.list");
+        Character character = new Character(UUID.randomUUID());
+        character.setName("Unbekannt ("+name+")");
+        character.getSelectedSkin().setSkinUrl(name);
+        character.getSelectedSkin().setSkinVariant(SkinVariant.SLIM);
+        characters.add(character.getUUID().toString());
         config.set("characters.list", characters);
         this.characters = new ArrayList<>();
         for(String uuid : characters) {
@@ -190,10 +202,20 @@ public class User {
             if(roleplay) {
                 Main.getScoreboard().getTeam("offrp").removePlayer(p);
                 Main.getScoreboard().getTeam("rp").addPlayer(p);
-                p.setPlayerListName(Main.getScoreboard().getTeam("rp").getPrefix()+getSelectedCharacter().getName());
             } else {
                 Main.getScoreboard().getTeam("rp").removePlayer(p);
                 Main.getScoreboard().getTeam("offrp").addPlayer(p);
+            }
+            initListName();
+        }
+    }
+
+    public void initListName() {
+        if(Bukkit.getPlayer(uuid)!=null) {
+            Player p = Bukkit.getPlayer(uuid);
+            if(roleplay) {
+                p.setPlayerListName("§6" + getSelectedCharacter().getJob()+" §8| §f"+getSelectedCharacter().getName());
+            } else {
                 p.setPlayerListName(Main.getScoreboard().getTeam("offrp").getPrefix()+name);
             }
         }

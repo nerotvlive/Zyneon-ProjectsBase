@@ -18,13 +18,13 @@ public class ZyneonChatEvent extends Event implements Cancellable {
         this.player = player;
         this.message = message;
         if(player.hasPermission("zyneon.team")) {
-            rank = "§8[§cTeam§8] §f";
+            rank = "§8[§7OOC§8] §7";
         } else if(player.hasPermission("zyneon.creator")) {
-            rank = "§8[§dCreator§8] §f";
+            rank = "§8[§7OOC§8] §7";
         }/* else if(player.hasPermission("zyneon.premium")) {
             rank = "§8[§6Premium§8] §f";
         }*/ else {
-            rank = "§8[§7Member§8] §f";
+            rank = "§8[§7OOC§8] §7";
         }
         name = rank+player.getName();
     }

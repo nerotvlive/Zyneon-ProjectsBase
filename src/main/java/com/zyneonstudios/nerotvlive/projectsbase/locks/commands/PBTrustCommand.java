@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TrustCommand implements CommandExecutor, TabCompleter {
+public class PBTrustCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender s, Command command, String label, String[] args) {

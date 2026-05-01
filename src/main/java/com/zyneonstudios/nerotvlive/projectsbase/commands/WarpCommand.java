@@ -36,6 +36,10 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
             Communicator.sendError(s, Strings.needPlayer);
         } else {
             User u = Main.getUser(p);
+            if(u.isRoleplay()) {
+                Communicator.sendError(p, "§cDu darfst dich im Roleplay Modus nicht teleportieren§8. (Benutze /warp nicht zur RP Flucht!)");
+                return false;
+            }
             if (args.length == 0) {
                 p.openInventory(InventoryManager.spawnInventory(p));
                 p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);

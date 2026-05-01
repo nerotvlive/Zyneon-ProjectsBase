@@ -210,10 +210,8 @@ public class ItemManager {
     public static ItemStack character_one(User user) {
         ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName("§eCharakter 1 auswählen");
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add("§eSkin§8: §7Wähle dazu den Charakter aus");
-        itemMeta.setLore(lore);
+        itemMeta.setDisplayName("§e"+user.getCharacters().getFirst().getName()+" (1) auswählen");
+        itemMeta.setLore(new ArrayList<>());
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
@@ -221,10 +219,8 @@ public class ItemManager {
     public static ItemStack character_two(User user) {
         ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName("§eCharakter 2 auswählen");
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add("§eSkin§8: §7Wähle dazu den Charakter aus");
-        itemMeta.setLore(lore);
+        itemMeta.setDisplayName("§e"+user.getCharacters().get(1).getName()+" (2) auswählen");
+        itemMeta.setLore(new ArrayList<>());
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
@@ -232,9 +228,8 @@ public class ItemManager {
     public static ItemStack character_three(User user) {
         ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName("§eCharakter 3 auswählen");
-        ArrayList<String> lore = new ArrayList<>();
-        itemMeta.setLore(lore);
+        itemMeta.setDisplayName("§e"+user.getCharacters().get(2).getName()+" (3) auswählen");
+        itemMeta.setLore(new ArrayList<>());
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }

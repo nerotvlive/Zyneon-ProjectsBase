@@ -45,8 +45,8 @@ public class PlayerJoinListener implements Listener {
             p.teleport(getRandomSpawn());
         }
         Character character = u.getSelectedCharacter();
-        p.setPlayerListName(p.getScoreboard().getTeam("rp").getPrefix()+character.getName());
         CharacterSkin skin = character.getSelectedSkin();
+        u.initListName();
 
         try {
             Optional<InputDataResult> result = skinStorage.findOrCreateSkinData(skin.getSkinUrl());
@@ -67,7 +67,7 @@ public class PlayerJoinListener implements Listener {
             e.setKickMessage("§cDer Server startet zurzeit neu§8,§c versuch es später erneut§8!");
             e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
         } else if(Main.maintenance) {
-            if(!e.getPlayer().hasPermission("zyneon.team")) {
+            if(!e.getPlayer().hasPermission("zyneon.teammode")) {
                 e.setKickMessage("§cDer Server ist zurzeit im Wartungsmodus§8,§c versuch es später erneut§8!");
                 e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
             }

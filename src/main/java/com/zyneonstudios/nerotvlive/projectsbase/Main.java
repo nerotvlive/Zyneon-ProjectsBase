@@ -4,10 +4,10 @@ import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.*;
 import com.zyneonstudios.nerotvlive.projectsbase.custom.CustomMain;
 import com.zyneonstudios.nerotvlive.projectsbase.listeners.*;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.LockCommand;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.LockModeCommand;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.TrustCommand;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.UnlockCommand;
+import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.PBLockCommand;
+import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.PBLockModeCommand;
+import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.PBTrustCommand;
+import com.zyneonstudios.nerotvlive.projectsbase.locks.commands.PBUnlockCommand;
 import com.zyneonstudios.nerotvlive.projectsbase.locks.listeners.LockInteractListener;
 import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.LockManager;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
@@ -77,10 +77,10 @@ public final class Main extends JavaPlugin {
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         scoreboard.registerNewTeam("offrp");
         scoreboard.getTeam("offrp").setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
-        scoreboard.getTeam("offrp").setPrefix("§7OffRP §8| §7");
+        scoreboard.getTeam("offrp").setPrefix("§8OOC | ");
         scoreboard.registerNewTeam("rp");
         scoreboard.getTeam("rp").setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
-        scoreboard.getTeam("rp").setPrefix("§6RP §8| §7");
+        scoreboard.getTeam("rp").setPrefix("§6RP §8| §f");
 
         checkConfig();
         initDatabase();
@@ -178,14 +178,14 @@ public final class Main extends JavaPlugin {
         HealCommand healCommand = new HealCommand();
         InvseeCommand invseeCommand = new InvseeCommand();
         MoneyCommand moneyCommand = new MoneyCommand();
-        LockCommand lockCommand = new LockCommand();
-        LockModeCommand lockmodeCommand = new LockModeCommand();
+        PBLockCommand pblockCommand = new PBLockCommand();
+        PBLockModeCommand pblockmodeCommand = new PBLockModeCommand();
         PingCommand pingCommand = new PingCommand();
         PowerUserCommand powerUserCommand = new PowerUserCommand();
         SpeedCommand speedCommand = new SpeedCommand();
         SRLCommand srlCommand = new SRLCommand();
         TellCommand tellCommand = new TellCommand();
-        TrustCommand trustCommand = new TrustCommand();
+        PBTrustCommand trustCommand = new PBTrustCommand();
         WhitelistCommand whitelistCommand = new WhitelistCommand();
         ItemCommand itemCommand = new ItemCommand();
 
@@ -204,8 +204,8 @@ public final class Main extends JavaPlugin {
         initCommand(invseeCommand,invseeCommand);
         initCommand(new MaintenanceCommand());
         initCommand(moneyCommand,moneyCommand);
-        initCommand(lockCommand,lockCommand);
-        initCommand(lockmodeCommand,lockmodeCommand);
+        initCommand(pblockCommand,pblockCommand);
+        initCommand(pblockmodeCommand,pblockmodeCommand);
         initCommand(new NightCommand());
         initCommand(pingCommand,pingCommand);
         initCommand(powerUserCommand,powerUserCommand);
@@ -220,7 +220,7 @@ public final class Main extends JavaPlugin {
         initCommand(tellCommand,tellCommand);
         initCommand(new ThunderCommand());
         initCommand(trustCommand,trustCommand);
-        initCommand(new UnlockCommand());
+        initCommand(new PBUnlockCommand());
         initCommand(warpCommand,warpCommand);
         initCommand(new WhisperCommand());
         initCommand(whitelistCommand,whitelistCommand);

@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LockCommand implements CommandExecutor, TabCompleter {
+public class PBLockCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender s, Command command, String label, String[] args) {

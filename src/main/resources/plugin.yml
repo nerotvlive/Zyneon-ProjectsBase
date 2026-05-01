@@ -2,7 +2,7 @@ name: ProjectsBase
 version: '${project.version}'
 main: com.zyneonstudios.nerotvlive.projectsbase.Main
 api-version: 1.21
-authors: [ nerotvlive ]
+authors: [ nerotvlive, DerFantastico, Black_0mega ]
 description: The base of Zyneon projects.
 
 commands:
@@ -30,11 +30,9 @@ commands:
   invsee:
   maintenance:
   money:
-  lock:
-  lockmode:
+  pblock:
+  pblockmode:
   night:
-  npc:
-    aliases: [pnpc]
   ping:
   poweruser:
     aliases: [pu,mohistoperatorcommand,magmaoperatorcommand,moc,op,operator,superuser,su]
@@ -53,8 +51,8 @@ commands:
   tell:
     aliases: [t,m,msg]
   thunder:
-  trust:
-  unlock:
+  pbtrust:
+  pbunlock:
   warp:
     aliases: [spawn]
   whisper:
@@ -64,4 +62,3 @@ commands:
   world:
     aliases: [welt,map,karte]
   skin:
-  test:
