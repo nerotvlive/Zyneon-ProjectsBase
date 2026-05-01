@@ -6,7 +6,7 @@
 
     <groupId>nerotvlive</groupId>
     <artifactId>ProjectsBase</artifactId>
-    <version>26.0</version>
+    <version>26.0.1</version>
     <packaging>jar</packaging>
 
     <name>ProjectsBase</name>
