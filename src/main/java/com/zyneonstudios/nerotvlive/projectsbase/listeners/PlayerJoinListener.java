@@ -13,6 +13,7 @@ import net.skinsrestorer.api.property.InputDataResult;
 import net.skinsrestorer.api.storage.PlayerStorage;
 import net.skinsrestorer.api.storage.SkinStorage;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,6 +38,10 @@ public class PlayerJoinListener implements Listener {
         Main.getScoreboard().getTeam("rp").addPlayer(p);
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
+        if(!p.getGameMode().equals(GameMode.SURVIVAL)&&(p.isOp()||p.hasPermission("zyneon.teammode"))) {
+            u.setTeamMode(true);
+            Communicator.sendInfo(p,"Teammodus§8: §etrue");
+        }
 
         p.setPlayerListHeader("\n§r §r §cPrimal 4§r §r \n§r §r §cPrimal Aftermath§r §r \n");
         p.setPlayerListFooter("\n§r §r §7by §fZYNEON PROJECTS§r §r \n§r §r §7from ZYNEON STUDIOS§r §r \n");
