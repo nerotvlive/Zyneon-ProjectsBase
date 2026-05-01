@@ -92,6 +92,7 @@ public class InventoryClickListener implements Listener {
                         p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 100);
                         WarpAPI.startWarpCooldown(p);
+                        u.initListName();
                     } else {
                         Communicator.sendError(p,"§cDazu musst du auf §4sicherem Boden§c stehen§8!");
                     }
@@ -118,6 +119,7 @@ public class InventoryClickListener implements Listener {
                         p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 100);
                         WarpAPI.startWarpCooldown(p);
+                        u.initListName();
                     } else {
                         Communicator.sendError(p,"§cDazu musst du auf §4sicherem Boden§c stehen§8!");
                     }
@@ -224,6 +226,7 @@ public class InventoryClickListener implements Listener {
                             p.teleport(WarpAPI.getCurrentSpawn(u));
                             p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100, 100);
                             p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 100);
+                            u.initListName();
                         } else {
                             Communicator.sendError(p,"§cDazu musst du auf §4sicherem Boden§c stehen§8!");
                         }

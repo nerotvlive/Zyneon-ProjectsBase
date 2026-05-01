@@ -65,13 +65,19 @@ public class ItemCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
+        ArrayList<String> completer = new ArrayList<>();
         if(sender.hasPermission("zyneon.team")) {
             if(args.length == 1) {
                 ArrayList<String> list = new ArrayList<>(WeaponItems.getWeapons().keySet());
                 list.addAll(CustomItems.getCustomItems().keySet());
-                return list;
+                for(String id:list) {
+                    if(id.contains(args[0])) {
+                        completer.add(id);
+                    }
+                }
+                return completer;
             }
         }
-        return List.of();
+        return completer;
     }
 }

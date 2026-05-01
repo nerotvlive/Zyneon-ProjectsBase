@@ -8,12 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import java.util.ArrayList;
-import java.util.List;
 
-public class SRLCommand implements CommandExecutor, TabCompleter {
+public class SRLCommand implements CommandExecutor {
 
     public static Countdown countdown = null;
 
@@ -82,18 +79,5 @@ public class SRLCommand implements CommandExecutor, TabCompleter {
             }
         };
         countdown.start();
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender s, Command cmd, String label, String[] args) {
-        ArrayList<String> completer = new ArrayList<>();
-        if(args.length==1) {
-            completer.add("instant");
-            completer.add("countdown");
-            completer.add("reloadSource");
-            completer.add("reloadBase");
-            completer.add("stopCountdown");
-        }
-        return completer;
     }
 }

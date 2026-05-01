@@ -4,6 +4,7 @@ import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,6 +16,12 @@ public class RoleplayCommand implements CommandExecutor {
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
         if(s instanceof Player player) {
             User u = Main.getUser(player);
+            if(!player.getWorld().equals(Bukkit.getWorlds().getFirst())) {
+                u.setRoleplay(false);
+                u.initListName();
+                Communicator.sendError(player,"§cDu kannst diesen Befehl nur in der Roleplay-Welt ausführen!");
+                return true;
+            }
             if(args.length == 0) {
                 u.setRoleplay(!u.isRoleplay());
                 Communicator.sendInfo(player,"§eRoleplay§8-§eModus§7 aktiviert§8: "+u.isRoleplay());

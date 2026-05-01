@@ -44,11 +44,13 @@ public class BroadcastCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender s, Command cmd, String label, String[] args) {
         ArrayList<String> completer = new ArrayList<>();
-        if(args.length==1) {
-            completer.add("error");
-            completer.add("info");
-            completer.add("raw");
-            completer.add("warning");
+        if(s.hasPermission("zyneon.team")) {
+            if(args.length==1) {
+                completer.add("error");
+                completer.add("info");
+                completer.add("raw");
+                completer.add("warning");
+            }
         }
         return completer;
     }

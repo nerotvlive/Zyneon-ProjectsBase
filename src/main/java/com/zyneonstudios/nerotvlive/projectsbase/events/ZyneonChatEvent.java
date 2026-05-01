@@ -1,5 +1,6 @@
 package com.zyneonstudios.nerotvlive.projectsbase.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -23,7 +24,9 @@ public class ZyneonChatEvent extends Event implements Cancellable {
             rank = "§8[OOC§8] §7";
         }/* else if(player.hasPermission("zyneon.premium")) {
             rank = "§8[§6Premium§8] §f";
-        }*/ else {
+        }*/ else if(!player.getWorld().equals(Bukkit.getWorlds().getFirst())) {
+            rank = "§8[FARM§8] §7";
+        } else {
             rank = "§8[OOC§8] §7";
         }
         name = rank+player.getName();

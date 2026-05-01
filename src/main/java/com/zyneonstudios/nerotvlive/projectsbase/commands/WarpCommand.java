@@ -139,36 +139,33 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender s, Command cmd, String label, String[] args) {
         ArrayList<String> completer = new ArrayList<>();
-        if (cmd.getName().equalsIgnoreCase("warp")) {
-            if (args.length == 1) {
-                completer.add("list");
-                completer.add("set");
-                completer.add("del");
-                completer.add("delete");
-                completer.add("rem");
-                completer.add("remove");
-                completer.add("enable");
-                completer.add("disable");
-                completer.add("toggle");
-                completer.add("tp");
-                completer.add("teleport");
-                for(String warp:WarpAPI.getWarpNames()) {
-                    if(WarpAPI.ifWarpExists(warp) && WarpAPI.isWarpEnabled(warp)) {
-                        completer.add(warp);
-                    }
-                }
-            } else if (args.length == 2) {
-                if(args[0].equalsIgnoreCase("toggle")||args[0].equalsIgnoreCase("del")||args[0].equalsIgnoreCase("delete")||args[0].equalsIgnoreCase("rem")||args[0].equalsIgnoreCase("remove")) {
-                    for(String warp:WarpAPI.getWarpNames()) {
-                        if(WarpAPI.ifWarpExists(warp)) completer.add(warp);
-                    }
-                } else if(args[0].equalsIgnoreCase("disable")||args[0].equalsIgnoreCase("tp")||args[0].equalsIgnoreCase("teleport")) {
-                    for(String warp:WarpAPI.getWarpNames()) {
-                        if(WarpAPI.ifWarpExists(warp)&&WarpAPI.isWarpEnabled(warp)) completer.add(warp);
-                    }
-                } else if(args[0].equalsIgnoreCase("enable")) {
-                    for(String warp:WarpAPI.getWarpNames()) {
-                        if(WarpAPI.ifWarpExists(warp)&&!WarpAPI.isWarpEnabled(warp)) completer.add(warp);
+        if(s.hasPermission("zyneon.team")) {
+            if (cmd.getName().equalsIgnoreCase("warp")) {
+                if (args.length == 1) {
+                    completer.add("list");
+                    completer.add("set");
+                    completer.add("del");
+                    completer.add("delete");
+                    completer.add("rem");
+                    completer.add("remove");
+                    completer.add("enable");
+                    completer.add("disable");
+                    completer.add("toggle");
+                    completer.add("tp");
+                    completer.add("teleport");
+                } else if (args.length == 2) {
+                    if(args[0].equalsIgnoreCase("toggle")||args[0].equalsIgnoreCase("del")||args[0].equalsIgnoreCase("delete")||args[0].equalsIgnoreCase("rem")||args[0].equalsIgnoreCase("remove")) {
+                        for(String warp:WarpAPI.getWarpNames()) {
+                            if(WarpAPI.ifWarpExists(warp)) completer.add(warp);
+                        }
+                    } else if(args[0].equalsIgnoreCase("disable")||args[0].equalsIgnoreCase("tp")||args[0].equalsIgnoreCase("teleport")) {
+                        for(String warp:WarpAPI.getWarpNames()) {
+                            if(WarpAPI.ifWarpExists(warp)&&WarpAPI.isWarpEnabled(warp)) completer.add(warp);
+                        }
+                    } else if(args[0].equalsIgnoreCase("enable")) {
+                        for(String warp:WarpAPI.getWarpNames()) {
+                            if(WarpAPI.ifWarpExists(warp)&&!WarpAPI.isWarpEnabled(warp)) completer.add(warp);
+                        }
                     }
                 }
             }

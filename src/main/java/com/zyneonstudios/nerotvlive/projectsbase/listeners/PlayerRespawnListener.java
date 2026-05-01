@@ -1,5 +1,6 @@
 package com.zyneonstudios.nerotvlive.projectsbase.listeners;
 
+import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent;
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import org.bukkit.Bukkit;
@@ -10,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class PlayerRespawnListener implements Listener {
+
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
         Player p = e.getPlayer();
@@ -32,5 +34,10 @@ public class PlayerRespawnListener implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void postRespawn(PlayerPostRespawnEvent e) {
+        Main.getUser(e.getPlayer()).initListName();
     }
 }

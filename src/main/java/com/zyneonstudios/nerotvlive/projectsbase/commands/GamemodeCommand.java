@@ -1,5 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.commands;
 
+import com.zyneonstudios.nerotvlive.projectsbase.Main;
+import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
 import org.bukkit.Bukkit;
@@ -25,6 +27,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 }
             } else if(args.length==1) {
                 if(s instanceof Player p) {
+                    User u = Main.getUser(p);
                     String gm = args[0];
                     if(gm.equalsIgnoreCase("0")||gm.equalsIgnoreCase("s")||gm.equalsIgnoreCase("survival")) {
                         p.setGameMode(GameMode.SURVIVAL);
@@ -41,12 +44,15 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     } else {
                         Communicator.sendError(s, "/gamemode [0/s/survival/1/c/creative/2/a/adventure/3/z/sp/spectator] §7[Spieler]");
                     }
+                    u.setTeamMode(!p.getGameMode().equals(GameMode.SURVIVAL));
+                    u.initListName();
                 } else {
                     Communicator.sendError(s, Strings.needPlayer);
                 }
             } else {
                 if(Bukkit.getPlayer(args[0])!=null) {
                     Player p = Bukkit.getPlayer(args[0]);
+                    User u = Main.getUser(p);
                     String gm = args[0];
                     if(gm.equalsIgnoreCase("0")||gm.equalsIgnoreCase("s")||gm.equalsIgnoreCase("survival")) {
                         p.setGameMode(GameMode.SURVIVAL);
@@ -67,6 +73,8 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     } else {
                         Communicator.sendError(s, "/gamemode [0/s/survival/1/c/creative/2/a/adventure/3/z/sp/spectator] §7[Spieler]");
                     }
+                    u.setTeamMode(!p.getGameMode().equals(GameMode.SURVIVAL));
+                    u.initListName();
                 } else {
                     Communicator.sendError(s, Strings.playerNotFound);
                 }
@@ -78,23 +86,28 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender s, Command cmd, String label, String[] args) {
         ArrayList<String> completer = new ArrayList<>();
-        if(args.length==1) {
-            completer.add("0");
-            completer.add("s");
-            completer.add("survival");
-            completer.add("1");
-            completer.add("c");
-            completer.add("creative");
-            completer.add("2");
-            completer.add("a");
-            completer.add("adventure");
-            completer.add("3");
-            completer.add("z");
-            completer.add("sp");
-            completer.add("spectator");
-        } else if(args.length==2) {
-            for(Player all:Bukkit.getOnlinePlayers()) {
-                completer.add(all.getName());
+        if(s.hasPermission("zyneon.team")) {
+            if(args.length==1) {
+                completer.add("0");
+                completer.add("s");
+                completer.add("survival");
+                completer.add("1");
+                completer.add("c");
+                completer.add("creative");
+                completer.add("2");
+                completer.add("a");
+                completer.add("adventure");
+                completer.add("3");
+                completer.add("z");
+                completer.add("sp");
+                completer.add("spectator");
+            } else if(args.length==2) {
+                for(Player all:Bukkit.getOnlinePlayers()) {
+                    String name = all.getName();
+                    if(name.toLowerCase().contains(args[1].toLowerCase())) {
+                        completer.add(all.getName());
+                    }
+                }
             }
         }
         return completer;

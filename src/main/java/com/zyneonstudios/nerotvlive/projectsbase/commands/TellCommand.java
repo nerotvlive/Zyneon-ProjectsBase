@@ -63,10 +63,11 @@ public class TellCommand implements CommandExecutor, TabCompleter {
         ArrayList<String> completer = new ArrayList<>();
         if(args.length==1) {
             for(Player all:Bukkit.getOnlinePlayers()) {
-                completer.add(all.getName());
+                String name = all.getName();
+                if(name.toLowerCase().contains(args[0].toLowerCase())) {
+                    completer.add(name);
+                }
             }
-        } else if(args.length==2) {
-            completer.add("...");
         }
         return completer;
     }

@@ -165,22 +165,33 @@ public class SpeedCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender s, Command command, String label, String[] args) {
         ArrayList<String> completer = new ArrayList<>();
-        if(args.length == 1) {
-            completer.add("0");
-            completer.add("1");
-            completer.add("2");
-            completer.add("3");
-            completer.add("4");
-            completer.add("5");
-            completer.add("6");
-            completer.add("7");
-            completer.add("8");
-            completer.add("9");
-            completer.add("d");
-            completer.add("default");
-        } else if(args.length == 2) {
-            for(Player all:Bukkit.getOnlinePlayers()) {
-                completer.add(all.getName());
+        if(s.hasPermission("zyneon.team")) {
+            if(args.length == 1) {
+                ArrayList<String> options = new ArrayList<>();
+                options.add("0");
+                options.add("1");
+                options.add("2");
+                options.add("3");
+                options.add("4");
+                options.add("5");
+                options.add("6");
+                options.add("7");
+                options.add("8");
+                options.add("9");
+                options.add("d");
+                options.add("default");
+                for(String option:options) {
+                    if(option.toLowerCase().startsWith(args[0].toLowerCase())) {
+                        completer.add(option);
+                    }
+                }
+            } else if(args.length == 2) {
+                for(Player all:Bukkit.getOnlinePlayers()) {
+                    String name = all.getName();
+                    if(name.toLowerCase().contains(args[0].toLowerCase())) {
+                        completer.add(all.getName());
+                    }
+                }
             }
         }
         return completer;

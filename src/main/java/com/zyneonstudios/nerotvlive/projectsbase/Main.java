@@ -177,11 +177,8 @@ public final class Main extends JavaPlugin {
         GodCommand godCommand = new GodCommand();
         HealCommand healCommand = new HealCommand();
         InvseeCommand invseeCommand = new InvseeCommand();
-        MoneyCommand moneyCommand = new MoneyCommand();
         PBLockCommand pblockCommand = new PBLockCommand();
         PBLockModeCommand pblockmodeCommand = new PBLockModeCommand();
-        PingCommand pingCommand = new PingCommand();
-        PowerUserCommand powerUserCommand = new PowerUserCommand();
         SpeedCommand speedCommand = new SpeedCommand();
         SRLCommand srlCommand = new SRLCommand();
         TellCommand tellCommand = new TellCommand();
@@ -191,6 +188,7 @@ public final class Main extends JavaPlugin {
 
         initCommand(itemCommand,itemCommand);
         initCommand(new AuthorCommand());
+        initCommand(new SearchCommand());
         initCommand(new BookCommand());
         initCommand(broadcastCommand,broadcastCommand);
         initCommand(new ClearchatCommand());
@@ -203,18 +201,15 @@ public final class Main extends JavaPlugin {
         initCommand(healCommand,healCommand);
         initCommand(invseeCommand,invseeCommand);
         initCommand(new MaintenanceCommand());
-        initCommand(moneyCommand,moneyCommand);
         initCommand(pblockCommand,pblockCommand);
         initCommand(pblockmodeCommand,pblockmodeCommand);
         initCommand(new NightCommand());
-        initCommand(pingCommand,pingCommand);
-        initCommand(powerUserCommand,powerUserCommand);
         initCommand(new RainCommand());
         initCommand(new RoleplayCommand());
         initCommand(new SayCommand());
         initCommand(new ShoutCommand());
         initCommand(speedCommand,speedCommand);
-        initCommand(srlCommand,srlCommand);
+        initCommand(srlCommand);
         initCommand(new SunCommand());
         initCommand(new TeamCommand());
         initCommand(tellCommand,tellCommand);

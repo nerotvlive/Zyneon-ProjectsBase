@@ -19,11 +19,11 @@ public class WhisperCommand implements CommandExecutor {
                 Communicator.sendError(p,"/shout [Nachricht...]");
             } else {
                 User u = Main.getUser(p);
-                String m="";
-                for(int i=0;i<args.length;i++) {
-                    m=m+args[i]+" ";
+                StringBuilder m= new StringBuilder();
+                for (String arg : args) {
+                    m.append(arg).append(" ");
                 }
-                m=m.toLowerCase();
+                m = new StringBuilder(m.toString().toLowerCase());
                 for(Player all: Bukkit.getOnlinePlayers()) {
                     if(p.getWorld()==all.getWorld()) {
                         if(p.getLocation().distance(all.getLocation())<3) {

@@ -213,7 +213,9 @@ public class User {
     public void initListName() {
         if(Bukkit.getPlayer(uuid)!=null) {
             Player p = Bukkit.getPlayer(uuid);
-            if(roleplay) {
+            if(!player.getWorld().equals(Bukkit.getWorlds().getFirst())) {
+                p.setPlayerListName("§8FARM | "+name);
+            } else if(roleplay) {
                 p.setPlayerListName("§6" + getSelectedCharacter().getJob()+" §8| §f"+getSelectedCharacter().getName());
             } else {
                 p.setPlayerListName(Main.getScoreboard().getTeam("offrp").getPrefix()+name);

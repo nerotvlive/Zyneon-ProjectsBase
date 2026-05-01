@@ -52,9 +52,14 @@ public class GodCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender s, Command cmd, String label, String[] args) {
         ArrayList<String> completer = new ArrayList<>();
-        if(args.length==1) {
-            for(Player all: Bukkit.getOnlinePlayers()) {
-                completer.add(all.getName());
+        if(s.hasPermission("zyneon.team")) {
+            if(args.length==1) {
+                for(Player all: Bukkit.getOnlinePlayers()) {
+                    String name = all.getName();
+                    if(name.toLowerCase().contains(args[0].toLowerCase())) {
+                        completer.add(all.getName());
+                    }
+                }
             }
         }
         return completer;

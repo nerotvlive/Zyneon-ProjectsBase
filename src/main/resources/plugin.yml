@@ -29,13 +29,9 @@ commands:
   heal:
   invsee:
   maintenance:
-  money:
   pblock:
   pblockmode:
   night:
-  ping:
-  poweruser:
-    aliases: [pu,mohistoperatorcommand,magmaoperatorcommand,moc,op,operator,superuser,su]
   rain:
   roleplay:
     aliases: [rp,erpe,offrp,ooc]
@@ -62,3 +58,4 @@ commands:
   world:
     aliases: [welt,map,karte]
   skin:
+  search:
