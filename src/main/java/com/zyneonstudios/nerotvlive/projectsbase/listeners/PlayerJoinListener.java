@@ -45,7 +45,7 @@ public class PlayerJoinListener implements Listener {
         }
 
         p.setPlayerListHeader("\n§r §r §cPrimal 4§r §r \n§r §r §cPrimal Aftermath§r §r \n");
-        p.setPlayerListFooter("\n§r §r §7by §fZYNEON PROJECTS§r §r \n§r §r §7from ZYNEON STUDIOS§r §r \n");
+        p.setPlayerListFooter("\n§r §r §7by §fZYNEON PROJECTS§r §r \n§r §r §7hosted by §9elizon.app§r §r \n");
 
         if(!p.hasPlayedBefore()) {
             p.teleport(getRandomSpawn());
