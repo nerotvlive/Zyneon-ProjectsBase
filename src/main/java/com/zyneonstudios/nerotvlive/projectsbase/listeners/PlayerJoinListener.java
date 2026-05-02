@@ -33,15 +33,23 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        p.setOp(false);
         p.setScoreboard(Main.getScoreboard());
         Main.getScoreboard().getTeam("rp").addPlayer(p);
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
         if(!p.getGameMode().equals(GameMode.SURVIVAL)&&(p.isOp()||p.hasPermission("zyneon.teammode"))) {
             u.setTeamMode(true);
+            p.setOp(true);
             p.setGameMode(GameMode.SPECTATOR);
             Communicator.sendInfo(p,"Teammodus§8: §etrue");
+        } else {
+            p.setOp(false);
+        }
+
+        if(p.getWorld().equals(Bukkit.getWorlds().getFirst())) {
+            u.setRoleplay(true);
+        } else {
+            u.setRoleplay(false);
         }
 
         p.setPlayerListHeader("\n§r §r §cPrimal 4§r §r \n§r §r §cPrimal Aftermath§r §r \n");

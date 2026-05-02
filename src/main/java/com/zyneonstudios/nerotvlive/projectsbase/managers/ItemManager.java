@@ -1,6 +1,5 @@
 package com.zyneonstudios.nerotvlive.projectsbase.managers;
 
-import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -20,10 +19,18 @@ public class ItemManager {
         return item;
     }
 
+    public static ItemStack close() {
+        ItemStack item = new ItemStack(Material.DARK_OAK_DOOR);
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setDisplayName("§cSchließen");
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
     public static ItemStack spawn(Player player) {
         ItemStack item;
         if(!player.getWorld().equals(Bukkit.getWorlds().getFirst())) {
-            item = new ItemStack(Material.LIME_TERRACOTTA);
+            item = new ItemStack(Material.LIME_DYE);
             ItemMeta itemMeta = item.getItemMeta();
             itemMeta.setDisplayName("§eIn die Hauptwelt zurückkehren");
             ArrayList<String> lore = new ArrayList<>();
@@ -34,39 +41,16 @@ public class ItemManager {
             lore.add("§7Level (danach)§8: §e"+player.getLevel());
             itemMeta.setLore(lore);
             item.setItemMeta(itemMeta);
-        } else if(player.getLocation().distance(WarpAPI.getCurrentSpawn(player))<300) {
-            item = new ItemStack(Material.RED_TERRACOTTA);
-            ItemMeta itemMeta = item.getItemMeta();
-            itemMeta.setDisplayName("§eZum Silberfels-Hafen zurückkehren");
-            ArrayList<String> lore = new ArrayList<>();
-            lore.add("§7Kosten§8: §c10 Level");
-            lore.add("§7Du bist zu nah am Silberfels-Hafen für eine Schnellreise§8.");
-            lore.add("§8----------------------");
-            int level = player.getLevel()-10;
-            lore.add("§7Level (jetzt)§8: §e"+player.getLevel());
-            lore.add("§7Level (danach)§8: §e"+level);
-            itemMeta.setLore(lore);
-            item.setItemMeta(itemMeta);
-        } else if(player.getLevel()>=10) {
-            item = new ItemStack(Material.LIME_TERRACOTTA);
-            ItemMeta itemMeta = item.getItemMeta();
-            itemMeta.setDisplayName("§eZum Silberfels-Hafen zurückkehren");
-            ArrayList<String> lore = new ArrayList<>();
-            lore.add("§7Kosten§8: §a10 Level");
-            lore.add("§7Das kannst du dir leisten§8.");
-            lore.add("§8----------------------");
-            int level = player.getLevel()-10;
-            lore.add("§7Level (jetzt)§8: §e"+player.getLevel());
-            lore.add("§7Level (danach)§8: §e"+level);
-            itemMeta.setLore(lore);
-            item.setItemMeta(itemMeta);
         } else {
-            item = new ItemStack(Material.RED_TERRACOTTA);
+            item = new ItemStack(Material.RED_DYE);
             ItemMeta itemMeta = item.getItemMeta();
-            itemMeta.setDisplayName("§eZum Silberfels-Hafen zurückkehren");
+            itemMeta.setDisplayName("§eZum Stadtspawn zurückkehren");
             ArrayList<String> lore = new ArrayList<>();
-            lore.add("§7Kosten§8: §c10 Level");
+            lore.add("§7Kosten§8: §cUnendlich");
             lore.add("§7Das kannst du dir nicht leisten§8.");
+            lore.add("§8----------------------");
+            lore.add("§7Level (jetzt)§8: §e"+player.getLevel());
+            lore.add("§7Level (danach)§8: §c-∞");
             itemMeta.setLore(lore);
             item.setItemMeta(itemMeta);
         }
@@ -77,7 +61,7 @@ public class ItemManager {
         ItemStack item;
         item = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setDisplayName("§eZur Farmwelt reisen");
+        itemMeta.setDisplayName("§eIn die Farmwelt reisen");
         ArrayList<String> lore = new ArrayList<>();
         lore.add("§7Kosten§8: §aKostenlos");
         lore.add("§7Das kannst du dir leisten§8.");
@@ -91,9 +75,25 @@ public class ItemManager {
 
     public static ItemStack nether(Player player) {
         ItemStack item;
-        item = new ItemStack(Material.NETHERRACK);
+        item = new ItemStack(Material.NETHER_WART);
         ItemMeta itemMeta = item.getItemMeta();
         itemMeta.setDisplayName("§eIn den Nether reisen");
+        ArrayList<String> lore = new ArrayList<>();
+        lore.add("§7Kosten§8: §aKostenlos");
+        lore.add("§7Das kannst du dir leisten§8.");
+        lore.add("§8----------------------");
+        lore.add("§7Level (jetzt)§8: §e" + player.getLevel());
+        lore.add("§7Level (danach)§8: §e" + player.getLevel());
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
+    public static ItemStack end(Player player) {
+        ItemStack item;
+        item = new ItemStack(Material.ENDER_EYE);
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setDisplayName("§eIn das Ende reisen");
         ArrayList<String> lore = new ArrayList<>();
         lore.add("§7Kosten§8: §aKostenlos");
         lore.add("§7Das kannst du dir leisten§8.");

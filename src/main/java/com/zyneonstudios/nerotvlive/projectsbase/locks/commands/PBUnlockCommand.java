@@ -16,6 +16,7 @@ public class PBUnlockCommand implements CommandExecutor {
     public boolean onCommand(CommandSender s, Command command, String label, String[] args) {
         if(LockManager.enableLocks()) {
             if (s instanceof Player p) {
+                Communicator.sendError(p, "Bedenke, dass dieses Locksystem nur noch bis Freitag funktioniert! Benutze die normalen /lock, /trust etc. Befehle, schaue dafür in #primal4-wichtig auf dem DC!");
                 User u = Main.getUser(p);
                 u.setInteractMode("unlocking");
                 Communicator.sendInfo(p, "Klicke den Block an§8,§7 den du entsichern möchtest§8...");

@@ -40,21 +40,11 @@ public class InventoryManager {
 
     public static Inventory spawnInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, InventoryType.HOPPER, "Warpmenü");
-        inventory.setItem(0, ItemManager.placeholder());
-        inventory.setItem(1, ItemManager.placeholder());
-        inventory.setItem(2, ItemManager.placeholder());
-        inventory.setItem(3, ItemManager.placeholder());
-        inventory.setItem(4, ItemManager.placeholder());
-        if(player.getWorld().equals(Bukkit.getWorlds().getFirst())) { //RP WELT
-            inventory.setItem(1, ItemManager.farmworld(player));
-            inventory.setItem(3, ItemManager.nether(player));
-        } else if(player.getWorld().getName().toLowerCase().startsWith("ne")) { //NETHER
-            inventory.setItem(1, ItemManager.farmworld(player));
-            inventory.setItem(3, ItemManager.spawn(player));
-        } else {//FARMWELT (WAHRSCHEINLICH)
-            inventory.setItem(1, ItemManager.nether(player));
-            inventory.setItem(3, ItemManager.spawn(player));
-        }
+        inventory.setItem(0, ItemManager.spawn(player));
+        inventory.setItem(1, ItemManager.farmworld(player));
+        inventory.setItem(2, ItemManager.nether(player));
+        inventory.setItem(3, ItemManager.end(player));
+        inventory.setItem(4, ItemManager.close());
         return inventory;
     }
 

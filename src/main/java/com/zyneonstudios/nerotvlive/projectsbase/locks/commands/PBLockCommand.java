@@ -19,6 +19,7 @@ public class PBLockCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender s, Command command, String label, String[] args) {
         if(LockManager.enableLocks()) {
             if (s instanceof Player p) {
+                Communicator.sendError(p, "Bedenke, dass dieses Locksystem nur noch bis Freitag funktioniert! Benutze die normalen /lock, /trust etc. Befehle, schaue dafür in #primal4-wichtig auf dem DC!");
                 User u = Main.getUser(p);
                 if (args.length == 0) {
                     Communicator.sendInfo(p, "Um einen Block öffentlich zu sichern§8,§7 mache §e/lock public§8.");

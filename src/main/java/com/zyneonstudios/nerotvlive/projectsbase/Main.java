@@ -15,6 +15,7 @@ import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.MySQL;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.SQLite;
 import com.zyneonstudios.nerotvlive.projectsbase.weapons.WeaponMain;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.command.CommandExecutor;
@@ -85,6 +86,7 @@ public final class Main extends JavaPlugin {
             Strings.farmWorldName = config.getCFG().getString("Settings.farmingWorld.name");
             Bukkit.getServer().createWorld(farmworld);
             Bukkit.getServer().createWorld(new WorldCreator("ne1").type(WorldType.NORMAL).environment(org.bukkit.World.Environment.NETHER));
+            Bukkit.getServer().createWorld(new WorldCreator("en1").type(WorldType.NORMAL).environment(World.Environment.THE_END));
         }
         for(String worldName:config.getCFG().getStringList("Settings.Lists.WorldsToLoad")) {
             if(new File(worldName).exists()&&new File(worldName).isDirectory()) {
