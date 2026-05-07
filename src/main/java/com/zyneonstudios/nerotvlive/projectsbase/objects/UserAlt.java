@@ -2,7 +2,6 @@ package com.zyneonstudios.nerotvlive.projectsbase.objects;
 
 import com.zyneonstudios.nerotvlive.projectsbase.Main;
 import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.LockManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -46,11 +45,6 @@ public class UserAlt {
         } else {
             character = 0;
         }
-        if(Main.storage.get("profiles",uuid+"_lastLoc",0)!=null) {
-            lastLoc = LockManager.decryptLocation(Main.storage.getString("profiles",uuid+"_lastLoc",0));
-        } else {
-            lastLoc = Bukkit.getWorlds().getFirst().getSpawnLocation();
-        }
         chatMode = "normal";
         inventoryMode = "normal";
         interactMode = "null";
@@ -79,10 +73,7 @@ public class UserAlt {
     }
 
     public void setLastLoc(Location lastLoc) {
-        if(lastLoc.getWorld().equals(Bukkit.getWorlds().get(0))) {
-            Main.storage.setString("profiles", uuid + "_lastLoc", LockManager.encryptLocation(lastLoc), 0);
-            this.lastLoc = lastLoc;
-        }
+
     }
 
     public void setLastCity(String lastCity) {

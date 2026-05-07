@@ -4,7 +4,6 @@ import com.zyneonstudios.nerotvlive.projectsbase.api.warp.WarpAPI;
 import com.zyneonstudios.nerotvlive.projectsbase.commands.*;
 import com.zyneonstudios.nerotvlive.projectsbase.custom.CustomMain;
 import com.zyneonstudios.nerotvlive.projectsbase.listeners.*;
-import com.zyneonstudios.nerotvlive.projectsbase.locks.managers.LockManager;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Economy;
@@ -103,9 +102,6 @@ public final class Main extends JavaPlugin {
             weaponsMain.enable();
         }
         Communicator.sendRaw("§0");
-        Communicator.sendInfo("Loading §elocks§8...");
-        LockManager.enable();
-        Communicator.sendRaw("§0");
         getCommands();
         getListeners();
         economy = new Economy();
@@ -143,7 +139,6 @@ public final class Main extends JavaPlugin {
         config.checkEntry("Settings.modules.custom",false);
         config.checkEntry("Settings.modules.weapons",false);
         config.checkEntry("Settings.modules.locks",true);
-        LockManager.setEnableLocks(config.getCFG().getBoolean("Settings.modules.locks"));
         Communicator.sendDebug = config.getCFG().getBoolean("Settings.debug");
         maintenance = config.getCFG().getBoolean("Settings.maintenance");
         config.checkEntry("Settings.mySQL.host","127.0.0.1");
