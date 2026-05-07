@@ -138,7 +138,6 @@ public final class Main extends JavaPlugin {
         config.checkEntry("Settings.maintenance",true);
         config.checkEntry("Settings.modules.custom",false);
         config.checkEntry("Settings.modules.weapons",false);
-        config.checkEntry("Settings.modules.locks",true);
         Communicator.sendDebug = config.getCFG().getBoolean("Settings.debug");
         maintenance = config.getCFG().getBoolean("Settings.maintenance");
         config.checkEntry("Settings.mySQL.host","127.0.0.1");

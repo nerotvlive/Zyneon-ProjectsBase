@@ -29,8 +29,6 @@ commands:
   heal:
   invsee:
   maintenance:
-  pblock:
-  pblockmode:
   night:
   rain:
   roleplay:
@@ -47,8 +45,6 @@ commands:
   tell:
     aliases: [t,m,msg]
   thunder:
-  pbtrust:
-  pbunlock:
   warp:
     aliases: [spawn]
   whisper:
