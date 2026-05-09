@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>nerotvlive</groupId>
-    <artifactId>ProjectsBase</artifactId>
-    <version>27.0-preAlpha.1</version>
+    <groupId>com.zyneonprojects</groupId>
+    <artifactId>projectsbase</artifactId>
+    <version>27.0-preAlpha.2</version>
     <packaging>jar</packaging>
 
     <name>ProjectsBase</name>
@@ -16,6 +16,14 @@
         <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>nerofy-snapshots</id>
+            <name>Nerofy Network Maven repository</name>
+            <url>https://maven.nrfy.net/snapshots</url>
+        </repository>
+    </distributionManagement>
 
     <repositories>
         <repository>

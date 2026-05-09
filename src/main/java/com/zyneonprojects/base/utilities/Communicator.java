@@ -57,11 +57,7 @@ public class Communicator {
 
     public static void sendRaw(CommandSender receiver, String message) {
         if(receiver == null) receiver = Bukkit.getConsoleSender();
-        if(receiver instanceof Player player) {
-            player.sendMessage(message);
-        } else {
-            receiver.sendMessage(getPrefix()+"§r"+message);
-        }
+        receiver.sendMessage(message);
     }
 
     public static void sendRaw(String message) {

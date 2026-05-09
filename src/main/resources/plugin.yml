@@ -1,4 +1,5 @@
 name: ProjectsBase
+prefix: PB
 version: '${project.version}'
 main: com.zyneonprojects.base.ProjectsBasePreloader
 api-version: 26.1

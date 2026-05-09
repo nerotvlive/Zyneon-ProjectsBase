@@ -6,7 +6,7 @@ import com.zyneonprojects.base.modules.loader.modules.InbuiltModule;
 public class LockModule extends InbuiltModule {
 
     public LockModule() {
-        super("locks-and-trust","L&T");
+        super("locks","L&T");
     }
 
     @Override
