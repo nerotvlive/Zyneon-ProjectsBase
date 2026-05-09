@@ -15,6 +15,9 @@ public class EnglishLanguage extends InbuiltLanguage {
         setValue(Strings.Key.error_players_only, "§cThis command can only be executed as a player§8!");
         setValue(Strings.Key.error_player_not_found, "§cPlayer not found§8!");
         setValue(Strings.Key.error_player_not_found_placeholder, "§cThe player §4%player%§c could not be found§8!");
+        setValue(Strings.Key.error_item_not_found, "§cItem id not found§8!");
+        setValue(Strings.Key.error_inventory_full, "§cThe selected inventory is full§8!");
+        setValue(Strings.Key.error_invalid_amount, "§cInvalid amount§8!");
         return false;
     }
 }

@@ -28,6 +28,7 @@ public class ItemDatabase {
 
     public static ItemStack get(String id) {
         try {
+            id=id.toLowerCase();
             return new ItemStack(Material.valueOf(id.replace("minecraft:", "").toUpperCase()), 1);
         } catch (Exception e) {
             return null;
@@ -36,9 +37,14 @@ public class ItemDatabase {
 
     public static ItemStack get(String id, int amount) {
         try {
+            id=id.toLowerCase();
             return new ItemStack(Material.valueOf(id.replace("minecraft:", "").toUpperCase()), amount);
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public static ArrayList<String> getItems() {
+        return items;
     }
 }

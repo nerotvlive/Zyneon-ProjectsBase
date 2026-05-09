@@ -29,5 +29,8 @@ public class Strings {
         error_player_not_found,
         error_player_not_found_placeholder,
         error_console_only,
+        error_item_not_found,
+        error_inventory_full,
+        error_invalid_amount
     }
 }
