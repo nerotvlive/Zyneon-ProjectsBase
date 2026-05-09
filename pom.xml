@@ -6,23 +6,49 @@
 
     <groupId>nerotvlive</groupId>
     <artifactId>ProjectsBase</artifactId>
-    <version>26.0.4</version>
+    <version>27.0-preAlpha.1</version>
     <packaging>jar</packaging>
 
     <name>ProjectsBase</name>
 
-    <description>The source of Zyneon Studios mod projects</description>
+    <description>The base paper plugin for Zyneon Projects</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>nerofy-snapshots</id>
+            <url>https://maven.nrfy.net/snapshots</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.zyneonstudios.apex</groupId>
+            <artifactId>base-utilities</artifactId>
+            <version>2.25.0-SNAPSHOT.10</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>[26.1.2.build,)</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.15.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -31,7 +57,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.6.2</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -40,25 +66,6 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <artifactSet>
-                                <includes>
-                                    <include>com.fasterxml.jackson.core:jackson-annotations</include>
-                                    <include>com.fasterxml.jackson.core:jackson-core</include>
-                                    <include>com.fasterxml.jackson.core:jackson-databind</include>
-
-                                    <include>com.squareup.okhttp3:okhttp</include>
-                                    <include>com.squareup.okio:okio</include>
-                                    <include>com.squareup.retrofit2:adapter-rxjava2</include>
-                                    <include>com.squareup.retrofit2:converter-jackson</include>
-                                    <include>com.squareup.retrofit2:retrofit</include>
-
-                                    <include>com.theokanning.openai-gpt3-java:api</include>
-                                    <include>com.theokanning.openai-gpt3-java:client</include>
-
-                                    <include>io.reactivex.rxjava2:rxjava</include>
-                                    <include>org.reactivestreams:reactive-streams</include>
-                                </includes>
-                            </artifactSet>
                         </configuration>
                     </execution>
                 </executions>
@@ -71,28 +78,4 @@
             </resource>
         </resources>
     </build>
-    <repositories>
-        <repository>
-            <id>papermc</id>
-            <url>https://repo.papermc.io/repository/maven-public/</url>
-        </repository>
-        <repository>
-            <id>codemc</id>
-            <url>https://repo.codemc.org/repository/maven-public/</url>
-        </repository>
-    </repositories>
-    <dependencies>
-        <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>1.21.11-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.skinsrestorer</groupId>
-            <artifactId>skinsrestorer-api</artifactId>
-            <version>15.12.0</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 </project>
