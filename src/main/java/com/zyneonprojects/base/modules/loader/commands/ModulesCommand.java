@@ -18,6 +18,18 @@ import java.util.List;
 
 public class ModulesCommand implements CommandExecutor, TabCompleter {
 
+    private static ModulesCommand instance = null;
+
+    public ModulesCommand() {
+        if(instance == null) {
+            instance = this;
+        }
+    }
+
+    public static ModulesCommand getInstance() {
+        return instance;
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender s, @NotNull Command cmd, @NotNull String label, @NotNull String @NotNull [] args) {
         if(!ProjectsBase.getInstance().getConfig().getBoolean("settings.modules.loader.enable")) { return false; }

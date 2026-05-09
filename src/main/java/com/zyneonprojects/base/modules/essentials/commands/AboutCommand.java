@@ -9,9 +9,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class AboutCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class AboutCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender s, @NotNull Command cmd, @NotNull String label, @NotNull String @NotNull [] args) {
@@ -52,5 +57,14 @@ public class AboutCommand implements CommandExecutor {
             }
         }
         return true;
+    }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
+        if(ModulesCommand.getInstance() == null) {
+            return new ArrayList<>();
+        } else {
+            return ModulesCommand.getInstance().onTabComplete(sender, command, label, args);
+        }
     }
 }
