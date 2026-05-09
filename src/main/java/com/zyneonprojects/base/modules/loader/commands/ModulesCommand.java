@@ -29,26 +29,30 @@ public class ModulesCommand implements CommandExecutor, TabCompleter {
                     Bukkit.dispatchCommand(s, "modules list");
                 }
             } else {
-                if(!Permissions.has(s,"projectsbase.module.modules.command.modules.module")||args[0].equalsIgnoreCase("list")) {
-                    sendModuleInfo(s,ProjectsBase.getInstance().getModuleLoader());
-                    Communicator.sendInfo(s, "§b§lProjectsBase §r§fModules§8:");
-                    StringBuilder modules = new StringBuilder("§amodules");
-                    for(ProjectsBaseModule module : ProjectsBase.getInstance().getModuleLoader().getModules()) {
-                        String prefix = "§8, §f" + getModuleStateColor(module.getActivationStatus());
-                        modules.append(prefix).append(module.getId());
-                    }
-                    Communicator.sendInfo(s, modules.toString());
-                    Communicator.sendInfo(s, "§f/modules <moduleId>§7 to see more info about a module");
-                    Communicator.sendRaw(s, " ");
+                if(ProjectsBase.getInstance().getModuleLoader().getModule("essentials") != null) {
+                    Bukkit.dispatchCommand(s, "about "+args[0]);
                 } else {
-                    if(args[0].equals("modules")) {
-                        sendModuleInfo(s,ProjectsBase.getInstance().getModuleLoader());
-                        Communicator.sendRaw(s, " ");
-                    } else if(ProjectsBase.getInstance().getModuleLoader().getModuleIds().contains(args[0])) {
-                        sendModuleInfo(s,ProjectsBase.getInstance().getModuleLoader().getModule(args[0]));
+                    if (!Permissions.has(s, "projectsbase.module.modules.command.modules.module") || args[0].equalsIgnoreCase("list")) {
+                        sendModuleInfo(s, ProjectsBase.getInstance().getModuleLoader());
+                        Communicator.sendInfo(s, "§b§lProjectsBase §r§fModules§8:");
+                        StringBuilder modules = new StringBuilder("§amodules");
+                        for (ProjectsBaseModule module : ProjectsBase.getInstance().getModuleLoader().getModules()) {
+                            String prefix = "§8, §f" + getModuleStateColor(module.getActivationStatus());
+                            modules.append(prefix).append(module.getId());
+                        }
+                        Communicator.sendInfo(s, modules.toString());
+                        Communicator.sendInfo(s, "§f/modules <moduleId>§7 to see more info about a module");
                         Communicator.sendRaw(s, " ");
                     } else {
-                        Communicator.sendErr(s,"Module with id §4\""+args[0]+"\"§c not found§8!");
+                        if (args[0].equals("modules")) {
+                            sendModuleInfo(s, ProjectsBase.getInstance().getModuleLoader());
+                            Communicator.sendRaw(s, " ");
+                        } else if (ProjectsBase.getInstance().getModuleLoader().getModuleIds().contains(args[0])) {
+                            sendModuleInfo(s, ProjectsBase.getInstance().getModuleLoader().getModule(args[0]));
+                            Communicator.sendRaw(s, " ");
+                        } else {
+                            Communicator.sendErr(s, "Module with id §4\"" + args[0] + "\"§c not found§8!");
+                        }
                     }
                 }
             }

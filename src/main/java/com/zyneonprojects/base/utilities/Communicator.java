@@ -17,7 +17,7 @@ public class Communicator {
         return PREFIX;
     }
 
-    private static String ERROR_PREFIX = getPrefix() + "§4§lERR §8§l| §c§c";
+    private static String ERROR_PREFIX = "§4§lPB27 §8§l| §4ERROR: §c";
     public static String getErrorPrefix() {
         return ERROR_PREFIX;
     }

@@ -5,6 +5,7 @@ import com.zyneonprojects.base.modules.loader.ModuleLoader;
 import com.zyneonprojects.base.modules.loader.modules.ProjectsBaseModule;
 import com.zyneonprojects.base.modules.locks.LockModule;
 import com.zyneonprojects.base.modules.roleplay.RoleplayModule;
+import com.zyneonprojects.base.modules.worlds.WorldsModule;
 import com.zyneonprojects.base.utilities.Communicator;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
@@ -69,6 +70,7 @@ public class ProjectsBase {
             registerModule("settings.modules.module.essentials.enable", new EssentialsModule());
             registerModule("settings.modules.module.locks.enable", new LockModule());
             registerModule("settings.modules.module.roleplay.enable", new RoleplayModule());
+            registerModule("settings.modules.module.worlds.enable", new WorldsModule());
             getModuleLoader().load();
         }
     }

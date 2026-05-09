@@ -159,7 +159,7 @@ public class ModuleLoader extends DefinedModule {
                     info(" ");
                 }
             }
-            registerCommand(new ModulesCommand(),"module","pl","plugin","plugins","pml","moduleloader","modulesloader","ml","module-loader","modules-loader","mod","mods","loader","extension","extensions");
+            registerCommand(new ModulesCommand(),"module","pl","plugin","plugins","pml","moduleloader","modulesloader","ml","module-loader","modules-loader","mod","mods","loader","extension","extensions","ver","version","icanhasbukkit","v");
             activationStatus = ProjectsBase.ActivationStatus.ENABLED;
             info("Successfully enabled inbuilt module "+getId()+"@v"+getVersion()+"!");
             info(" ");

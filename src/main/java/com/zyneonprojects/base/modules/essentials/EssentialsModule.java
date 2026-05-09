@@ -2,6 +2,7 @@ package com.zyneonprojects.base.modules.essentials;
 
 import com.zyneonprojects.base.modules.essentials.commands.AboutCommand;
 import com.zyneonprojects.base.modules.essentials.commands.EssentialsCommand;
+import com.zyneonprojects.base.modules.essentials.commands.SrlCommand;
 import com.zyneonprojects.base.modules.loader.modules.InbuiltModule;
 
 public class EssentialsModule extends InbuiltModule {
@@ -17,8 +18,9 @@ public class EssentialsModule extends InbuiltModule {
 
     @Override
     public boolean onEnable() {
-        registerCommand(new AboutCommand(),"?","help","ver","version","icanhasbukkit");
+        registerCommand(new AboutCommand(),"?","help");
         registerCommand(new EssentialsCommand(),"ess");
+        registerCommand(new SrlCommand(),"stop","restart","rl","reload","end");
         return true;
     }
 

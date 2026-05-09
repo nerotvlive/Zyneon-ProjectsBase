@@ -34,6 +34,7 @@ public class ProjectsBasePreloader extends JavaPlugin {
         config.ensure("settings.modules.module.essentials.enable",true);
         config.ensure("settings.modules.module.locks.enable",false);
         config.ensure("settings.modules.module.roleplay.enable",false);
+        config.ensure("settings.modules.module.worlds.enable",true);
     }
 
     @Override

@@ -37,8 +37,12 @@ public class AboutCommand implements CommandExecutor {
                 if(args[0].equals("list")||!Permissions.has(s, "projectsbase.module.modules.command.modules.module")) {
                     Bukkit.dispatchCommand(s, "about");
                 } else {
-                    if(ProjectsBase.getInstance().getModuleLoader().getModuleIds().contains(args[0])) {
+                    if(args[0].equals("modules")) {
+                        ModulesCommand.sendModuleInfo(s,ProjectsBase.getInstance().getModuleLoader());
+                        Communicator.sendRaw(s,"§r §r");
+                    } else if(ProjectsBase.getInstance().getModuleLoader().getModuleIds().contains(args[0])) {
                         ModulesCommand.sendModuleInfo(s,ProjectsBase.getInstance().getModuleLoader().getModule(args[0]));
+                        Communicator.sendRaw(s,"§r §r");
                     } else {
                         Communicator.sendErr(s,"Couldn't find module by id §4\""+args[0]+"\"§8!");
                     }
