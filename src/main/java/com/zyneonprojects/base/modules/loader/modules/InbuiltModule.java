@@ -10,7 +10,7 @@ public class InbuiltModule extends DefinedModule {
 
     public InbuiltModule(String id, String name) {
         this.id = id;
-        this.name = "[INB] "+name;
+        this.name = name;
     }
 
     @Override

@@ -122,41 +122,41 @@ public abstract class DefinedModule implements ProjectsBaseModule {
 
     @Override
     public void raw(String message) {
-        Communicator.sendRaw(null, "["+getName()+"] "+message);
+        Communicator.sendRaw(null, "§f"+getName()+" §8| §7"+message);
     }
 
     @Override
     public void log(String message) {
-        Communicator.logInfo("["+getName()+"] "+message);
+        Communicator.logInfo("§f"+getName()+" §8| §7"+message);
     }
 
     @Override
     public void info(String message) {
-        Communicator.logInfo("["+getName()+"] "+message);
+        Communicator.logInfo("§f"+getName()+" §8| §7"+message);
     }
 
     @Override
     public void warn(String message) {
-        Communicator.logWarn("["+getName()+"] "+message);
+        Communicator.logWarn("§6"+getName()+" §8| §e"+message);
     }
 
     @Override
     public void err(String message) {
-        Communicator.logErr("["+getName()+"] "+message);
+        Communicator.logErr("§4"+getName()+" §8| §c"+message);
     }
 
     @Override
     public void debug(String message) {
-        Communicator.logDebug("["+getName()+"] "+message);
+        Communicator.logDebug("§9"+getName()+" §8| §d"+message);
     }
 
     @Override
     public void trace(String message) {
-        Communicator.logTrace("["+getName()+"] "+message);
+        Communicator.logTrace("§4"+getName()+" §8| §c"+message);
     }
 
     @Override
     public void finest(String message) {
-        Communicator.logFinest("["+getName()+"] "+message);
+        Communicator.logFinest("§2"+getName()+" §8| §a"+message);
     }
 }

@@ -25,10 +25,10 @@ public class ModuleLoader extends DefinedModule {
 
     public ModuleLoader(ProjectsBasePreloader plugin, ProjectsBase projectsBase) throws IllegalStateException {
         if(instance == null) {
-            info("Initializing inbuilt module "+getName()+"@v"+getVersion()+"...");
+            info("Initializing inbuilt module "+getId()+"@v"+getVersion()+"...");
             if ((plugin != null && plugin == ProjectsBasePreloader.getInstance()) && (projectsBase != null && projectsBase == ProjectsBase.getInstance())) {
                 instance = this;
-                info("Successfully initialized inbuilt module "+getName()+"@v"+getVersion()+"!");
+                info("Successfully initialized inbuilt module "+getId()+"@v"+getVersion()+"!");
                 info(" ");
             } else {
                 throw new IllegalStateException("ModuleLoader instance is not created properly! Please use ModuleLoader.getInstance() instead of new ModuleLoader! Do not use /reload, restart the server completely!");
@@ -109,33 +109,33 @@ public class ModuleLoader extends DefinedModule {
 
     @Override
     public String getName() {
-        return "Modules";
+        return "PML";
     }
 
     @Override
     public boolean onLoad() {
         if(!enabled()) { return false; }
         if(activationStatus == ProjectsBase.ActivationStatus.UNLOADED) {
-            info("Loading inbuilt module "+getName()+"@v"+getVersion()+"...");
+            info("Loading inbuilt module "+getId()+"@v"+getVersion()+"...");
             activationStatus = ProjectsBase.ActivationStatus.LOADING;
             for(ProjectsBaseModule module : modules.values()) {
-                warn("Found uninitialized "+module.getName()+"@v"+module.getVersion()+" by "+module.getAuthor()+"! Initializing...");
+                warn("Found uninitialized "+module.getId()+"@v"+module.getVersion()+" by "+module.getAuthor()+"! Initializing...");
                 if(module.getModuleFormat()==ModuleFormat.OBJECTv1||module.getModuleFormat()==ModuleFormat.INBUILT) {
-                    info("Loading module "+module.getName()+"@v"+module.getVersion()+"...");
+                    info("Loading module "+module.getId()+"@v"+module.getVersion()+"...");
                     if(module.load()) {
-                        info("Successfully loaded module "+module.getName()+"@v"+module.getVersion()+"!");
+                        info("Successfully loaded module "+module.getId()+"@v"+module.getVersion()+"!");
                     } else {
                         module.crash();
-                        err("Couldn't load module "+module.getName()+"@v"+module.getVersion()+": Module crashed!");
+                        err("Couldn't load module "+module.getId()+"@v"+module.getVersion()+": Module crashed!");
                     }
                 } else {
                     module.incompatible();
-                    err("Couldn't load module "+module.getName()+"@v"+module.getVersion()+": Module is incompatible!");
+                    err("Couldn't load module "+module.getId()+"@v"+module.getVersion()+": Module is incompatible!");
                 }
                 info(" ");
             }
             activationStatus = ProjectsBase.ActivationStatus.LOADED;
-            info("Successfully loaded inbuilt module "+getName()+"@v"+getVersion()+"!");
+            info("Successfully loaded inbuilt module "+getId()+"@v"+getVersion()+"!");
             info(" ");
             return true;
         }
@@ -146,22 +146,22 @@ public class ModuleLoader extends DefinedModule {
     public boolean onEnable() {
         if(!enabled()) { return false; }
         if(activationStatus == ProjectsBase.ActivationStatus.LOADED) {
-            info("Enabling inbuilt module "+getName()+"@v"+getVersion()+"...");
+            info("Enabling inbuilt module "+getId()+"@v"+getVersion()+"...");
             activationStatus = ProjectsBase.ActivationStatus.ENABLING;
             for(ProjectsBaseModule module : modules.values()) {
                 if(module.getActivationStatus().equals(ProjectsBase.ActivationStatus.LOADED)) {
-                    warn("Found loaded "+module.getName()+"@v"+module.getVersion()+" by "+module.getAuthor()+"! Enabling...");
+                    warn("Found loaded "+module.getId()+"@v"+module.getVersion()+" by "+module.getAuthor()+"! Enabling...");
                     if(module.enable()) {
-                        info("Successfully enabled module "+module.getName()+"@v"+module.getVersion()+"!");
+                        info("Successfully enabled module "+module.getId()+"@v"+module.getVersion()+"!");
                     } else {
-                        err("Couldn't enable module "+module.getName()+"@v"+module.getVersion()+": Module crashed!");
+                        err("Couldn't enable module "+module.getId()+"@v"+module.getVersion()+": Module crashed!");
                     }
                     info(" ");
                 }
             }
-            registerCommand(new ModulesCommand());
+            registerCommand(new ModulesCommand(),"module","pl","plugin","plugins","pml","moduleloader","modulesloader","ml","module-loader","modules-loader","mod","mods","loader","extension","extensions");
             activationStatus = ProjectsBase.ActivationStatus.ENABLED;
-            info("Successfully enabled inbuilt module "+getName()+"@v"+getVersion()+"!");
+            info("Successfully enabled inbuilt module "+getId()+"@v"+getVersion()+"!");
             info(" ");
             return true;
         }
@@ -172,21 +172,21 @@ public class ModuleLoader extends DefinedModule {
     public boolean onDisable() {
         if(!enabled()) { return false; }
         if(activationStatus == ProjectsBase.ActivationStatus.ENABLED) {
-            info("Disabling inbuilt module "+getName()+"@v"+getVersion()+"...");
+            info("Disabling inbuilt module "+getId()+"@v"+getVersion()+"...");
             activationStatus = ProjectsBase.ActivationStatus.DISABLING;
             for(ProjectsBaseModule module : modules.values()) {
                 if(!module.getActivationStatus().equals(ProjectsBase.ActivationStatus.DISABLED)&&!module.getActivationStatus().equals(ProjectsBase.ActivationStatus.CRASHED)) {
-                    warn("Found loaded "+module.getName()+"@v"+module.getVersion()+" by "+module.getAuthor()+"! Disabling...");
+                    warn("Found loaded "+module.getId()+"@v"+module.getVersion()+" by "+module.getAuthor()+"! Disabling...");
                     if(module.disable()) {
-                        info("Successfully disabled module "+module.getName()+"@v"+module.getVersion()+"!");
+                        info("Successfully disabled module "+module.getId()+"@v"+module.getVersion()+"!");
                     } else {
-                        err("Couldn't disable module "+module.getName()+"@v"+module.getVersion()+": Module crashed! (FORCE DISABLED)");
+                        err("Couldn't disable module "+module.getId()+"@v"+module.getVersion()+": Module crashed! (FORCE DISABLED)");
                     }
                     info(" ");
                 }
             }
             activationStatus = ProjectsBase.ActivationStatus.DISABLED;
-            info("Successfully disabled inbuilt module "+getName()+"@v"+getVersion()+"!");
+            info("Successfully disabled inbuilt module "+getId()+"@v"+getVersion()+"!");
             info(" ");
             return true;
         }
@@ -197,15 +197,15 @@ public class ModuleLoader extends DefinedModule {
     public boolean onUnload() {
         if(!enabled()) { return false; }
         if(activationStatus == ProjectsBase.ActivationStatus.DISABLED) {
-            info("Unloading inbuilt module "+getName()+"@v"+getVersion()+"...");
+            info("Unloading inbuilt module "+getId()+"@v"+getVersion()+"...");
             activationStatus = ProjectsBase.ActivationStatus.UNLOADING;
             for(ProjectsBaseModule module : modules.values()) {
                 if(!module.getActivationStatus().equals(ProjectsBase.ActivationStatus.UNLOADED)) {
-                    warn("Found loaded "+module.getName()+"@v"+module.getVersion()+" by "+module.getAuthor()+"! Unloading...");
+                    warn("Found loaded "+module.getId()+"@v"+module.getVersion()+" by "+module.getAuthor()+"! Unloading...");
                     if(module.unload()) {
-                        info("Successfully unloaded module "+module.getName()+"@v"+module.getVersion()+"!");
+                        info("Successfully unloaded module "+module.getId()+"@v"+module.getVersion()+"!");
                     } else {
-                        err("Couldn't unload module "+module.getName()+"@v"+module.getVersion()+": Module crashed! (FORCE UNLOADED)");
+                        err("Couldn't unload module "+module.getId()+"@v"+module.getVersion()+": Module crashed! (FORCE UNLOADED)");
                     }
                     info(" ");
                 }
@@ -214,7 +214,7 @@ public class ModuleLoader extends DefinedModule {
             modules = null;
             instance = null;
             activationStatus = ProjectsBase.ActivationStatus.UNLOADED;
-            info("Successfully unloaded inbuilt module "+getName()+"@v"+getVersion()+"!");
+            info("Successfully unloaded inbuilt module "+getId()+"@v"+getVersion()+"!");
             info(" ");
             return true;
         }
@@ -223,7 +223,7 @@ public class ModuleLoader extends DefinedModule {
 
     @Override
     public String getDescription() {
-        return "Inbuilt modules features module";
+        return "(P)rojectsBase official (M)odule (L)oader";
     }
 
     @Override

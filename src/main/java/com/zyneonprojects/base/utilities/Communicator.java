@@ -1,6 +1,5 @@
 package com.zyneonprojects.base.utilities;
 
-import com.zyneonprojects.base.ProjectsBasePreloader;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -23,34 +22,46 @@ public class Communicator {
         return ERROR_PREFIX;
     }
 
+    public static void setDebug(boolean debug) {
+        Communicator.debug = debug;
+    }
+
+    public static void logRaw(String message) {
+        sendRaw(null,message);
+    }
+
     public static void logErr(String message) {
-        ProjectsBasePreloader.getInstance().getLogger().severe(message);
+        sendErr(null,message);
     }
 
     public static void logWarn(String message) {
-        ProjectsBasePreloader.getInstance().getLogger().warning(message);
+       sendWarn(null,message);
     }
 
     public static void logInfo(String message) {
-        ProjectsBasePreloader.getInstance().getLogger().info(message);
+        sendInfo(null,message);
     }
 
     public static void logDebug(String message) {
         if(!debug) return;
-        ProjectsBasePreloader.getInstance().getLogger().fine(message);
+        sendDebug(null,message);
     }
 
     public static void logTrace(String message) {
-        ProjectsBasePreloader.getInstance().getLogger().finer(message);
+        sendTrace(null,message);
     }
 
     public static void logFinest(String message) {
-        ProjectsBasePreloader.getInstance().getLogger().finest(message);
+        sendFinest(null,message);
     }
 
     public static void sendRaw(CommandSender receiver, String message) {
         if(receiver == null) receiver = Bukkit.getConsoleSender();
-        receiver.sendMessage(message);
+        if(receiver instanceof Player player) {
+            player.sendMessage(message);
+        } else {
+            receiver.sendMessage(getPrefix()+"§r"+message);
+        }
     }
 
     public static void sendRaw(String message) {

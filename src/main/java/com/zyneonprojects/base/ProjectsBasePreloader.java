@@ -14,16 +14,16 @@ public class ProjectsBasePreloader extends JavaPlugin {
     @Override
     public void onLoad() {
         instance = this;
-        Communicator.logWarn("[PRELOADER] Initializing ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+" preloader...");
-        Communicator.logWarn("[PRELOADER] Successfully initialized ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+" preloader!");
-        Communicator.logWarn("[PRELOADER] Loading ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"...");
+        Communicator.logInfo("§6BOT §8| §eInitializing ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+" preloader...");
+        Communicator.logInfo("§6BOT §8| §eSuccessfully initialized ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+" preloader!");
+        Communicator.logInfo("§6BOT §8| §eLoading ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"...");
         preloadConfig();
         projectsBase = new ProjectsBase(this);
         if(projectsBase.load()) {
-            Communicator.logWarn("[PRELOADER] Successfully loaded ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"!");
+            Communicator.logInfo("§6BOT §8| §eSuccessfully loaded ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"!");
             System.gc();
         } else {
-            Communicator.logErr("[PRELOADER] Failed to load ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"!");
+            Communicator.logErr("§6BOT §8| §eFailed to load ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"!");
             getServer().getPluginManager().disablePlugin(this);
         }
     }
@@ -38,24 +38,24 @@ public class ProjectsBasePreloader extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Communicator.logWarn("[PRELOADER] Enabling ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"...");
+        Communicator.logInfo("§6BOT §8| §eEnabling ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"...");
         if(projectsBase.enable()) {
-            Communicator.logWarn("[PRELOADER] Successfully enabled ProjectsBase " + getPluginMeta().getAPIVersion() + "-" + getPluginMeta().getVersion() + "!");
+            Communicator.logInfo("§6BOT §8| §eSuccessfully enabled ProjectsBase " + getPluginMeta().getAPIVersion() + "-" + getPluginMeta().getVersion() + "!");
             System.gc();
         } else {
-            Communicator.logErr("[PRELOADER] Failed to enable ProjectsBase " + getPluginMeta().getAPIVersion() + "-" + getPluginMeta().getVersion() + "!");
+            Communicator.logErr("§6BOT §8| §eFailed to enable ProjectsBase " + getPluginMeta().getAPIVersion() + "-" + getPluginMeta().getVersion() + "!");
             getServer().getPluginManager().disablePlugin(this);
         }
     }
 
     @Override
     public void onDisable() {
-        Communicator.logWarn("[PRELOADER] Disabling ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"...");
+        Communicator.logInfo("§6BOT §8| §eDisabling ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"...");
         if(projectsBase.disable()) {
-            Communicator.logWarn("[PRELOADER] Successfully disabled ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"!");
+            Communicator.logInfo("§6BOT §8| §eSuccessfully disabled ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"!");
             System.gc();
         } else {
-            Communicator.logErr("[PRELOADER] Failed to disable ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"!");
+            Communicator.logErr("§6BOT §8| §eFailed to disable ProjectsBase "+getPluginMeta().getAPIVersion()+"-"+getPluginMeta().getVersion()+"!");
         }
     }
 

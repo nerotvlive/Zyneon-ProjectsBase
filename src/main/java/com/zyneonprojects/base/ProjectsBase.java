@@ -86,7 +86,7 @@ public class ProjectsBase {
                 } catch (Exception _) {}
             }
             if(enable) {
-                getModuleLoader().info("  - Registering module " + module.getName() + "...");
+                getModuleLoader().info("  - Registering module " + module.getId() + "...");
                 return getModuleLoader().registerModule(module);
             }
         }

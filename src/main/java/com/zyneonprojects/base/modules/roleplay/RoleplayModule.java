@@ -6,7 +6,7 @@ import com.zyneonprojects.base.modules.loader.modules.InbuiltModule;
 public class RoleplayModule extends InbuiltModule {
 
     public RoleplayModule() {
-        super("roleplay","Roleplay");
+        super("roleplay","RPL");
     }
 
     @Override

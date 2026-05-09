@@ -23,10 +23,14 @@ public class ModulesCommand implements CommandExecutor, TabCompleter {
         if(!ProjectsBase.getInstance().getConfig().getBoolean("settings.modules.loader.enable")) { return false; }
         if(Permissions.has(s, "projectsbase.module.modules.command.modules")) {
             if(args.length == 0) {
-                Bukkit.dispatchCommand(s, "modules list");
+                if(ProjectsBase.getInstance().getModuleLoader().getModule("essentials") != null) {
+                    Bukkit.dispatchCommand(s, "about");
+                } else {
+                    Bukkit.dispatchCommand(s, "modules list");
+                }
             } else {
                 if(!Permissions.has(s,"projectsbase.module.modules.command.modules.module")||args[0].equalsIgnoreCase("list")) {
-                    Communicator.sendRaw(s, " ");
+                    sendModuleInfo(s,ProjectsBase.getInstance().getModuleLoader());
                     Communicator.sendInfo(s, "§b§lProjectsBase §r§fModules§8:");
                     StringBuilder modules = new StringBuilder("§amodules");
                     for(ProjectsBaseModule module : ProjectsBase.getInstance().getModuleLoader().getModules()) {
@@ -39,8 +43,10 @@ public class ModulesCommand implements CommandExecutor, TabCompleter {
                 } else {
                     if(args[0].equals("modules")) {
                         sendModuleInfo(s,ProjectsBase.getInstance().getModuleLoader());
+                        Communicator.sendRaw(s, " ");
                     } else if(ProjectsBase.getInstance().getModuleLoader().getModuleIds().contains(args[0])) {
                         sendModuleInfo(s,ProjectsBase.getInstance().getModuleLoader().getModule(args[0]));
+                        Communicator.sendRaw(s, " ");
                     } else {
                         Communicator.sendErr(s,"Module with id §4\""+args[0]+"\"§c not found§8!");
                     }
@@ -53,7 +59,7 @@ public class ModulesCommand implements CommandExecutor, TabCompleter {
         }
     }
 
-    private void sendModuleInfo(CommandSender s, ProjectsBaseModule module) {
+    public static void sendModuleInfo(CommandSender s, ProjectsBaseModule module) {
         String prefix = getModuleStateColor(module.getActivationStatus());
         Communicator.sendRaw(s, " ");
         Communicator.sendInfo(s, "§fModule §r§l"+prefix+"§l\""+module.getName()+"\"§8:");
@@ -62,10 +68,9 @@ public class ModulesCommand implements CommandExecutor, TabCompleter {
         Communicator.sendInfo(s, "§7Identifier§8: §f"+module.getId()+"§8@v§f"+module.getVersion());
         Communicator.sendInfo(s, "§7Author§8(§7s§8): §f"+module.getAuthor());
         Communicator.sendInfo(s, "§7Description§8: §f"+module.getDescription());
-        Communicator.sendRaw(s, " ");
     }
 
-    private String getModuleStateColor(ProjectsBase.ActivationStatus status) {
+    public static String getModuleStateColor(ProjectsBase.ActivationStatus status) {
         return switch (status) {
             case UNLOADED, UNINITIALIZED, UNLOADING -> "§8";
             case CRASHED                            -> "§4";
