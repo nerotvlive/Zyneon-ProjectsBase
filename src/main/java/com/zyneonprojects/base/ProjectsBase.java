@@ -1,5 +1,6 @@
 package com.zyneonprojects.base;
 
+import com.zyneonprojects.base.database.ItemDatabase;
 import com.zyneonprojects.base.modules.essentials.EssentialsModule;
 import com.zyneonprojects.base.modules.loader.ModuleLoader;
 import com.zyneonprojects.base.modules.loader.modules.ProjectsBaseModule;
@@ -55,6 +56,8 @@ public class ProjectsBase {
             state = ActivationStatus.LOADING;
 
             //INITIALIZING
+            Communicator.logInfo("Initializing Databases...");
+            ItemDatabase.initDatabase();
             version = getPlugin().getPluginMeta().getVersion();
             authors = getPlugin().getPluginMeta().getAuthors().toArray(new String[0]);
             enableModulesModule();
