@@ -10,7 +10,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,16 +52,20 @@ public class GiveCommand implements CommandExecutor, TabCompleter {
                         int amount = Integer.parseInt(args[1]);
                         if(amount <= 0) {
                             amount = 1;
-                        } else if(amount > 64) {
-                            amount = 64;
                         }
                         if(s instanceof Player p) {
                             if(ItemDatabase.get(id)!=null) {
                                 if(p.getInventory().firstEmpty() == -1) {
                                     Communicator.sendErr(Strings.get(Strings.Key.error_inventory_full));
                                 } else {
-                                    p.getInventory().addItem(ItemDatabase.get(id, amount));
-                                    p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
+                                    try {
+                                        ItemStack item = ItemDatabase.get(id);
+                                        item.setAmount(amount);
+                                        p.getInventory().addItem(item);
+                                        p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
+                                    } catch (Exception e) {
+                                        Communicator.sendErr(Strings.get(Strings.Key.error_item_not_found));
+                                    }
                                 }
                             } else {
                                 Communicator.sendErr(Strings.get(Strings.Key.error_item_not_found));
@@ -75,13 +81,15 @@ public class GiveCommand implements CommandExecutor, TabCompleter {
 
                     } else {
                         Communicator.sendErr(Strings.get(Strings.Key.error_item_not_found));
+                        return false;
                     }
                 }
             }
         } else {
             Communicator.sendErr(Strings.get(Strings.Key.error_no_permission));
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -110,10 +118,10 @@ public class GiveCommand implements CommandExecutor, TabCompleter {
                     }
                 }
             } else if(args.length == 2) {
-                if(ItemDatabase.get(args[0])!=null) {
+                if(ItemDatabase.get(args[0].toLowerCase().replace("minecraft:", ""))!=null) {
                     int max;
                     try {
-                        max = Objects.requireNonNull(ItemDatabase.get(args[0])).getMaxStackSize();
+                        max = Objects.requireNonNull(ItemDatabase.get(args[0].toLowerCase().replace("minecraft:", ""))).getMaxStackSize();
                     } catch (Exception e) {
                         max = 64;
                     }
@@ -130,22 +138,34 @@ public class GiveCommand implements CommandExecutor, TabCompleter {
                     }
                 }
             } else if(args.length == 3) {
-                int max;
-                try {
-                    max = Objects.requireNonNull(ItemDatabase.get(args[1])).getMaxStackSize();
-                } catch (Exception e) {
-                    max = 64;
-                }
-                for(int i = 1; i <= max; i++) {
-                    list.add(String.valueOf(i));
+                if(ItemDatabase.get(args[1].toLowerCase().replace("minecraft:", ""))!=null) {
+                    int max;
+                    try {
+                        max = Objects.requireNonNull(ItemDatabase.get(args[1].toLowerCase().replace("minecraft:", ""))).getMaxStackSize();
+                    } catch (Exception e) {
+                        max = 64;
+                    }
+                    for (int i = 1; i <= max; i++) {
+                        list.add(String.valueOf(i));
+                    }
                 }
             }
             for (String item : list) {
-                if (item.toLowerCase().startsWith(args[0].toLowerCase())) {
+                if (item.toLowerCase().contains(args[args.length-1].toLowerCase())) {
                     completer.add(item.toLowerCase());
                 }
             }
         }
         return completer;
+    }
+
+    public static LivingEntity getTarget(String selector, CommandSender executor) {
+        LivingEntity entity = null;
+        if(executor != null) {
+            if(executor instanceof Player p) {
+                entity = p;
+            }
+        }
+        return entity;
     }
 }
