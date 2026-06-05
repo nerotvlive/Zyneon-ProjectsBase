@@ -65,6 +65,8 @@ public class WeaponItems {
         weapons.put("black_marksman_pistol", getMarksmanPistol(Variant.BLACK));
         weapons.put("golden_marksman_pistol", getMarksmanPistol(Variant.GOLDEN));
 
+        weapons.put("crystal_gun", getCrsytalGun());
+
         weapons.put("knife", getKnife());
         weapons.put("hammer", getHammer());
         weapons.put("dagger", getDagger());
@@ -166,6 +168,17 @@ public class WeaponItems {
 
         meta.setDisplayName("§r§fLewis Maschinengewehr");
         meta.setItemModel(new NamespacedKey("zyneon", "lewis_gun_" + variant.name().toLowerCase()));
+
+        revolver.setItemMeta(meta);
+        return revolver;
+    }
+
+    public static ItemStack getCrsytalGun() {
+        ItemStack revolver = getFormattedCrossbow();
+        CrossbowMeta meta = (CrossbowMeta) revolver.getItemMeta();
+
+        meta.setDisplayName("§r§fKristall Waffe");
+        meta.setItemModel(new NamespacedKey("zyneon", "crystal_gun"));
 
         revolver.setItemMeta(meta);
         return revolver;
