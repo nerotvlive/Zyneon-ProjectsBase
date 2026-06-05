@@ -1,5 +1,7 @@
 package com.zyneonstudios.nerotvlive.projectsbase.custom;
 
+import com.zyneonstudios.nerotvlive.projectsbase.Main;
+
 public class CustomMain {
 
     public void load() {
@@ -7,7 +9,7 @@ public class CustomMain {
     }
 
     public void enable() {
-
+        Main.getInstance().getServer().getPluginManager().registerEvents(new ArmorListener(), Main.getInstance());
     }
 
     public void disable() {

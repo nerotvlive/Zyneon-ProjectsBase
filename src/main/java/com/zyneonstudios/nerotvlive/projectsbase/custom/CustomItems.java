@@ -3,9 +3,11 @@ package com.zyneonstudios.nerotvlive.projectsbase.custom;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.components.EquippableComponent;
 
 import java.util.HashMap;
 
@@ -35,6 +37,11 @@ public class CustomItems {
         customItems.put("fishbasket", getFishbasket());
         customItems.put("wrench", getWrench());
         customItems.put("toolbox", getToolbox());
+        customItems.put("sack", getSack());
+        customItems.put("cloak_helmet", getCloakHelmet());
+        customItems.put("cloak_chestplate", getCloakChestplate());
+        customItems.put("cloak_leggings", getCloakLeggings());
+        customItems.put("cloak_boots", getCloakBoots());
     }
 
     public static ItemStack getMark(Variant variant) {
@@ -69,7 +76,7 @@ public class CustomItems {
         return fishbasket;
     }
 
-    public static ItemStack getWrench(){
+    public static ItemStack getWrench() {
         ItemStack wrench = new ItemStack(Material.DEBUG_STICK);
         ItemMeta meta = wrench.getItemMeta();
         meta.setDisplayName("§r§fSchraubenschlüssel");
@@ -78,13 +85,78 @@ public class CustomItems {
         return wrench;
     }
 
-    public static ItemStack getToolbox(){
+    public static ItemStack getToolbox() {
         ItemStack toolbox = new ItemStack(Material.STICK);
         ItemMeta meta = toolbox.getItemMeta();
         meta.setDisplayName("§r§fWerkzeugkasten");
         meta.setItemModel(new NamespacedKey("zyneon", "toolbox"));
         toolbox.setItemMeta(meta);
         return toolbox;
+    }
+
+    public static ItemStack getSack() {
+        ItemStack sack = new ItemStack(Material.LEATHER_HELMET);
+        ItemMeta meta = sack.getItemMeta();
+        meta.setDisplayName("§r§fSack");
+        meta.setItemModel(new NamespacedKey("zyneon", "sack"));
+        EquippableComponent equip = meta.getEquippable();
+        equip.setSlot(EquipmentSlot.HEAD);
+        equip.setModel(new NamespacedKey("zyneon", "sack"));
+        meta.setEquippable(equip);
+        sack.setItemMeta(meta);
+        return sack;
+    }
+
+    public static ItemStack getCloakHelmet() {
+        ItemStack cloakHelmet = new ItemStack(Material.CHAINMAIL_HELMET);
+        ItemMeta meta = cloakHelmet.getItemMeta();
+        meta.setDisplayName("§r§fMantel Helm");
+        meta.setItemModel(new NamespacedKey("zyneon", "cloak_helmet"));
+        EquippableComponent equip = meta.getEquippable();
+        equip.setSlot(EquipmentSlot.HEAD);
+        equip.setModel(new NamespacedKey("zyneon", "cloak"));
+        meta.setEquippable(equip);
+        cloakHelmet.setItemMeta(meta);
+        return cloakHelmet;
+    }
+
+    public static ItemStack getCloakChestplate() {
+        ItemStack cloakChestplate = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
+        ItemMeta meta = cloakChestplate.getItemMeta();
+        meta.setDisplayName("§r§fMantel Brustplatte");
+        meta.setItemModel(new NamespacedKey("zyneon", "cloak_chestplate"));
+        EquippableComponent equip = meta.getEquippable();
+        equip.setSlot(EquipmentSlot.CHEST);
+        equip.setModel(new NamespacedKey("zyneon", "cloak"));
+        meta.setEquippable(equip);
+        cloakChestplate.setItemMeta(meta);
+        return cloakChestplate;
+    }
+
+    public static ItemStack getCloakLeggings() {
+        ItemStack cloakLeggings = new ItemStack(Material.CHAINMAIL_LEGGINGS);
+        ItemMeta meta = cloakLeggings.getItemMeta();
+        meta.setDisplayName("§r§fMantel Hose");
+        meta.setItemModel(new NamespacedKey("zyneon", "cloak_leggings"));
+        EquippableComponent equip = meta.getEquippable();
+        equip.setSlot(EquipmentSlot.LEGS);
+        equip.setModel(new NamespacedKey("zyneon", "cloak"));
+        meta.setEquippable(equip);
+        cloakLeggings.setItemMeta(meta);
+        return cloakLeggings;
+    }
+
+    public static ItemStack getCloakBoots() {
+        ItemStack cloakBoots = new ItemStack(Material.CHAINMAIL_BOOTS);
+        ItemMeta meta = cloakBoots.getItemMeta();
+        meta.setDisplayName("§r§fMantel Schuhe");
+        meta.setItemModel(new NamespacedKey("zyneon", "cloak_boots"));
+        EquippableComponent equip = meta.getEquippable();
+        equip.setSlot(EquipmentSlot.FEET);
+        equip.setModel(new NamespacedKey("zyneon", "cloak"));
+        meta.setEquippable(equip);
+        cloakBoots.setItemMeta(meta);
+        return cloakBoots;
     }
 
     public enum Variant {
