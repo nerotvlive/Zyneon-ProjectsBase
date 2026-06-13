@@ -20,7 +20,7 @@ Until the deadline on July 30, we will continue to push bare-minimum updates and
 
 ### CRITICAL WARNINGS
 
-* **Compatibility:** Strictly built for **Paper 1.21.1** (or higher, if you are feeling brave/suicidal).
+* **Compatibility:** Strictly built for **Paper 1.21.11** (or higher, if you are feeling brave/suicidal).
 * **Support Status:** Completely and utterly **UNSUPPORTED**. Do not open issues. We already know it's broken.
 * **Production Advice:** We strongly advise against forking, building, or—god forbid—actually using this plugin in production environments. If your server crashes, you were warned.
 
