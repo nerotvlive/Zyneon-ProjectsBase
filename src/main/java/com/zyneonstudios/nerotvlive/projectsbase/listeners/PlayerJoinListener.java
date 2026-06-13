@@ -68,7 +68,7 @@ public class PlayerJoinListener implements Listener {
             p.setOp(false);
         }
 
-        if(u.hasPlayedBefore()) { //TODO !!!!
+        if(!u.hasPlayedBefore()) {
             p.teleport(getRandomSpawn());
             u.setHasPlayedBefore(true);
         }
@@ -124,12 +124,13 @@ public class PlayerJoinListener implements Listener {
             if (warps == null) {
                 initSpawns();
             }
+            ArrayList<String> list = warps;
             String result = "rincon_hotel_0";
-            int random = ThreadLocalRandom.current().nextInt(0, 5);
+            int random = ThreadLocalRandom.current().nextInt(1, 5);
             return WarpAPI.getWarp(result+random).getLocation();
         } catch (Exception e) {
             Communicator.sendError(e.getMessage());
-            return Bukkit.getWorlds().getFirst().getSpawnLocation();
+            return WarpAPI.getWarp("rincon_hotel_01").getLocation();
         }
     }
 }
