@@ -16,7 +16,7 @@ public class AuthorCommand implements CommandExecutor {
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
         Communicator.sendRaw(s,Strings.prefix+"§8=====================================");
         Communicator.sendRaw(s,Strings.prefix+"§7Plugin§8: §fZyneon ProjectsBase "+ Main.version);
-        Communicator.sendRaw(s, Strings.prefix+"§7Versions-Titel§8: §fFast-Gut Edition");
+        Communicator.sendRaw(s, Strings.prefix+"§7Versions-Titel§8: §fnevermind Edition");
         Communicator.sendRaw(s,Strings.prefix+"§7Authors§8: §eBlack_0mega§8, §aDerFantastico§8,");
         Communicator.sendRaw(s,Strings.prefix+"§7            §cnerotvlive");
         Communicator.sendRaw(s,Strings.prefix+"§8=====================================");
