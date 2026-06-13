@@ -25,6 +25,7 @@ public class User {
     private String lastCity = Math.random() < 0.5 ? "silberfels" : "rincon";
     private ArrayList<Character> characters = new ArrayList<>();
     private UUID selectedCharacter;
+    private boolean hasPlayedBefore = false;
 
     //MODES
     private String inventoryMode = "normal";
@@ -41,6 +42,9 @@ public class User {
             this.name = player.getName();
         } else {
             this.name = offlinePlayer.getName();
+        }
+        if(config.get("user.hasPlayedBefore")!=null) {
+            this.hasPlayedBefore = config.getCFG().getBoolean("user.hasPlayedBefore");
         }
         if(config.get("user.lastCity")!=null) {
             this.lastCity = config.get("user.lastCity").toString();
@@ -93,6 +97,15 @@ public class User {
     public Character getSelectedCharacter() {
         return characters.stream().filter(character -> character.getUUID().equals(selectedCharacter)).findFirst().orElse(null);
 
+    }
+
+    public boolean hasPlayedBefore() {
+        return hasPlayedBefore;
+    }
+
+    public void setHasPlayedBefore(boolean hasPlayedBefore) {
+        this.hasPlayedBefore = hasPlayedBefore;
+        config.set("user.hasPlayedBefore", hasPlayedBefore);
     }
 
     public UUID getSelectedCharacterId() {
@@ -199,13 +212,6 @@ public class User {
         this.roleplay = roleplay;
         if(Bukkit.getPlayer(uuid)!=null) {
             Player p = Bukkit.getPlayer(uuid);
-            if(roleplay) {
-                Main.getScoreboard().getTeam("offrp").removePlayer(p);
-                Main.getScoreboard().getTeam("rp").addPlayer(p);
-            } else {
-                Main.getScoreboard().getTeam("rp").removePlayer(p);
-                Main.getScoreboard().getTeam("offrp").addPlayer(p);
-            }
             initListName();
         }
     }
@@ -218,7 +224,7 @@ public class User {
             } else if(roleplay) {
                 p.setPlayerListName("§6" + getSelectedCharacter().getJob()+" §8| §f"+getSelectedCharacter().getName());
             } else {
-                p.setPlayerListName(Main.getScoreboard().getTeam("offrp").getPrefix()+name);
+                p.setPlayerListName("§8OOC | "+name);
             }
         }
     }

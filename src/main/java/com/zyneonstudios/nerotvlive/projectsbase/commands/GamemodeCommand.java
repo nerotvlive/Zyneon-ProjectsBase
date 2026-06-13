@@ -50,8 +50,8 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     Communicator.sendError(s, Strings.needPlayer);
                 }
             } else {
-                if(Bukkit.getPlayer(args[0])!=null) {
-                    Player p = Bukkit.getPlayer(args[0]);
+                if(Bukkit.getPlayer(args[1])!=null) {
+                    Player p = Bukkit.getPlayer(args[1]);
                     User u = Main.getUser(p);
                     String gm = args[0];
                     if(gm.equalsIgnoreCase("0")||gm.equalsIgnoreCase("s")||gm.equalsIgnoreCase("survival")) {

@@ -33,8 +33,6 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        p.setScoreboard(Main.getScoreboard());
-        Main.getScoreboard().getTeam("rp").addPlayer(p);
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
         if(!p.getGameMode().equals(GameMode.SURVIVAL)&&(p.isOp()||p.hasPermission("zyneon.teammode"))) {
@@ -45,19 +43,19 @@ public class PlayerJoinListener implements Listener {
         } else {
             p.setOp(false);
         }
-
-        if(p.getWorld().equals(Bukkit.getWorlds().getFirst())) {
-            u.setRoleplay(true);
-        } else {
-            u.setRoleplay(false);
+        if(!p.hasPermission("zyneon.teammode")) {
+            p.setGameMode(GameMode.SURVIVAL);
         }
+
+        if(!u.hasPlayedBefore()) {
+            p.teleport(getRandomSpawn());
+            u.setHasPlayedBefore(true);
+        }
+        u.setRoleplay(p.getWorld().equals(Bukkit.getWorlds().getFirst()));
 
         p.setPlayerListHeader("\n§r §r §cPrimal 4§r §r \n§r §r §cPrimal Aftermath§r §r \n");
         p.setPlayerListFooter("\n§r §r §7by §fZYNEON PROJECTS§r §r \n§r §r §7hosted by §9elizon.app§r §r \n");
 
-        if(!p.hasPlayedBefore()) {
-            p.teleport(getRandomSpawn());
-        }
         Character character = u.getSelectedCharacter();
         CharacterSkin skin = character.getSelectedSkin();
         u.initListName();
@@ -113,37 +111,22 @@ public class PlayerJoinListener implements Listener {
             if (warps == null) {
                 initSpawns();
             }
-            String result = "silberfelshotel";
-            int max = 30;
-            boolean rincon = Math.random() < 0.5;
-            if (rincon) {
-                result = "rinconhotel";
-                max = 16;
-            }
+            String result = "rinconhotel";
+            int max = 16;
             for (int i = 1; i <= max; i++) {
                 String warpName = result + i;
                 if (warps.contains(warpName)) {
                     return WarpAPI.getWarp(warpName).getLocation();
                 }
             }
-            if (rincon) {
-                result = "silberfelshotel";
-                max = 30;
-            } else {
-                result = "rinconhotel";
-                max = 16;
-            }
+
             for (int i = 1; i <= max; i++) {
                 String warpName = result + i;
                 if (warps.contains(warpName)) {
                     return WarpAPI.getWarp(warpName).getLocation();
                 }
             }
-            if (rincon) {
-                return WarpAPI.getWarp("rincon").getLocation();
-            } else {
-                return WarpAPI.getWarp("silberfels").getLocation();
-            }
+            return WarpAPI.getWarp("rincon").getLocation();
         } catch (Exception e) {
             Communicator.sendError(e.getMessage());
             return Bukkit.getWorlds().getFirst().getSpawnLocation();

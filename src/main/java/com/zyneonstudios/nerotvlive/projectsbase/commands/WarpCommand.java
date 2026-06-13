@@ -36,7 +36,7 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
             Communicator.sendError(s, Strings.needPlayer);
         } else {
             User u = Main.getUser(p);
-            if(u.isRoleplay()) {
+            if(u.isRoleplay()&&!u.isTeamMode()) {
                 Communicator.sendError(p, "§cDu darfst dich im Roleplay Modus nicht teleportieren§8. (Benutze /warp nicht zur RP Flucht!)");
                 return false;
             }

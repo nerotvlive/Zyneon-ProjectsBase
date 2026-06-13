@@ -48,7 +48,7 @@ public class PlayerChatListener implements Listener {
             }
             String[] words = e.getMessage().split("\\s+");
             int numOfWords = words.length;
-            if(numOfWords==2||numOfWords==3) {
+            if(numOfWords<4) {
                 Communicator.sendInfo(p,"Dein Charakter heißt nun§8: §e"+e.getMessage());
                 u.getSelectedCharacter().setName(e.getMessage());
                 u.setChatMode("normal");
@@ -66,12 +66,16 @@ public class PlayerChatListener implements Listener {
             }
             String[] words = e.getMessage().split("\\s+");
             int numOfWords = words.length;
-            if(numOfWords==1) {
-                Communicator.sendInfo(p,"Dein Charakter hat nun den Job§8: §e"+e.getMessage());
-                u.getSelectedCharacter().setJob(e.getMessage());
-                u.setChatMode("normal");
-                u.setRoleplay(u.isRoleplay());
-                u.initListName();
+            if(numOfWords<4) {
+                if(e.getMessage().getBytes().length > 16) {
+                    Communicator.sendError(p,"Dein RP-Job darf maximal 16 Zeichen lang sein§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
+                } else {
+                    Communicator.sendInfo(p,"Dein Charakter hat nun den Job§8: §e"+e.getMessage());
+                    u.getSelectedCharacter().setJob(e.getMessage());
+                    u.setChatMode("normal");
+                    u.setRoleplay(u.isRoleplay());
+                    u.initListName();
+                }
             } else {
                 Communicator.sendError(p,"Du darfst maximal ein Wort für deinen Job angeben§8! §7Versuche es erneut§8, §7schreibe §e\"cancel\"§7 um den Vorgang abzubrechen§8!");
             }

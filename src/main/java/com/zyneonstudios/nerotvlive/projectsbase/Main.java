@@ -22,8 +22,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,6 +29,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public final class Main extends JavaPlugin {
+
     public static Config config = new Config("plugins/ProjectsBase/config.yml");
     public static HashMap<UUID, User> onlineUsers = new HashMap<>();
     public static ArrayList<String> whitelist;
@@ -41,7 +40,6 @@ public final class Main extends JavaPlugin {
     public static boolean maintenance;
     private CustomMain customMain = null;
     private WeaponMain weaponsMain = null;
-    private static Scoreboard scoreboard;
 
     @Override
     public void onLoad() {
@@ -68,14 +66,6 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-
-        scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        scoreboard.registerNewTeam("offrp");
-        scoreboard.getTeam("offrp").setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
-        scoreboard.getTeam("offrp").setPrefix("§8OOC | ");
-        scoreboard.registerNewTeam("rp");
-        scoreboard.getTeam("rp").setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
-        scoreboard.getTeam("rp").setPrefix("§6RP §8| §f");
 
         checkConfig();
         initDatabase();
@@ -272,9 +262,5 @@ public final class Main extends JavaPlugin {
 
     public static User getUser(Player player) {
         return getUser(player.getUniqueId());
-    }
-
-    public static Scoreboard getScoreboard() {
-        return scoreboard;
     }
 }

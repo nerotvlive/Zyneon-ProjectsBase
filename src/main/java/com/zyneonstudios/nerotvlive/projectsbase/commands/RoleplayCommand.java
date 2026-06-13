@@ -18,8 +18,7 @@ public class RoleplayCommand implements CommandExecutor {
             User u = Main.getUser(player);
             if(!player.getWorld().equals(Bukkit.getWorlds().getFirst())) {
                 u.setRoleplay(false);
-                u.initListName();
-                Communicator.sendError(player,"§cDu kannst diesen Befehl nur in der Roleplay-Welt ausführen!");
+                Communicator.sendInfo(player,"§eRoleplay§8-§eModus§7 deaktiviert");
                 return true;
             }
             if(args.length == 0) {
@@ -36,6 +35,7 @@ public class RoleplayCommand implements CommandExecutor {
                     Communicator.sendError(s,"/roleplay §7[on/off]");
                 }
             }
+            u.initListName();
         } else {
             Communicator.sendError(s, Strings.needPlayer);
         }
