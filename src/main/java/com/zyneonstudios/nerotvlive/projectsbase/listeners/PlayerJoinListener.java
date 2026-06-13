@@ -25,6 +25,9 @@ import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.random.RandomGenerator;
 
 //no, it's totally fine to use a default String
 @SuppressWarnings( "deprecation")
@@ -65,7 +68,7 @@ public class PlayerJoinListener implements Listener {
             p.setOp(false);
         }
 
-        if(!u.hasPlayedBefore()) {
+        if(u.hasPlayedBefore()) { //TODO !!!!
             p.teleport(getRandomSpawn());
             u.setHasPlayedBefore(true);
         }
@@ -108,8 +111,8 @@ public class PlayerJoinListener implements Listener {
     private static ArrayList<String> warps = null;
     private static void initSpawns() {
         warps = new ArrayList<>();
-        for(int i = 1; i <= 16; i++) {
-            String name = "rinconhotel"+i;
+        for(int i = 1; i <= 4; i++) {
+            String name = "rincon_hotel_0"+i;
             if(WarpAPI.ifWarpExists(name)) {
                 warps.add(name);
             }
@@ -121,22 +124,9 @@ public class PlayerJoinListener implements Listener {
             if (warps == null) {
                 initSpawns();
             }
-            String result = "rinconhotel";
-            int max = 16;
-            for (int i = 1; i <= max; i++) {
-                String warpName = result + i;
-                if (warps.contains(warpName)) {
-                    return WarpAPI.getWarp(warpName).getLocation();
-                }
-            }
-
-            for (int i = 1; i <= max; i++) {
-                String warpName = result + i;
-                if (warps.contains(warpName)) {
-                    return WarpAPI.getWarp(warpName).getLocation();
-                }
-            }
-            return WarpAPI.getWarp("rincon").getLocation();
+            String result = "rincon_hotel_0";
+            int random = ThreadLocalRandom.current().nextInt(0, 5);
+            return WarpAPI.getWarp(result+random).getLocation();
         } catch (Exception e) {
             Communicator.sendError(e.getMessage());
             return Bukkit.getWorlds().getFirst().getSpawnLocation();
