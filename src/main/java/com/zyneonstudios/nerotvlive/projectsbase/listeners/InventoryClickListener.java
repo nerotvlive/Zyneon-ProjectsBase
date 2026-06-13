@@ -67,9 +67,11 @@ public class InventoryClickListener implements Listener {
                             } catch (Exception ignore) {
                             }
                             u.initListName();
+                            return;
                         }
                     }
-                } else if(itemName.equals(ItemManager.addCharacter.getItemMeta().getDisplayName())) {
+                }
+                if(itemName.equals(ItemManager.addCharacter.getItemMeta().getDisplayName())) {
                     e.setCancelled(true);
                     u.addNewCharacter();
                     p.closeInventory();
