@@ -20,6 +20,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -28,6 +30,8 @@ import java.util.Optional;
 @SuppressWarnings( "deprecation")
 public class PlayerJoinListener implements Listener {
 
+    Scoreboard mainBoard = Bukkit.getScoreboardManager().getNewScoreboard();
+
     SkinsRestorer skinsRestorerAPI = SkinsRestorerProvider.get();
     SkinStorage skinStorage = skinsRestorerAPI.getSkinStorage();
     PlayerStorage playerStorage = skinsRestorerAPI.getPlayerStorage();
@@ -35,6 +39,16 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
+        p.setScoreboard(mainBoard);
+        Team team;
+        if(mainBoard.getTeam(p.getUniqueId().toString())!=null) {
+            team = mainBoard.getTeam(p.getUniqueId().toString());
+        } else {
+            team = mainBoard.registerNewTeam(p.getUniqueId().toString());
+        }
+        assert team != null;
+        team.addEntry(p.getName());
+        team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
         Main.onlineUsers.remove(p.getUniqueId());
         User u = Main.getUser(p);
         if(!p.getGameMode().equals(GameMode.SURVIVAL)&&(p.isOp()||p.hasPermission("zyneon.teammode"))) {
