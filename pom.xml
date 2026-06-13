@@ -6,10 +6,10 @@
 
     <groupId>nerotvlive</groupId>
     <artifactId>ProjectsBase</artifactId>
-    <version>26.1.0</version>
+    <version>5.26.1</version>
     <packaging>jar</packaging>
 
-    <name>ProjectsBase</name>
+    <name>ProjectsBase5</name>
 
     <description>The source of Zyneon Studios mod projects</description>
     <properties>

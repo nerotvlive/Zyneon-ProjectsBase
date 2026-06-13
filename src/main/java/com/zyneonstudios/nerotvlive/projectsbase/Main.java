@@ -160,6 +160,8 @@ public final class Main extends JavaPlugin {
         SpeedCommand speedCommand = new SpeedCommand();
         SRLCommand srlCommand = new SRLCommand();
         TellCommand tellCommand = new TellCommand();
+        MuteCommand muteCommand = new MuteCommand();
+        VoicemuteCommand voicemuteCommand = new VoicemuteCommand();
 
         WhitelistCommand whitelistCommand = new WhitelistCommand();
         ItemCommand itemCommand = new ItemCommand();
@@ -195,6 +197,8 @@ public final class Main extends JavaPlugin {
         initCommand(new WhisperCommand());
         initCommand(whitelistCommand,whitelistCommand);
         initCommand(new WorldCommand());
+        initCommand(muteCommand);
+        initCommand(voicemuteCommand);
 
         Communicator.sendRaw("§0");
         Communicator.sendRaw("§0");

@@ -11,7 +11,7 @@ commands:
   item:
     aliases: [getitem,customitem,getcustomitem,itemget,customitemget]
   author:
-    aliases: [project,projects,projectsbase,zyneon,pb,pb26,projectsbase26]
+    aliases: [project,projects,projectsbase,zyneon,pb,pb5,projectsbase5]
   book:
     aliases: [buch,writable,feder,feather]
   broadcast:
@@ -23,6 +23,8 @@ commands:
   day:
   feed:
   fix:
+  mute:
+  voicemute:
   fly:
   gamemode:
     aliases: [gm,spielmodus,sm]
