@@ -39,13 +39,16 @@ public class PlayerJoinListener implements Listener {
         User u = Main.getUser(p);
         if(!p.getGameMode().equals(GameMode.SURVIVAL)&&(p.isOp()||p.hasPermission("zyneon.teammode"))) {
             u.setTeamMode(true);
+            p.setOp(true);
             p.setGameMode(GameMode.SPECTATOR);
             Communicator.sendInfo(p,"Teammodus§8: §etrue");
         } else {
             u.setTeamMode(false);
+            p.setOp(false);
         }
         if(!p.hasPermission("zyneon.teammode")) {
             p.setGameMode(GameMode.SURVIVAL);
+            p.setOp(false);
         }
 
         if(!u.hasPlayedBefore()) {

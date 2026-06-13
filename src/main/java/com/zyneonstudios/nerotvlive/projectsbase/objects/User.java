@@ -250,6 +250,9 @@ public class User {
 
     public void setTeamMode(boolean teamMode) {
         this.teamMode = teamMode;
+        if(Bukkit.getPlayer(uuid)!=null) {
+            Objects.requireNonNull(Bukkit.getPlayer(uuid)).setOp(teamMode);
+        }
     }
 
     public Config getConfig() {

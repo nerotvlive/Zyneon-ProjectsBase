@@ -18,9 +18,6 @@ public class FixCommand implements CommandExecutor {
     @SuppressWarnings("all")
     @Override
     public boolean onCommand(@NotNull CommandSender s, @NotNull Command cmd, @NotNull String label, @NotNull String @NotNull [] args) {
-        if(true) {
-            s.sendMessage("Es gibt gerade nichts zum automatischen Fixen! ~ProjectsBase");
-        }
         if(s.hasPermission("zyneon.fix")) {
             AtomicInteger fs1 = new AtomicInteger();
             AtomicInteger fs2 = new AtomicInteger();
