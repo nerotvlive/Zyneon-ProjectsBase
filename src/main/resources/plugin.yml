@@ -22,6 +22,7 @@ commands:
     aliases: [chatclear,cc,clearc,chatc]
   day:
   feed:
+  fix:
   fly:
   gamemode:
     aliases: [gm,spielmodus,sm]

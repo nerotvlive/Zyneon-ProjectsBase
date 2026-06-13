@@ -2,21 +2,16 @@ package com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types;
 
 import java.sql.*;
 
+@SuppressWarnings("all")
 public class MySQL {
 
     private String host;
     private String port;
     private String database;
     private String username;
-    private String password;
     private Connection con;
 
     public MySQL(String host, String port, String database, String username, String password, boolean savePassword) {
-        if(savePassword) {
-            this.password = password;
-        } else {
-            this.password = "not cached";
-        }
         this.host = host;
         this.port = port;
         this.database = database;
@@ -45,10 +40,6 @@ public class MySQL {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public Connection getConnection() {

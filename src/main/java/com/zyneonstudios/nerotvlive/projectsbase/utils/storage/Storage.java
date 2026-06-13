@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+//works
+@SuppressWarnings("all")
 public class Storage {
 
     private storageType type;

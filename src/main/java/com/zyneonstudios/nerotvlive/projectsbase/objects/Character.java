@@ -2,6 +2,7 @@ package com.zyneonstudios.nerotvlive.projectsbase.objects;
 
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.Config;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -10,7 +11,7 @@ public class Character {
     private final UUID uuid;
     private String name;
     private String job;
-    private ArrayList<CharacterSkin> outfits;
+    private final ArrayList<CharacterSkin> outfits = new ArrayList<>();
     private UUID selectedSkin = null;
     private final Config config;
 
@@ -25,24 +26,29 @@ public class Character {
         initOutfits();
     }
 
+    @SuppressWarnings("unchecked")
     private void initOutfits() {
-        config.checkEntry("character.outfits", new ArrayList<>());
-        ArrayList<String> outfits = (ArrayList<String>) config.get("character.outfits");
         if(outfits.isEmpty()) {
-            CharacterSkin outfit = new CharacterSkin(UUID.randomUUID());
-            outfits.add(outfit.getUUID().toString());
-            config.set("character.outfit", outfit.getUUID().toString());
-            config.set("character.outfits", outfits);
-        }
-        this.outfits = new ArrayList<>();
-        for(String uuid : outfits) {
-            this.outfits.add(new CharacterSkin(UUID.fromString(uuid)));
-            if(this.outfits.getLast().getUUID().equals(selectedSkin)) {
-                selectedSkin = this.outfits.getLast().getUUID();
+            ArrayList<String> outfits = (ArrayList<String>)config.get("character.outfits");
+            for(String uuid : outfits) {
+                if(new File("plugins/ProjectsBase/characters/outfits/"+uuid+".yml").exists()) {
+                    this.outfits.add(new CharacterSkin(UUID.fromString(uuid)));
+                    if(this.outfits.getLast().getUUID().equals(selectedSkin)) {
+                        selectedSkin = this.outfits.getLast().getUUID();
+                    }
+                }
             }
+            if(outfits.isEmpty()) {
+                CharacterSkin outfit = new CharacterSkin(UUID.randomUUID());
+                this.outfits.add(outfit);
+                outfits.add(outfit.getUUID().toString());
+                config.set("character.selectedOutfit", outfit.getUUID().toString());
+                config.set("character.outfits", outfits);
+                selectedSkin = outfit.getUUID();
+            }
+            config.checkEntry("character.selectedOutfit", outfits.getFirst());
+            selectedSkin = UUID.fromString(config.get("character.selectedOutfit").toString());
         }
-        config.checkEntry("character.selectedSkin", outfits.getFirst());
-        selectedSkin = UUID.fromString(config.get("character.selectedSkin").toString());
     }
 
     public String getName() {
@@ -72,12 +78,16 @@ public class Character {
     }
 
     public void setOutfits(ArrayList<CharacterSkin> outfits) {
-        this.outfits = outfits;
+        this.outfits.clear();
+        this.outfits.addAll(outfits);
+        config.set("character.outfits",outfits.stream().map(CharacterSkin::getUUID).toList());
+        setSelectedSkin(outfits.getFirst().getUUID());
+        config.set("character.selectedOutfit",outfits.getFirst().getUUID().toString());
     }
 
     public void setSelectedSkin(UUID skin) {
         selectedSkin = skin;
-        config.set("character.selectedSkin",skin.toString());
+        config.set("character.selectedOutfit",skin.toString());
     }
 
     public void addOutfit(CharacterSkin skin) {

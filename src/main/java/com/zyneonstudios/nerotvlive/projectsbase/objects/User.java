@@ -1,6 +1,6 @@
 package com.zyneonstudios.nerotvlive.projectsbase.objects;
 
-import com.zyneonstudios.nerotvlive.projectsbase.Main;
+import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.Config;
 import net.skinsrestorer.api.property.SkinVariant;
 import org.bukkit.Bukkit;
@@ -9,9 +9,13 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
+//maybe paper isn't that good :/
+@SuppressWarnings("deprecation")
 public class User {
 
     private final Config config;
@@ -28,7 +32,6 @@ public class User {
     private boolean hasPlayedBefore = false;
 
     //MODES
-    private String inventoryMode = "normal";
     private String interactMode = "null";
     private String chatMode = "normal";
     private boolean teamMode = false;
@@ -39,6 +42,7 @@ public class User {
         this.offlinePlayer = Bukkit.getOfflinePlayer(uuid);
         if (Bukkit.getPlayer(uuid) != null) {
             this.player = Bukkit.getPlayer(uuid);
+            assert player != null;
             this.name = player.getName();
         } else {
             this.name = offlinePlayer.getName();
@@ -59,30 +63,46 @@ public class User {
         initCharacters();
     }
 
+    @SuppressWarnings("unchecked")
     private void initCharacters() {
-        config.checkEntry("characters.list", new ArrayList<>());
         if(characters.isEmpty()) {
-            addNewCharacter();
-            addNewCharacter();
-            addNewCharacter();
-        } else if(characters.size()<2) {
-            addNewCharacter();
-            addNewCharacter();
-        } else if(characters.size()<3) {
-            addNewCharacter();
+            config.checkEntry("characters.list", new ArrayList<>());
+            ArrayList<String> characters = (ArrayList<String>)config.get("characters.list");
+            ArrayList<String> finalCharacters = new ArrayList<>();
+            for(String uuid : characters) {
+                if(new File("plugins/ProjectsBase/characters/"+uuid+".yml").exists()) {
+                    finalCharacters.add(uuid);
+                    this.characters.add(new Character(UUID.fromString(uuid)));
+                    if (this.characters.getLast().getUUID().equals(selectedCharacter)) {
+                        selectedCharacter = this.characters.getLast().getUUID();
+                    }
+                }
+            }
+            config.set("characters.list", finalCharacters);
+            if(characters.isEmpty()) {
+                Communicator.sendWarning(player, "Du hast einen nicht eingerichteten Standard-Charakter, stelle ihn mit /char ein!");
+                addNewCharacter();
+            }
+            config.checkEntry("characters.selected", characters.getFirst());
+            selectedCharacter = UUID.fromString(config.get("characters.selected").toString());
         }
-        config.checkEntry("characters.selected", characters.getFirst());
-        selectedCharacter = UUID.fromString(config.get("characters.selected").toString());
     }
 
     public void addNewCharacter() {
+        addNewCharacter(true);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void addNewCharacter(boolean save) {
         ArrayList<String> characters = (ArrayList<String>) config.get("characters.list");
         Character character = new Character(UUID.randomUUID());
         character.setName("Unbekannt ("+name+")");
         character.getSelectedSkin().setSkinUrl(name);
         character.getSelectedSkin().setSkinVariant(SkinVariant.SLIM);
         characters.add(character.getUUID().toString());
-        config.set("characters.list", characters);
+        if(save) {
+            config.set("characters.list", characters);
+        }
         this.characters = new ArrayList<>();
         for(String uuid : characters) {
             this.characters.add(new Character(UUID.fromString(uuid)));
@@ -128,7 +148,7 @@ public class User {
     }
 
     public void setSelectedCharacter(String name) {
-        selectedCharacter = characters.stream().filter(character -> character.getName().equals(name)).findFirst().orElse(null).getUUID();
+        selectedCharacter = Objects.requireNonNull(characters.stream().filter(character -> character.getName().equals(name)).findFirst().orElse(null)).getUUID();
         config.set("characters.selected", selectedCharacter.toString());
     }
 
@@ -198,10 +218,6 @@ public class User {
         this.interactMode = interactMode;
     }
 
-    public void setInventoryMode(String inventoryMode) {
-        this.inventoryMode = inventoryMode;
-    }
-
     public void setPlayer(Player player) {
         if(player.getUniqueId().equals(this.uuid)) {
             this.player = player;
@@ -220,10 +236,13 @@ public class User {
         if(Bukkit.getPlayer(uuid)!=null) {
             Player p = Bukkit.getPlayer(uuid);
             if(!player.getWorld().equals(Bukkit.getWorlds().getFirst())) {
+                assert p != null;
                 p.setPlayerListName("§8FARM | "+name);
             } else if(roleplay) {
+                assert p != null;
                 p.setPlayerListName("§6" + getSelectedCharacter().getJob()+" §8| §f"+getSelectedCharacter().getName());
             } else {
+                assert p != null;
                 p.setPlayerListName("§8OOC | "+name);
             }
         }
@@ -243,10 +262,6 @@ public class User {
 
     public String getInteractMode() {
         return interactMode;
-    }
-
-    public String getInventoryMode() {
-        return inventoryMode;
     }
 
     public String getLastCity() {

@@ -6,7 +6,6 @@ import com.zyneonstudios.nerotvlive.projectsbase.custom.CustomMain;
 import com.zyneonstudios.nerotvlive.projectsbase.listeners.*;
 import com.zyneonstudios.nerotvlive.projectsbase.objects.User;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Communicator;
-import com.zyneonstudios.nerotvlive.projectsbase.utils.Economy;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.Strings;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.Storage;
 import com.zyneonstudios.nerotvlive.projectsbase.utils.storage.types.Config;
@@ -26,8 +25,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
+@SuppressWarnings("all")
 public final class Main extends JavaPlugin {
 
     public static Config config = new Config("plugins/ProjectsBase/config.yml");
@@ -36,7 +37,6 @@ public final class Main extends JavaPlugin {
     public static String version = "null";
     public static Main instance;
     public static Storage storage;
-    public static Economy economy;
     public static boolean maintenance;
     private CustomMain customMain = null;
     private WeaponMain weaponsMain = null;
@@ -94,7 +94,6 @@ public final class Main extends JavaPlugin {
         Communicator.sendRaw("§0");
         getCommands();
         getListeners();
-        economy = new Economy();
         Communicator.sendRaw("Successfully §aenabled §fProjectsBase§7 version §f"+version+"§8...");
     }
 
@@ -120,7 +119,6 @@ public final class Main extends JavaPlugin {
         Strings.setPrefixWord(config.getCFG().getString("Settings.Strings.prefixWord"));
         config.checkEntry("Settings.Lists.WorldsToLoad",new ArrayList<String>());
         config.checkEntry("Settings.Lists.Whitelist",new ArrayList<String>());
-        config.checkEntry("Settings.Lists.blockedCommands",new ArrayList<String>());
         config.checkEntry("Settings.storage","SQLite");
         config.checkEntry("Settings.farmingWorld.enable",false);
         config.checkEntry("Settings.farmingWorld.name","FW1");
@@ -136,13 +134,12 @@ public final class Main extends JavaPlugin {
         config.checkEntry("Settings.mySQL.user","root");
         config.checkEntry("Settings.mySQL.pass","password");
         whitelist = (ArrayList<String>) config.getCFG().getList("Settings.Lists.Whitelist");
-        PlayerCommandListener.initBlockedCommands((ArrayList<String>)config.getCFG().getList("Settings.Lists.blockedCommands"));
     }
 
     private void initDatabase() {
-        if(config.getCFG().getString("Settings.storage").equalsIgnoreCase("mysql")) {
+        if(Objects.requireNonNull(config.getCFG().getString("Settings.storage")).equalsIgnoreCase("mysql")) {
             storage = new Storage(new MySQL(config.getCFG().getString("Settings.mySQL.host"), config.getCFG().getString("Settings.mySQL.port"), config.getCFG().getString("Settings.mySQL.name"), config.getCFG().getString("Settings.mySQL.user"), config.getCFG().getString("Settings.mySQL.pass"),false));
-        } else if(config.getCFG().getString("Settings.storage").equalsIgnoreCase("sqlite")) {
+        } else if(Objects.requireNonNull(config.getCFG().getString("Settings.storage")).equalsIgnoreCase("sqlite")) {
             storage = new Storage(new SQLite("plugins/ProjectsBase/storage.db"));
         } else {
             storage = new Storage(new Config("plugins/ProjectsBase/storage.yml"));
@@ -181,6 +178,7 @@ public final class Main extends JavaPlugin {
         initCommand(godCommand,godCommand);
         initCommand(healCommand,healCommand);
         initCommand(invseeCommand,invseeCommand);
+        initCommand(new FixCommand());
         initCommand(new MaintenanceCommand());
         initCommand(new NightCommand());
         initCommand(new RainCommand());
@@ -208,7 +206,6 @@ public final class Main extends JavaPlugin {
         registerEvents(new ExplosionListener());
         registerEvents(new InventoryClickListener());
         registerEvents(new PlayerChatListener());
-        registerEvents(new PlayerCommandListener());
         registerEvents(new PlayerJoinListener());
         registerEvents(new PlayerQuitListener());
         registerEvents(new PlayerRespawnListener());
@@ -219,13 +216,13 @@ public final class Main extends JavaPlugin {
 
     public static void initCommand(CommandExecutor command) {
         Communicator.sendRaw("Loading §e"+command.getClass().getSimpleName()+"§7 (NT)§8...");
-        getInstance().getCommand(command.getClass().getSimpleName().toLowerCase().replace("command","")).setExecutor(command);
+        Objects.requireNonNull(getInstance().getCommand(command.getClass().getSimpleName().toLowerCase().replace("command", ""))).setExecutor(command);
     }
 
     public static void initCommand(CommandExecutor command, TabCompleter completer) {
         Communicator.sendRaw("Loading §e"+command.getClass().getSimpleName()+"§7 (TC)§8...");
-        getInstance().getCommand(command.getClass().getSimpleName().toLowerCase().replace("command","")).setExecutor(command);
-        getInstance().getCommand(command.getClass().getSimpleName().toLowerCase().replace("command","")).setTabCompleter(completer);
+        Objects.requireNonNull(getInstance().getCommand(command.getClass().getSimpleName().toLowerCase().replace("command", ""))).setExecutor(command);
+        Objects.requireNonNull(getInstance().getCommand(command.getClass().getSimpleName().toLowerCase().replace("command", ""))).setTabCompleter(completer);
 
     }
 

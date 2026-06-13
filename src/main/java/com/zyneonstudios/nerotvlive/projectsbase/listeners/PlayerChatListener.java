@@ -101,9 +101,7 @@ public class PlayerChatListener implements Listener {
                         playerStorage.setSkinIdOfPlayer(p.getUniqueId(), result.get().getIdentifier());
                         skinsRestorerAPI.getSkinApplier(Player.class).applySkin(p);
                     }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                } catch (Exception ignore) {}
 
                 u.setChatMode("normal");
             } else {
@@ -139,6 +137,8 @@ public class PlayerChatListener implements Listener {
         }
     }
 
+    //okay, that goes on me
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onChat(PlayerChatEvent e) {
         e.setCancelled(true);

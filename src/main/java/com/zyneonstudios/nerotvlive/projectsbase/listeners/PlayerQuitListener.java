@@ -6,6 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+//no, it's totally fine to use a default String
+@SuppressWarnings("deprecation")
 public class PlayerQuitListener implements Listener {
 
     @EventHandler

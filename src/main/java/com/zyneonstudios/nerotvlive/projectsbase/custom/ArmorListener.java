@@ -14,16 +14,18 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Objects;
+
 public class ArmorListener implements Listener {
     @EventHandler
     public void onArmorEquip(PlayerArmorChangeEvent event) {
         Player player = event.getPlayer();
         ItemStack newItem = event.getNewItem();
 
-        if (newItem != null && newItem.hasItemMeta()) {
+        if (newItem.hasItemMeta()) {
             ItemMeta meta = newItem.getItemMeta();
             if (meta.hasItemModel()) {
-                String model = meta.getItemModel().toString();
+                String model = Objects.requireNonNull(meta.getItemModel()).toString();
                 if (model.equals("zyneon:sack")) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, -1, 1, false, false));
                 }
@@ -31,10 +33,10 @@ public class ArmorListener implements Listener {
         }
 
         ItemStack oldItem = event.getOldItem();
-        if (oldItem != null && oldItem.hasItemMeta()) {
+        if (oldItem.hasItemMeta()) {
             ItemMeta meta = oldItem.getItemMeta();
             if (meta.hasItemModel()) {
-                String model = meta.getItemModel().toString();
+                String model = Objects.requireNonNull(meta.getItemModel()).toString();
                 if (model.equals("zyneon:sack")) {
                     player.removePotionEffect(PotionEffectType.BLINDNESS);
                 }
@@ -70,7 +72,7 @@ public class ArmorListener implements Listener {
         if(helmet.hasItemMeta()){
             ItemMeta meta = helmet.getItemMeta();
             if(meta.hasItemModel()){
-                if(meta.getItemModel().toString().equals("zyneon:sack")){
+                if(Objects.requireNonNull(meta.getItemModel()).toString().equals("zyneon:sack")){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, -1, 1, false, false));
                 }
             }

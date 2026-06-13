@@ -19,6 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import java.util.List;
 import java.awt.*;
+import java.util.Objects;
 
 public class WeaponListener implements Listener {
 
@@ -39,7 +40,7 @@ public class WeaponListener implements Listener {
                     player.getWorld().playSound(player.getLocation(), "zyneon:crossbow.crossbow_shoot", 1f,1f);
                 }
                 else if(meta.hasItemModel()){
-                    String weaponModel = meta.getItemModel().toString();
+                    String weaponModel = Objects.requireNonNull(meta.getItemModel()).toString();
                     double damage = 1.0;
                     double velocity = 1.0;
 
@@ -144,7 +145,7 @@ public class WeaponListener implements Listener {
                     playWeaponReloadingMiddle(player,"zyneon:crossbow.crossbow_loading_middle");
                 }
                 else if(meta.hasItemModel()){
-                    String weaponModel = meta.getItemModel().toString();
+                    String weaponModel = Objects.requireNonNull(meta.getItemModel()).toString();
 
                     switch (weaponModel){
                         case String s when s.startsWith("zyneon:revolver"):
@@ -201,7 +202,7 @@ public class WeaponListener implements Listener {
                 player.getWorld().playSound(player.getLocation(), "zyneon:crossbow.crossbow_loading_end", 1f, 1f);
             }
             else if(meta.hasItemModel()){
-                String weaponModel = meta.getItemModel().toString();
+                String weaponModel = Objects.requireNonNull(meta.getItemModel()).toString();
 
                 switch(weaponModel){
                     case String s when s.startsWith("zyneon:revolver"):

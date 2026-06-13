@@ -24,6 +24,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import java.util.ArrayList;
 import java.util.Optional;
 
+//no, it's totally fine to use a default String
+@SuppressWarnings( "deprecation")
 public class PlayerJoinListener implements Listener {
 
     SkinsRestorer skinsRestorerAPI = SkinsRestorerProvider.get();
@@ -37,11 +39,10 @@ public class PlayerJoinListener implements Listener {
         User u = Main.getUser(p);
         if(!p.getGameMode().equals(GameMode.SURVIVAL)&&(p.isOp()||p.hasPermission("zyneon.teammode"))) {
             u.setTeamMode(true);
-            p.setOp(true);
             p.setGameMode(GameMode.SPECTATOR);
             Communicator.sendInfo(p,"Teammodus§8: §etrue");
         } else {
-            p.setOp(false);
+            u.setTeamMode(false);
         }
         if(!p.hasPermission("zyneon.teammode")) {
             p.setGameMode(GameMode.SURVIVAL);
@@ -66,9 +67,7 @@ public class PlayerJoinListener implements Listener {
                 playerStorage.setSkinIdOfPlayer(p.getUniqueId(), result.get().getIdentifier());
                 skinsRestorerAPI.getSkinApplier(Player.class).applySkin(p);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        } catch (Exception ignore) {}
 
         e.setJoinMessage("§8» §a"+p.getName());
     }
@@ -92,12 +91,6 @@ public class PlayerJoinListener implements Listener {
     private static ArrayList<String> warps = null;
     private static void initSpawns() {
         warps = new ArrayList<>();
-        for(int i = 1; i <= 30; i++) {
-            String name = "silberfelshotel"+i;
-            if(WarpAPI.ifWarpExists(name)) {
-                warps.add(name);
-            }
-        }
         for(int i = 1; i <= 16; i++) {
             String name = "rinconhotel"+i;
             if(WarpAPI.ifWarpExists(name)) {

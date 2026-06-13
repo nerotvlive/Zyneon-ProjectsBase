@@ -31,12 +31,14 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     String gm = args[0];
                     if(gm.equalsIgnoreCase("0")||gm.equalsIgnoreCase("s")||gm.equalsIgnoreCase("survival")) {
                         p.setGameMode(GameMode.SURVIVAL);
+                        u.setTeamMode(false);
                         Communicator.sendInfo(p, "§7Du bist nun im §eSurvival§8-§eModus§8.");
                     } else if(gm.equalsIgnoreCase("1")||gm.equalsIgnoreCase("c")||gm.equalsIgnoreCase("creative")) {
                         p.setGameMode(GameMode.CREATIVE);
                         Communicator.sendInfo(p, "§7Du bist nun im §eCreative§8-§eModus§8.");
                     } else if(gm.equalsIgnoreCase("2")||gm.equalsIgnoreCase("a")||gm.equalsIgnoreCase("adventure")) {
                         p.setGameMode(GameMode.ADVENTURE);
+                        u.setTeamMode(false);
                         Communicator.sendInfo(p, "§7Du bist nun im §eAdventure§8-§eModus§8.");
                     } else if(gm.equalsIgnoreCase("3")||gm.equalsIgnoreCase("z")||gm.equalsIgnoreCase("sp")||gm.equalsIgnoreCase("spectator")) {
                         p.setGameMode(GameMode.SPECTATOR);
@@ -44,7 +46,6 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     } else {
                         Communicator.sendError(s, "/gamemode [0/s/survival/1/c/creative/2/a/adventure/3/z/sp/spectator] §7[Spieler]");
                     }
-                    u.setTeamMode(!p.getGameMode().equals(GameMode.SURVIVAL));
                     u.initListName();
                 } else {
                     Communicator.sendError(s, Strings.needPlayer);
@@ -56,6 +57,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     String gm = args[0];
                     if(gm.equalsIgnoreCase("0")||gm.equalsIgnoreCase("s")||gm.equalsIgnoreCase("survival")) {
                         p.setGameMode(GameMode.SURVIVAL);
+                        u.setTeamMode(false);
                         Communicator.sendInfo(p, "§7Du bist nun im §eSurvival§8-§eModus§8.");
                         Communicator.sendInfo(s, "§7Du hast §e"+p.getName()+"§7 in den §aSurvival§8-§aModus §7gesetzt§8.");
                     } else if(gm.equalsIgnoreCase("1")||gm.equalsIgnoreCase("c")||gm.equalsIgnoreCase("creative")) {
@@ -64,6 +66,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                         Communicator.sendInfo(s, "§7Du hast §e"+p.getName()+"§7 in den §aCreative§8-§aModus §7gesetzt§8.");
                     } else if(gm.equalsIgnoreCase("2")||gm.equalsIgnoreCase("a")||gm.equalsIgnoreCase("adventure")) {
                         p.setGameMode(GameMode.ADVENTURE);
+                        u.setTeamMode(false);
                         Communicator.sendInfo(p, "§7Du bist nun im §eAdventure§8-§eModus§8.");
                         Communicator.sendInfo(s, "§7Du hast §e"+p.getName()+"§7 in den §aAdventure§8-§aModus §7gesetzt§8.");
                     } else if(gm.equalsIgnoreCase("3")||gm.equalsIgnoreCase("z")||gm.equalsIgnoreCase("sp")||gm.equalsIgnoreCase("spectator")) {
@@ -73,7 +76,6 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     } else {
                         Communicator.sendError(s, "/gamemode [0/s/survival/1/c/creative/2/a/adventure/3/z/sp/spectator] §7[Spieler]");
                     }
-                    u.setTeamMode(!p.getGameMode().equals(GameMode.SURVIVAL));
                     u.initListName();
                 } else {
                     Communicator.sendError(s, Strings.playerNotFound);

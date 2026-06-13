@@ -11,8 +11,9 @@ import org.bukkit.inventory.meta.components.EquippableComponent;
 
 import java.util.HashMap;
 
+@SuppressWarnings("all")
 public class CustomItems {
-    private static HashMap<String, ItemStack> customItems = new HashMap<>();
+    private static final HashMap<String, ItemStack> customItems = new HashMap<>();
 
     public static Inventory getCustomItemsMenu() {
         Inventory inventory = Bukkit.createInventory(null, 54, "Custom Items");

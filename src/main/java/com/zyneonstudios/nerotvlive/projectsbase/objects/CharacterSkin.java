@@ -19,7 +19,7 @@ public class CharacterSkin {
 
     public CharacterSkin(UUID uuid) {
         this.uuid = uuid;
-        this.config = new Config("characters/"+uuid+".yml");
+        this.config = new Config("plugins/ProjectsBase/characters/outfits/"+uuid+".yml");
         init();
     }
 
@@ -28,7 +28,7 @@ public class CharacterSkin {
         this.skinName = skinName;
         this.skinUrl = skinUrl;
         this.skinVariant = skinVariant;
-        this.config = new Config("characters/"+uuid+".yml");
+        this.config = new Config("plugins/ProjectsBase/characters/outfits/"+uuid+".yml");
         init();
     }
 
@@ -36,7 +36,7 @@ public class CharacterSkin {
         this.uuid = UUID.randomUUID();
         this.skinName = skinName;
         this.skinUrl = skinUrl;
-        this.config = new Config("characters/"+uuid+".yml");
+        this.config = new Config("plugins/ProjectsBase/characters/outfits/"+uuid+".yml");
         init();
     }
 
@@ -45,7 +45,7 @@ public class CharacterSkin {
         this.skinName = skinName;
         this.skinUrl = skinUrl;
         this.skinVariant = skinVariant;
-        this.config = new Config("characters/"+uuid+".yml");
+        this.config = new Config("plugins/ProjectsBase/characters/outfits/"+uuid+".yml");
         init();
     }
 
@@ -53,7 +53,7 @@ public class CharacterSkin {
         this.uuid = uuid;
         this.skinName = skinName;
         this.skinUrl = skinUrl;
-        this.config = new Config("characters/"+uuid+".yml");
+        this.config = new Config("plugins/ProjectsBase/characters/outfits/"+uuid+".yml");
         init();
     }
 

@@ -19,9 +19,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class WeaponItems {
 
-    private static HashMap<String, ItemStack> weapons = new HashMap<>();
+    private static final HashMap<String, ItemStack> weapons = new HashMap<>();
 
     public static Inventory getWeaponsMenu() {
         Inventory inventory = Bukkit.createInventory(null, 54, "Weapons");
